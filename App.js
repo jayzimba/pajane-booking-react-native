@@ -106,7 +106,6 @@ const App = () => {
               position: "absolute",
               bottom: 20,
               marginHorizontal: 20,
-
               //max height
               height: 70,
               borderRadius: 20,
@@ -266,7 +265,7 @@ const App = () => {
               // Onpress Update....
               tabPress: (e) => {
                 Animated.spring(tabOffsetValue, {
-                  toValue: getWidth() * 3.5,
+                  toValue: getWidth() * 4,
                   useNativeDriver: true,
                 }).start();
               },

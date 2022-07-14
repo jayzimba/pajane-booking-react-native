@@ -80,7 +80,7 @@ export class Results extends Component {
 const styles = StyleSheet.create({
   mainContainer: {
     width: "100%",
-    marginTop: 60,
+    marginTop: 2,
     marginHorizontal: 20,
   },
 });
