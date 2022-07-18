@@ -21,7 +21,7 @@ export default class ticket extends Component {
   };
 
   fetchData = async () => {
-    const response = await fetch("http://192.168.8.102:1345/trips");
+    const response = await fetch("http://192.168.8.100:1345/trips");
     const quick_booking = await response.json();
     this.setState({ data: quick_booking });
   };

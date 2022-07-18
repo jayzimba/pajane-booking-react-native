@@ -31,8 +31,8 @@ const LiveMap = () => {
       setMapRegion({
         longitude: location.coords.longitude,
         latitude: location.coords.latitude,
-        latitudeDelta: 0.0322,
-        longitudeDelta: 0.0121,
+        latitudeDelta: 0.0312,
+        longitudeDelta: 0.0221,
       });
     })();
   }, []);

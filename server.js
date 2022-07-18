@@ -18,7 +18,7 @@ var server = app.listen(1345, function () {
   //server port assignment
   var host = server.address().address;
   var port = server.address().port;
-  console.log("started");
+  console.log("server started");
 });
 
 con.connect(function (error) {

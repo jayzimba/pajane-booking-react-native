@@ -88,7 +88,7 @@ export default class Home extends Component {
   };
 
   fetchData = async () => {
-    const response = await fetch("http://192.168.8.102:1345/quick_booking");
+    const response = await fetch("http://192.168.8.100:1345/quick_booking");
     const quick_booking = await response.json();
     this.setState({ data: quick_booking });
   };
@@ -130,6 +130,7 @@ export default class Home extends Component {
                 textHeaderColor: "#124e78",
                 textDefaultColor: "#124e78",
                 selectedTextColor: "#05C25D",
+
                 mainColor: "#124e78",
                 textSecondaryColor: "#124e78",
               }}
@@ -170,12 +171,18 @@ export default class Home extends Component {
             >
               {this.state.data.map((item, index) => (
                 <View key={item.id}>
-                  <QuickBookings
-                    from={item.pickup}
-                    destination={item.destination}
-                    fee={item.price}
-                    busName={item.bus}
-                  />
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.props.navigation.navigate("BookingDetails")
+                    }
+                  >
+                    <QuickBookings
+                      from={item.pickup}
+                      destination={item.destination}
+                      fee={item.price}
+                      busName={item.bus}
+                    />
+                  </TouchableOpacity>
                 </View>
               ))}
             </ScrollView>
