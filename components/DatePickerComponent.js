@@ -13,12 +13,13 @@ import DashedLine from "react-native-dashed-line";
 import DatePicker, {
   getToday,
   getFormatedDate,
+  moment,
 } from "react-native-modern-datepicker";
 
 export default class DatePickerComponent extends Component {
   constructor(props) {
     super(props);
-    this.state.date = getFormatedDate(getToday(), "DD MMM,YYYY");
+    this.state.date = getFormatedDate(getToday(), "DD MM,YYYY");
   }
 
   state = {

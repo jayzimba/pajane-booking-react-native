@@ -19,6 +19,11 @@ import Header from "./../components/Header";
 import HeroSection from "../components/HeroSection";
 import SearchSection from "../components/SearchSection";
 import DatePickerComponent from "../components/DatePickerComponent";
+import DatePicker, {
+  getToday,
+  getFormatedDate,
+  moment,
+} from "react-native-modern-datepicker";
 import { ScrollView } from "react-native-gesture-handler";
 
 import {
@@ -33,13 +38,10 @@ import {
 import DashedLine from "react-native-dashed-line";
 import { QuickBookings } from "./../components/QuickBookings";
 import { Results } from "./Results";
-import DatePicker, {
-  getToday,
-  getMoth,
-  getFormatedDate,
-} from "react-native-modern-datepicker";
+
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -101,7 +103,7 @@ export default class Home extends Component {
   };
   setSelectedDate = (e) => {
     this.setState({ isDatePicker: false });
-    e = getFormatedDate(e, "DD MMM,YYYY");
+    e = getFormatedDate(e, "DD MMMYY,YY");
     this.setState({ date: e });
   };
 

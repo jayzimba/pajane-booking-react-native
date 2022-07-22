@@ -19,7 +19,7 @@ import DashedLine from "react-native-dashed-line";
 import * as Location from "expo-location";
 
 const SearchSection = ({ navigation }) => {
-  const [town, setTown] = useState([]);
+  const [town, setTown] = useState();
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -30,8 +30,8 @@ const SearchSection = ({ navigation }) => {
 
       let location = await Location.getCurrentPositionAsync({});
       const address = await Location.reverseGeocodeAsync(location.coords);
-      setTown({ address });
-      console.log(town.address[0].city);
+      setTown(address[0].city);
+      // console.log(address[0].city);
     })();
   }, []);
 
@@ -41,7 +41,7 @@ const SearchSection = ({ navigation }) => {
   const [dstartSerch, setdStartSearch] = React.useState(false);
 
   const [currentLocation, setCurrentLocation] = useState("Pick up Point");
-  const [destination, setDestination] = useState("Drop-off Point");
+  const [destination, setDestination] = useState(town);
 
   //pick up point
   const showInput = () => {
@@ -109,7 +109,7 @@ const SearchSection = ({ navigation }) => {
         ) : (
           <TouchableOpacity onPress={showInput}>
             <Text style={{ color: "#fff", fontSize: 18, fontWeight: "500" }}>
-              {Ptext == "" ? "Pick Up Point" : Ptext}
+              {Ptext == "" ? "pick up point - " + town : Ptext}
             </Text>
           </TouchableOpacity>
         )}
