@@ -42,13 +42,9 @@ import BookingDetails from "./screens/BookingDetails";
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-LogBox.ignoreLogs([
-  "ViewPropTypes will be removed",
-  "ColorPropType will be removed",
-]);
 
 const App = () => {
-  const tabOffsetValue = useRef(new Animated.Value(0)).current;
+  const tabOffsetValue = useRef(new Animated.Value(3)).current;
   const [isFirstLaunch, setIsFirstLaunch] = React.useState(null);
 
   let PajaneCustomerCare = "";
@@ -146,7 +142,7 @@ const App = () => {
               // Onpress Update....
               tabPress: (e) => {
                 Animated.spring(tabOffsetValue, {
-                  toValue: 0,
+                  toValue: 3,
                   useNativeDriver: true,
                 }).start();
               },
@@ -175,7 +171,7 @@ const App = () => {
               // Onpress Update....
               tabPress: (e) => {
                 Animated.spring(tabOffsetValue, {
-                  toValue: getWidth() * 0.87,
+                  toValue: getWidth() * 1.07,
                   useNativeDriver: true,
                 }).start();
               },
@@ -205,6 +201,16 @@ const App = () => {
                         height: 3,
                       },
                     }}
+
+                    listeners={({ navigation, route }) => ({
+                      // Onpress Update....
+                      tabPress: (e) => {
+                        Animated.spring(tabOffsetValue, {
+                          toValue: getWidth() * 2,
+                          useNativeDriver: true,
+                        }).start();
+                      },
+                    })}
                   >
                     <Image
                       source={require("./assets/customer-care.png")}
@@ -238,7 +244,7 @@ const App = () => {
               // Onpress Update....
               tabPress: (e) => {
                 Animated.spring(tabOffsetValue, {
-                  toValue: getWidth() * 2.62,
+                  toValue: getWidth() * 2.8,
                   useNativeDriver: true,
                 }).start();
               },
@@ -267,7 +273,7 @@ const App = () => {
               // Onpress Update....
               tabPress: (e) => {
                 Animated.spring(tabOffsetValue, {
-                  toValue: getWidth() * 4,
+                  toValue: getWidth() * 3.6,
                   useNativeDriver: true,
                 }).start();
               },
@@ -277,12 +283,12 @@ const App = () => {
 
         <Animated.View
           style={{
-            width: getWidth() - 20,
+            width: getWidth() - 30,
             height: 2,
             backgroundColor: "#124e78",
             position: "absolute",
             bottom: 88,
-            left: 47,
+            left: 40,
             borderRadius: 50,
             transform: [{ translateX: tabOffsetValue }],
           }}

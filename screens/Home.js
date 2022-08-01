@@ -90,7 +90,7 @@ export default class Home extends Component {
   };
 
   fetchData = async () => {
-    const response = await fetch("http://192.168.8.101:1345/quick_booking");
+    const response = await fetch("http://192.168.8.100:1345/quick_booking");
     const quick_booking = await response.json();
     this.setState({ data: quick_booking });
   };
