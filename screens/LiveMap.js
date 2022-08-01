@@ -1,8 +1,13 @@
 import * as React from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
-import { useEffect } from "react";
-import { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import { useEffect, useRef, useMemo, useCallback, useState } from "react";
 import * as Location from "expo-location";
 import {
   GooglePlaceDetail,
@@ -10,13 +15,32 @@ import {
 } from "react-native-google-places-autocomplete";
 import { GOOGLE_API_KEY } from "../ENVIRONMENTS";
 import Constants from "expo-constants";
-import { useRef } from "react";
 import MapViewDirections from "react-native-maps-directions";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AddressPicker from "./../components/AddressPicker";
 import CustomBtn from "./../components/CustomBtn";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 const LiveMap = (props) => {
+  // ref
+  const bottomSheetRef = useRef < BottomSheet > null;
+  const [isOpen, setIsOpen] = useState(true); // callbacks
+
+  // variables
+  const snapPoints = useMemo(() => ["25%", "50%"], []);
+  const setRef = (element) => {
+    bottomSheetRef = element;
+  };
+  const handleSnapPress = useCallback((index) => {
+    bottomSheetRef.current?.snapToIndex(index);
+    setIsOpen(true);
+  }, []);
+
+  // const handleOpenPress = useCallback((index) => {
+  //   bottomSheetRef.current?.snapToIndex(index);
+  //   setIsOpen(true);
+  // }, []);
+
   const { width, height } = Dimensions.get("window");
   const [location, setLocation] = useState(null);
   const ASPECT_RATIO = width / height;
@@ -43,18 +67,23 @@ const LiveMap = (props) => {
     })();
   }, []);
   const mapRef = useRef();
-
   const start = { latitude: -15.2424, longitude: 28.1713 };
-  const destination = { latitude: -12.823195, longitude: 28.217574 };
+  const destination = {};
 
   const [state, setState] = useState({
-    pickUpCords: {},
-    destinationCords: {},
+    pickUpCords: { latitude: -15.2424, longitude: 28.1713 },
+    destinationCords: { latitude: -12.823195, longitude: 28.217574 },
   });
   const { pickUpCords, destinationCords } = state;
+  const dataSet = state;
+
+  const onPressLocation = () => {
+    fetchValues(state);
+  };
 
   const onDone = () => {
-    // console.log("searching");
+    console.log("pickupcords===>>>", pickUpCords);
+    console.log("destinationcords===>>>", destinationCords);
   };
 
   const fetchAddressCoords = (lat, lng) => {
@@ -82,8 +111,14 @@ const LiveMap = (props) => {
     });
   };
 
-  console.log("pickUpCoords===>>>", pickUpCords);
-  console.log("destinationCoords===>>>", destinationCords);
+  const fetchValues = (data) => {
+    setState({
+      pickUpCords: {
+        latitude: data.pickUpCords.latitude,
+        longitude: data.destinationCords.longitude,
+      },
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -94,16 +129,16 @@ const LiveMap = (props) => {
         initialRegion={INITIAL_POSITION}
       >
         <Marker
-          coordinate={start}
+          coordinate={pickUpCords}
           image={require("../assets/greenMarker.png")}
         />
         <Marker
-          coordinate={destination}
+          coordinate={destinationCords}
           image={require("../assets/Oval.png")}
         />
         <MapViewDirections
-          origin={start}
-          destination={destination}
+          origin={pickUpCords}
+          destination={destinationCords}
           apikey={GOOGLE_API_KEY}
           strokeWidth={4}
           strokeColor="#124e78"
@@ -135,8 +170,25 @@ const LiveMap = (props) => {
           label="Drop point"
           onPlaceSelected={() => {}}
         />
-        <CustomBtn onPress={onDone} />
+        <TouchableOpacity
+          style={{ justifyContent: "center" }}
+          onPress={() => handleSnapPress(0)}
+        >
+          <CustomBtn />
+        </TouchableOpacity>
       </View>
+
+      <BottomSheet
+        ref={() => setRef}
+        index={1}
+        enablePanDownToClose={true}
+        snapPoints={snapPoints}
+        onClose={() => setIsOpen(false)}
+      >
+        <View style={styles.contentContainer}>
+          <Text>Awesome 🎉</Text>
+        </View>
+      </BottomSheet>
     </View>
   );
 };
@@ -174,5 +226,9 @@ const styles = StyleSheet.create({
   input: {
     borderColor: "#888",
     borderWidth: 0.5,
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: "center",
   },
 });
