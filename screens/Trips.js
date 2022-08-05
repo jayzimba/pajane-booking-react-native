@@ -11,7 +11,10 @@ const Trips = () => {
         <Header />
       </View>
 
-      <LinearGradient colors={["#124e78", "#fff", "#fff"]} style={styles.main}>
+      <LinearGradient
+        colors={["#fff", "#c5e2f7", "#2c7eb8"]}
+        style={styles.main}
+      >
         <Ticket />
       </LinearGradient>
     </SafeAreaView>

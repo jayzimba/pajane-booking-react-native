@@ -5,10 +5,10 @@ import DatePicker from "react-native-modern-datepicker";
 const HeroSection = ({ navigation }) => {
   const [selectedDate, setSelectedDate] = useState("");
   return (
-    <View style={styles.container}>
+    <View style={styles.HeroSection}>
       <Image
         source={require("../assets/bus-png-40029.png")}
-        style={styles.img}
+        style={styles.imgHero}
       />
 
       <View
@@ -47,8 +47,8 @@ const HeroSection = ({ navigation }) => {
 export default HeroSection;
 
 const styles = StyleSheet.create({
-  container: {},
-  img: {
+  HeroSection: {},
+  imgHero: {
     width: "100%",
     height: 200,
     alignItems: "center",
