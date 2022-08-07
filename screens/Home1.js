@@ -140,7 +140,9 @@ export default class Home extends Component {
                   Search for Bus Ticket
                 </Text>
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate("MoreDetails")}
+              >
                 <View
                   style={{
                     alignItems: "center",
@@ -188,7 +190,6 @@ export default class Home extends Component {
           <TouchableOpacity
             style={styles.buttonSearch}
             onPress={this.showResults}
-            // onPress={() => this.props.navigation.navigate("MoreDetails")}
           >
             <Text style={{ color: "#fff", fontSize: 20, fontWeight: "500" }}>
               Find Bus

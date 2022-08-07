@@ -43,7 +43,7 @@ export default class Bus extends Component {
             style={{
               fontSize: 20,
               fontWeight: "800",
-              color: "#000",
+              color: "#124e78",
             }}
           >
             Power Tools
@@ -89,7 +89,7 @@ export default class Bus extends Component {
                 style={{
                   fontSize: 20,
                   fontWeight: "800",
-                  color: "#000",
+                  color: "#124e78",
                 }}
               >
                 K{255}
@@ -113,7 +113,7 @@ export default class Bus extends Component {
                 style={{
                   fontSize: 16,
                   fontWeight: "500",
-                  color: "#000",
+                  color: "#124e78",
                 }}
               >
                 Seats Available:
@@ -149,6 +149,7 @@ export default class Bus extends Component {
                 width: "30%",
                 borderWidth: 0.3,
                 borderRadius: 2,
+                borderColor: "#000",
                 marginHorizontal: 10,
                 justifyContent: "space-evenly",
               }}
@@ -156,10 +157,10 @@ export default class Bus extends Component {
               <MaterialCommunityIcons
                 name="air-conditioner"
                 size={20}
-                color="black"
+                color="#124e78"
               />
-              <FontAwesome name="wifi" size={20} color="black" />
-              <MaterialIcons name="luggage" size={20} color="black" />
+              <FontAwesome name="wifi" size={20} color="#a8a8a8" />
+              <MaterialIcons name="luggage" size={20} color="#124e78" />
             </View>
           </View>
         </View>
