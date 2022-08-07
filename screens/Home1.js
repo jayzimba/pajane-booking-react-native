@@ -191,7 +191,7 @@ export default class Home extends Component {
             onPress={() => this.props.navigation.navigate("MoreDetails")}
           >
             <Text style={{ color: "#fff", fontSize: 20, fontWeight: "500" }}>
-              Search
+              Find Bus
             </Text>
           </TouchableOpacity>
           {this.state.ResultIsVisible && (
