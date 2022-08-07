@@ -30,7 +30,7 @@ app.get("/quick_booking", function (req, res) {
   con.query("select * from quick_booking", function (error, rows, fields) {
     if (error) console.log(error);
     else {
-      console.log(rows);
+      // console.log(rows);
       res.send(rows);
     }
   });
@@ -40,7 +40,7 @@ app.get("/trips", function (req, res) {
   con.query("select * from trips", function (error, rows, fields) {
     if (error) console.log(error);
     else {
-      console.log(rows);
+      // console.log(rows);
       res.send(rows);
     }
   });

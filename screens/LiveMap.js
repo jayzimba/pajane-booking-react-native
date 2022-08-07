@@ -4,8 +4,12 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   Dimensions,
   TouchableOpacity,
+  Modal,
+  TouchableHighlight,
+  Alert,
 } from "react-native";
 import { useEffect, useRef, useMemo, useCallback, useState } from "react";
 import * as Location from "expo-location";
@@ -20,8 +24,23 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AddressPicker from "./../components/AddressPicker";
 import CustomBtn from "./../components/CustomBtn";
 import BottomSheet from "@gorhom/bottom-sheet";
+import QuickBookings from "../components/QuickBookings";
 
-const LiveMap = (props) => {
+const LiveMap = ({ navigation }, props) => {
+  const [data, setData] = useState([]);
+
+  const fetchData = async () => {
+    const response = await fetch("http://192.168.8.102:1345/quick_booking");
+    const quick_booking = await response.json();
+    setData({ quick_booking });
+  };
+
+  const [ResultIsVisible, setResultIsVisible] = useState(false);
+
+  const handleModal = () => {
+    setResultIsVisible(!ResultIsVisible);
+  };
+
   // ref
   const bottomSheetRef = useRef < BottomSheet > null;
   const [isOpen, setIsOpen] = useState(true); // callbacks
@@ -170,25 +189,100 @@ const LiveMap = (props) => {
           label="Drop point"
           onPlaceSelected={() => {}}
         />
-        <TouchableOpacity
-          style={{ justifyContent: "center" }}
-          onPress={() => handleSnapPress(0)}
-        >
-          <CustomBtn />
+        <TouchableOpacity style={{ justifyContent: "center" }}>
+          <CustomBtn onPress={handleModal} />
         </TouchableOpacity>
       </View>
 
-      <BottomSheet
-        ref={() => setRef}
-        index={1}
-        enablePanDownToClose={true}
-        snapPoints={snapPoints}
-        onClose={() => setIsOpen(false)}
-      >
-        <View style={styles.contentContainer}>
-          <Text>Awesome 🎉</Text>
+      <Modal animationType="slide" transparent={true} visible={ResultIsVisible}>
+        <View
+          style={{
+            backgroundColor: "transparent",
+            flex: 1,
+            justifyContent: "flex-end",
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "#fff",
+              opacity: 1,
+              elevation: 2,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 2,
+                height: 2,
+              },
+              shadowOpacity: 0.4,
+              elevation: 2,
+              height: "30%",
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                padding: 10,
+                backgroundColor: "#124e78",
+                width: "30%",
+                borderBottomEndRadius: 10,
+              }}
+              onPress={handleModal}
+            >
+              <Text style={{ color: "white" }}>Search Again</Text>
+            </TouchableOpacity>
+            <View style={{ marginVertical: 10 }}>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    handleModal();
+                    alert("clicked");
+                  }}
+                >
+                  <QuickBookings
+                    from={"Ndola"}
+                    destination={"Lusaka"}
+                    fee={300}
+                    busName={"PowerTools"}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => alert("clicked")}>
+                  <QuickBookings
+                    from={"Ndola"}
+                    destination={"Lusaka"}
+                    fee={300}
+                    busName={"PowerTools"}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => alert("clicked")}>
+                  <QuickBookings
+                    from={"Ndola"}
+                    destination={"Lusaka"}
+                    fee={300}
+                    busName={"PowerTools"}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => alert("clicked")}>
+                  <QuickBookings
+                    from={"Ndola"}
+                    destination={"Lusaka"}
+                    fee={300}
+                    busName={"PowerTools"}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => alert("clicked")}>
+                  <QuickBookings
+                    from={"Ndola"}
+                    destination={"Lusaka"}
+                    fee={300}
+                    busName={"PowerTools"}
+                  />
+                </TouchableOpacity>
+              </ScrollView>
+            </View>
+          </View>
         </View>
-      </BottomSheet>
+      </Modal>
     </View>
   );
 };

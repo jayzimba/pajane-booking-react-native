@@ -41,7 +41,7 @@ export default class ticket extends Component {
             animation="bounceIn"
             duration={1000}
             style={{
-              color: "#fff",
+              color: "#124e78",
               fontSize: 24,
               marginLeft: 20,
               fontWeight: "600",

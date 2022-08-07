@@ -42,7 +42,6 @@ import BookingDetails from "./screens/BookingDetails";
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-
 const App = () => {
   const tabOffsetValue = useRef(new Animated.Value(3)).current;
   const [isFirstLaunch, setIsFirstLaunch] = React.useState(null);
@@ -201,7 +200,6 @@ const App = () => {
                         height: 3,
                       },
                     }}
-
                     listeners={({ navigation, route }) => ({
                       // Onpress Update....
                       tabPress: (e) => {

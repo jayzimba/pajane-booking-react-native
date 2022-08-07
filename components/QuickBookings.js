@@ -69,7 +69,10 @@ export class QuickBookings extends PureComponent {
           K{this.props.fee}
         </Text>
 
-        <TouchableOpacity style={styles.buttonSearch2}>
+        <TouchableOpacity
+          style={styles.buttonSearch2}
+          onPress={this.props.nextPage}
+        >
           <Text style={{ color: "#05C25D", fontSize: 18, fontWeight: "600" }}>
             Book
           </Text>

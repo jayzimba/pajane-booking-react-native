@@ -39,6 +39,7 @@ import DashedLine from "react-native-dashed-line";
 import { QuickBookings } from "./../components/QuickBookings";
 import { Results } from "./Results";
 import MoreDetails from "./MoreDetails";
+import PaymentScreen from "./PaymentScreen";
 
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -51,6 +52,7 @@ export default class Home extends Component {
         <AppStack.Navigator screenOptions={{ headerShown: false }}>
           <AppStack.Screen name="Booking" component={Home1} />
           <AppStack.Screen name="MoreDetails" component={MoreDetails} />
+          <AppStack.Screen name="Payment" component={PaymentScreen} />
         </AppStack.Navigator>
       </NavigationContainer>
     );
