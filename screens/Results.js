@@ -54,7 +54,7 @@ export class Results extends Component {
             />
           </View>
 
-          <ScrollView style={{ paddingVertical: 10 }}>
+          <View style={{ paddingVertical: 10 }}>
             <FadeLoader />
             <FadeLoader />
             <FadeLoader />
@@ -70,7 +70,7 @@ export class Results extends Component {
             <FadeLoader />
             <FadeLoader />
             <FadeLoader />
-          </ScrollView>
+          </View>
         </SafeAreaView>
       </Modal>
     );

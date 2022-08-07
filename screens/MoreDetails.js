@@ -9,13 +9,30 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { Children, useState } from "react";
 import Header from "./../components/Header";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import Counter from "react-native-counters";
+
 const MoreDetails = ({ navigation }) => {
   const [remindMe, setRemindMe] = useState(false);
+  const [AcceptTC, setAcceptTC] = useState(false);
 
+  const [adult, setAdults] = useState(1);
+  const [children, setchildren] = useState(0);
+
+  const updateAdults = () => {
+    setAdults(adult + 1);
+  };
+  const updateChildren = () => {
+    setchildren((children += children));
+  };
+
+  const changeTC = (value) => {
+    setAcceptTC(value);
+  };
   const toggleReminder = () => {
     setRemindMe(!remindMe);
   };
@@ -50,7 +67,7 @@ const MoreDetails = ({ navigation }) => {
             </Text>
           </View>
         </View>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View>
             <Text
               style={{
@@ -62,68 +79,78 @@ const MoreDetails = ({ navigation }) => {
             >
               Passenger Details
             </Text>
-            {/* <Text
-              style={{
-                marginTop: 20,
-                fontSize: 14,
-                color: "#000",
-              }}
-            >
-              Name:
-            </Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Name"
-              textContentType="name"
-              keyboardType="default"
-              autoComplete="name"
-            />
-            <Text
-              style={{
-                marginTop: 5,
-                fontSize: 14,
-                color: "#000",
-              }}
-            >
-              Email:
-            </Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Email address"
-              textContentType="email"
-              keyboardType="email-address"
-              autoComplete="email"
-            />
-            <Text
-              style={{
-                marginTop: 5,
-                fontSize: 14,
-                color: "#000",
-              }}
-            >
-              Phone number:
-            </Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Phone number"
-              keyboardType="numeric"
-              autoComplete="tel"
-            />
-            <Text
-              style={{
-                marginTop: 5,
-                fontSize: 14,
-                color: "#000",
-              }}
-            >
-              NRC:
-            </Text>
-            <TextInput
-              style={styles.input}
-              placeholder="NRC xxxxxx/xx/x"
-              keyboardType="numeric"
-            /> */}
 
+            <View
+              style={{
+                backgroundColor: "white",
+                padding: 10,
+                marginVertical: 10,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: "800",
+                  color: "#000",
+                }}
+              >
+                Passengers
+              </Text>
+              <View style={{ alignItems: "flex-end", marginEnd: 85 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginTop: 5,
+                    alignItems: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "500",
+                      color: "#000",
+                      marginEnd: 10,
+                    }}
+                  >
+                    Adult Passengers
+                  </Text>
+                  <Counter
+                    start={1}
+                    min={1}
+                    max={5}
+                    buttonTextStyle={{ color: "#124e78" }}
+                    countTextStyle={{ color: "#124e78" }}
+                    buttonStyle={{ borderColor: "#124e78" }}
+                  />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginTop: 5,
+                    alignItems: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "500",
+                      color: "#000",
+                      marginEnd: 10,
+                    }}
+                  >
+                    Children
+                  </Text>
+                  <Counter
+                    start={0}
+                    min={1}
+                    max={2}
+                    buttonTextStyle={{ color: "#124e78" }}
+                    countTextStyle={{ color: "#124e78" }}
+                    buttonStyle={{ borderColor: "#124e78" }}
+                  />
+                </View>
+              </View>
+            </View>
             <View
               style={{
                 backgroundColor: "white",
@@ -279,7 +306,7 @@ const MoreDetails = ({ navigation }) => {
                     marginEnd: 10,
                   }}
                 >
-                  Remind me
+                  Remind me before bus arrival
                 </Text>
                 <View pointerEvents="none">
                   <Switch
@@ -290,6 +317,67 @@ const MoreDetails = ({ navigation }) => {
                   />
                 </View>
               </View>
+            </View>
+            <View
+              style={{
+                backgroundColor: "white",
+                padding: 10,
+                marginVertical: 10,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: "800",
+                  color: "#000",
+                }}
+              >
+                TermS & Conditions
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginTop: 2,
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: "400",
+                    color: "#000",
+                    marginEnd: 10,
+                    lineHeight: 18,
+                  }}
+                >
+                  While accessing, using, browsing or making a booking through
+                  Pajane booking, users have to accept that they have agreed to
+                  the terms and conditions of our application. In case of any
+                  violation, PajaneBooking reserves all the rights for taking
+                  any legal actions against them. PajaneBooking acts as an
+                  “Intermediary” solely to assist customers in gathering travel
+                  information, determining the availability of travel-related
+                  products and services, making legitimate reservations or
+                  otherwise transacting business with travel suppliers, and for
+                  facilitating travel requirements. You acknowledge that
+                  PajaneBooking merely provides intermediary services in order
+                  to facilitate these services. PajaneBooking is not the last
+                  mile service provider to you and therefore PajaneBooking shall
+                  not be deemed to be responsible for any lack or deficiency of
+                  services provided by any person or entity including bus
+                  operator, activity provider or similar agency, you shall
+                  engage, hire from the content available on the app.
+                </Text>
+              </View>
+              <BouncyCheckbox
+                size={18}
+                fillColor="#05C25D"
+                unfillColor="#FFFFFF"
+                text="Accept terms and conditions"
+                iconInnerStyle={{ borderWidth: 1 }}
+                onPress={(isChecked: boolean) => changeTC(isChecked)}
+                style={{ marginVertical: 15 }}
+              />
             </View>
           </View>
         </ScrollView>
@@ -308,8 +396,9 @@ const MoreDetails = ({ navigation }) => {
           </View>
 
           <TouchableOpacity
-            style={styles.payButtton}
+            style={AcceptTC ? styles.payButtton : styles.payButttonDisabled}
             onPress={() => navigation.navigate("Payment")}
+            disabled={!AcceptTC}
           >
             <Ionicons name="cash" size={24} color="white" />
             <Text
@@ -369,6 +458,15 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 10,
     backgroundColor: "#05C25D",
+    borderRadius: 5,
+  },
+  payButttonDisabled: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+    marginVertical: 10,
+    backgroundColor: "#a5a5a5",
     borderRadius: 5,
   },
 });
