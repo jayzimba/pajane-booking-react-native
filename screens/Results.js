@@ -10,8 +10,17 @@ import {
 } from "react-native";
 import React, { Component } from "react";
 import FadeLoader from "../components/FadeLoader";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-
+import { QuickBookings } from "./../components/QuickBookings";
+import {
+  Ionicons,
+  Fontisto,
+  AntDesign,
+  MaterialCommunityIcons,
+  EvilIcons,
+  MaterialIcons,
+  FontAwesome,
+} from "@expo/vector-icons";
+import Bus from "../components/Bus";
 export class Results extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +36,7 @@ export class Results extends Component {
               paddingVertical: 10,
               justifyContent: "space-between",
               marginEnd: 40,
+              marginHorizontal: 20,
             }}
           >
             <View
@@ -55,21 +65,27 @@ export class Results extends Component {
           </View>
 
           <View style={{ paddingVertical: 10 }}>
-            <FadeLoader />
-            <FadeLoader />
-            <FadeLoader />
-            <FadeLoader />
-            <FadeLoader />
-            <FadeLoader />
-            <FadeLoader />
-            <FadeLoader />
-            <FadeLoader />
-            <FadeLoader />
-            <FadeLoader />
-            <FadeLoader />
-            <FadeLoader />
-            <FadeLoader />
-            <FadeLoader />
+            <ScrollView
+              horizontal={false}
+              showsHorizontalScrollIndicator={false}
+            >
+              <Bus />
+              <Bus />
+              <Bus />
+              <Bus />
+              <Bus />
+              <Bus />
+              <Bus />
+              <Bus />
+              <Bus />
+              <Bus />
+              <Bus />
+              <Bus />
+              <Bus />
+              <Bus />
+              <Bus />
+              <Bus />
+            </ScrollView>
           </View>
         </SafeAreaView>
       </Modal>
@@ -81,7 +97,6 @@ const styles = StyleSheet.create({
   mainContainer: {
     width: "100%",
     marginTop: 2,
-    marginHorizontal: 20,
   },
 });
 export default Results;

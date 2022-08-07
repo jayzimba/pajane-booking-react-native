@@ -40,8 +40,18 @@ app.get("/trips", function (req, res) {
   con.query("select * from trips", function (error, rows, fields) {
     if (error) console.log(error);
     else {
-      // console.log(rows);
+      console.log(rows);
       res.send(rows);
     }
+  });
+
+  app.get("/buses", function (req, res) {
+    con.query("select * from buses", function (error, rows, fields) {
+      if (error) console.log(error);
+      else {
+        console.log(rows);
+        res.send(rows);
+      }
+    });
   });
 });

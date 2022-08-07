@@ -7,7 +7,8 @@ const CustomBtn = ({ onPress = () => {}, btnStyle = {}, btnText }) => {
       onPress={onPress}
       style={{ ...styles.btnStyle, btnStyle }}
     >
-      <MaterialCommunityIcons name="bus-marker" size={24} color="#124e78" />
+      <MaterialCommunityIcons name="bus-marker" size={24} color="#fff" />
+      <Text style={{ color: "#fff", marginHorizontal: 10 }}>Find Bus</Text>
     </TouchableOpacity>
   );
 };
@@ -15,9 +16,12 @@ export default CustomBtn;
 
 const styles = StyleSheet.create({
   btnStyle: {
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
     paddingHorizontal: 5,
+    backgroundColor: "#124e78",
+    paddingVertical: 7,
   },
 });

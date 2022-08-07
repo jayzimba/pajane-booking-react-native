@@ -301,7 +301,6 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height,
   },
   searchContainer: {
-    flexDirection: "row",
     position: "absolute",
     width: "95%",
     backgroundColor: "white",
