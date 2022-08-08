@@ -64,27 +64,83 @@ export class Results extends Component {
             />
           </View>
 
-          <View style={{ paddingVertical: 10 }}>
+          <View style={{ paddingTop: 5, marginBottom: 90 }}>
             <ScrollView
               horizontal={false}
               showsHorizontalScrollIndicator={false}
             >
-              <Bus />
-              <Bus />
-              <Bus />
-              <Bus />
-              <Bus />
-              <Bus />
-              <Bus />
-              <Bus />
-              <Bus />
-              <Bus />
-              <Bus />
-              <Bus />
-              <Bus />
-              <Bus />
-              <Bus />
-              <Bus />
+              <Bus
+                busName={"Power Tools"}
+                from={"Ndola"}
+                to={"Lusaka"}
+                date={"Friday, 5, Feb"}
+                station={"Broadway"}
+                seats={34}
+                price={180}
+              />
+              <Bus
+                busName={"Likili"}
+                from={"Ndola"}
+                to={"Chingola"}
+                date={"Friday, 5, Feb"}
+                station={"Main Masala"}
+                seats={12}
+                price={95}
+              />
+              <Bus
+                busName={"Scorpion"}
+                from={"Lusaka"}
+                to={"Kitwe"}
+                date={"Friday, 5, Feb"}
+                station={"InterCity"}
+                seats={3}
+                price={220}
+              />
+              <Bus
+                busName={"Mbwe"}
+                from={"Ndola"}
+                to={"Lusaka"}
+                date={"Friday, 5, Feb"}
+                station={"Broadway"}
+                seats={34}
+                price={175}
+              />
+              <Bus
+                busName={"Scorpion"}
+                from={"Lusaka"}
+                to={"Kitwe"}
+                date={"Friday, 5, Feb"}
+                station={"InterCity"}
+                seats={3}
+                price={220}
+              />
+              <Bus
+                busName={"Mbwe"}
+                from={"Ndola"}
+                to={"Lusaka"}
+                date={"Friday, 5, Feb"}
+                station={"Broadway"}
+                seats={34}
+                price={175}
+              />
+              <Bus
+                busName={"Scorpion"}
+                from={"Lusaka"}
+                to={"Kitwe"}
+                date={"Friday, 5, Feb"}
+                station={"InterCity"}
+                seats={3}
+                price={220}
+              />
+              <Bus
+                busName={"Mbwe"}
+                from={"Ndola"}
+                to={"Lusaka"}
+                date={"Friday, 5, Feb"}
+                station={"Broadway"}
+                seats={34}
+                price={175}
+              />
             </ScrollView>
           </View>
         </SafeAreaView>

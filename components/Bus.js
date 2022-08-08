@@ -22,7 +22,7 @@ import {
 export default class Bus extends Component {
   render() {
     return (
-      <View
+      <TouchableOpacity
         style={{
           backgroundColor: "white",
           padding: 5,
@@ -46,7 +46,7 @@ export default class Bus extends Component {
               color: "#124e78",
             }}
           >
-            Power Tools
+            {this.props.busName}
           </Text>
           <View
             style={{
@@ -62,7 +62,7 @@ export default class Bus extends Component {
                   color: "#000",
                 }}
               >
-                {"Lusaka"} {" -> "} {"Ndola"}
+                {this.props.from} {" -> "} {this.props.to}
               </Text>
               <Text
                 style={{
@@ -71,7 +71,7 @@ export default class Bus extends Component {
                   color: "#000",
                 }}
               >
-                Friday, 5, Aug
+                {this.props.date}
               </Text>
               <Text
                 style={{
@@ -92,7 +92,7 @@ export default class Bus extends Component {
                   color: "#124e78",
                 }}
               >
-                K{255}
+                K{this.props.price}
               </Text>
             </View>
           </View>
@@ -135,7 +135,7 @@ export default class Bus extends Component {
                     color: "#fff",
                   }}
                 >
-                  24
+                  {this.props.seats}
                 </Text>
               </View>
             </View>
@@ -164,7 +164,7 @@ export default class Bus extends Component {
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
