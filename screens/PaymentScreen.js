@@ -93,7 +93,7 @@ const PaymentScreen = ({ navigation }) => {
             width: "70%",
             justifyContent: "space-between",
             flexDirection: "row",
-            borderRadius: "50%",
+            borderRadius: 50,
             elevation: 7,
             shadowColor: "#000",
             shadowOffset: {
@@ -120,7 +120,7 @@ const PaymentScreen = ({ navigation }) => {
 
           <TouchableOpacity
             style={{
-              borderRadius: "50%",
+              borderRadius: 50,
               height: "100%",
               width: 100,
               backgroundColor: "#05C25D",

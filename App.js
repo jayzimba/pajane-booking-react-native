@@ -106,7 +106,6 @@ const App = () => {
               //max height
               height: 70,
               borderRadius: 20,
-
               // Shadow
               shadowColor: "#000",
               shadowOpacity: 0.5,
@@ -126,7 +125,7 @@ const App = () => {
                 <View
                   style={{
                     position: "absolute",
-                    top: "50%",
+                    top: "40%",
                   }}
                 >
                   <MaterialCommunityIcons
@@ -155,7 +154,7 @@ const App = () => {
                 <View
                   style={{
                     position: "absolute",
-                    top: "50%",
+                    top: "40%",
                   }}
                 >
                   <MaterialCommunityIcons
@@ -227,7 +226,7 @@ const App = () => {
                 <View
                   style={{
                     position: "absolute",
-                    top: "50%",
+                    top: "40%",
                   }}
                 >
                   <MaterialIcons
@@ -256,7 +255,7 @@ const App = () => {
                 <View
                   style={{
                     position: "absolute",
-                    top: "50%",
+                    top: "40%",
                   }}
                 >
                   <MaterialCommunityIcons

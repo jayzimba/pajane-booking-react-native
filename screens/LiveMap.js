@@ -148,11 +148,11 @@ const LiveMap = ({ navigation }, props) => {
         initialRegion={INITIAL_POSITION}
       >
         <Marker
-          coordinate={pickUpCords}
+          coordinate={destinationCords}
           image={require("../assets/greenMarker.png")}
         />
         <Marker
-          coordinate={destinationCords}
+          coordinate={pickUpCords}
           image={require("../assets/Oval.png")}
         />
         <MapViewDirections
@@ -189,7 +189,12 @@ const LiveMap = ({ navigation }, props) => {
           label="Drop point"
           onPlaceSelected={() => {}}
         />
-        <TouchableOpacity style={{ justifyContent: "center" }}>
+        <TouchableOpacity
+          style={{
+            justifyContent: "center",
+            marginTop: 2,
+          }}
+        >
           <CustomBtn onPress={handleModal} />
         </TouchableOpacity>
       </View>
@@ -302,9 +307,10 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     position: "absolute",
-    width: "95%",
+    width: "98%",
     backgroundColor: "white",
     shadowColor: "black",
+    elevation: 7,
     shadowOffset: {
       width: 2,
       height: 2,
@@ -314,7 +320,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     padding: 8,
     borderRadius: 8,
-    top: Constants.statusBarHeight,
+    top: Constants.statusBarHeight - 45,
   },
   input: {
     borderColor: "#888",

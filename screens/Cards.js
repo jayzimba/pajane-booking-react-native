@@ -97,7 +97,7 @@ const Cards = (props) => {
             <View
               style={{
                 height: 40,
-                width: "100%",
+                width: "90%",
                 justifyContent: "space-between",
                 flexDirection: "row",
                 borderRadius: 5,
@@ -120,8 +120,8 @@ const Cards = (props) => {
                 keyboardType="default"
                 value={cardHolder}
                 style={{
-                  fontSize: 20,
-                  fontWeight: "300",
+                  fontSize: 18,
+                  fontWeight: "400",
                   color: "#000",
                   letterSpacing: 1,
                 }}
@@ -131,7 +131,7 @@ const Cards = (props) => {
             <View
               style={{
                 height: 40,
-                width: "100%",
+                width: "90%",
                 justifyContent: "space-between",
                 flexDirection: "row",
                 borderRadius: 5,
@@ -155,11 +155,12 @@ const Cards = (props) => {
                 value={cardNumber}
                 style={{
                   width: "100%",
-                  fontSize: 20,
-                  fontWeight: "300",
+                  fontSize: 18,
+                  fontWeight: "400",
                   color: "#000",
-                  letterSpacing: 5,
-                  paddingHorizontal: 20,
+                  letterSpacing: 2,
+
+                  paddingHorizontal: 2,
                 }}
               />
             </View>
@@ -195,10 +196,10 @@ const Cards = (props) => {
                     keyboardType="numbers-and-punctuation"
                     value={expiration}
                     style={{
-                      fontSize: 20,
-                      fontWeight: "300",
+                      fontSize: 18,
+                      fontWeight: "400",
                       color: "#000",
-                      letterSpacing: 2,
+                      letterSpacing: 1,
                       paddingHorizontal: 5,
                     }}
                   />
@@ -232,10 +233,10 @@ const Cards = (props) => {
                     keyboardType="numbers-and-punctuation"
                     value={cvc}
                     style={{
-                      fontSize: 20,
-                      fontWeight: "300",
+                      fontSize: 18,
+                      fontWeight: "400",
                       color: "#000",
-                      letterSpacing: 3,
+                      letterSpacing: 1,
                       paddingHorizontal: 0,
                     }}
                   />
