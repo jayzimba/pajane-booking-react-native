@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     padding: 8,
     borderRadius: 8,
-    top: Constants.statusBarHeight - 45,
+    top: Constants.statusBarHeight - 2,
   },
   input: {
     borderColor: "#888",
