@@ -409,7 +409,7 @@ const MoreDetails = ({ navigation }) => {
                 marginLeft: 10,
               }}
             >
-              Pay Now
+              Continue To Pay
             </Text>
           </TouchableOpacity>
         </View>

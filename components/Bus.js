@@ -7,9 +7,11 @@ import {
   Dimensions,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from "react-native";
 import React, { Component } from "react";
 import FadeLoader from "../components/FadeLoader";
+import MoreDetails from "../screens/MoreDetails";
 import {
   Ionicons,
   Fontisto,
@@ -37,6 +39,7 @@ export default class Bus extends Component {
           },
           shadowOpacity: 0.2,
         }}
+        onPress={this.props.clicked}
       >
         <View style={{ backgroundColor: "white", padding: 1 }}>
           <Text

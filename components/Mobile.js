@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
   },
   logo: {
-    width: 70,
-    height: 80,
+    width: 100,
+    height: 81,
   },
   headingPayment: {
     fontSize: 18,

@@ -7,6 +7,10 @@ import {
   Dimensions,
   TouchableOpacity,
   ScrollView,
+  Alert,
+  FlatList,
+  Pressable,
+  RefreshControl,
 } from "react-native";
 import React, { Component } from "react";
 import FadeLoader from "../components/FadeLoader";
@@ -22,9 +26,22 @@ import {
 } from "@expo/vector-icons";
 import Bus from "../components/Bus";
 export class Results extends Component {
+  fetchData = async () => {
+    const response = await fetch("http://192.168.8.104:1345/buses");
+    const quick_booking = await response.json();
+    this.setState({ data: quick_booking });
+  };
+  componentDidMount() {
+    this.fetchData();
+  }
+
   constructor(props) {
     super(props);
   }
+  state = {
+    data: [],
+  };
+
   render() {
     return (
       <Modal visible={this.props.ResultIsVisible} animationType="slide">
@@ -56,92 +73,37 @@ export class Results extends Component {
                 Lusaka to Ndola
               </Text>
             </View>
-            <MaterialIcons
-              style={{}}
-              name="filter-list"
-              size={24}
-              color="black"
-            />
+            <TouchableOpacity onPress={() => Alert.alert("Filter Clicked")}>
+              <MaterialIcons
+                style={{}}
+                name="filter-list"
+                size={24}
+                color="black"
+              />
+            </TouchableOpacity>
           </View>
 
           <View style={{ paddingTop: 5, marginBottom: 90 }}>
-            <ScrollView
-              horizontal={false}
-              showsHorizontalScrollIndicator={false}
-            >
-              <Bus
-                busName={"Power Tools"}
-                from={"Ndola"}
-                to={"Lusaka"}
-                date={"Friday, 5, Feb"}
-                station={"Broadway"}
-                seats={34}
-                price={180}
-              />
-              <Bus
-                busName={"Likili"}
-                from={"Ndola"}
-                to={"Chingola"}
-                date={"Friday, 5, Feb"}
-                station={"Main Masala"}
-                seats={12}
-                price={95}
-              />
-              <Bus
-                busName={"Scorpion"}
-                from={"Lusaka"}
-                to={"Kitwe"}
-                date={"Friday, 5, Feb"}
-                station={"InterCity"}
-                seats={3}
-                price={220}
-              />
-              <Bus
-                busName={"Mbwe"}
-                from={"Ndola"}
-                to={"Lusaka"}
-                date={"Friday, 5, Feb"}
-                station={"Broadway"}
-                seats={34}
-                price={175}
-              />
-              <Bus
-                busName={"Scorpion"}
-                from={"Lusaka"}
-                to={"Kitwe"}
-                date={"Friday, 5, Feb"}
-                station={"InterCity"}
-                seats={3}
-                price={220}
-              />
-              <Bus
-                busName={"Mbwe"}
-                from={"Ndola"}
-                to={"Lusaka"}
-                date={"Friday, 5, Feb"}
-                station={"Broadway"}
-                seats={34}
-                price={175}
-              />
-              <Bus
-                busName={"Scorpion"}
-                from={"Lusaka"}
-                to={"Kitwe"}
-                date={"Friday, 5, Feb"}
-                station={"InterCity"}
-                seats={3}
-                price={220}
-              />
-              <Bus
-                busName={"Mbwe"}
-                from={"Ndola"}
-                to={"Lusaka"}
-                date={"Friday, 5, Feb"}
-                station={"Broadway"}
-                seats={34}
-                price={175}
-              />
-            </ScrollView>
+            <FlatList
+              bounces={false}
+              data={this.state.data}
+              renderItem={({ item, index }) => (
+                // <Pressable onPress={this.props.bookingdetails}>
+                <Bus
+                  busName={item.name}
+                  from={item.pick_up}
+                  to={item.drop_point}
+                  date={item.date}
+                  station={item.station}
+                  seats={item.available_seats}
+                  price={item.price}
+                  clicked={this.props.bookingdetails}
+                />
+                // </Pressable>
+              )}
+              keyExtractor={(item) => item.id}
+              ite
+            />
           </View>
         </SafeAreaView>
       </Modal>

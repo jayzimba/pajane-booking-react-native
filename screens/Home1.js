@@ -10,6 +10,7 @@ import {
   Animated,
   Platform,
   FlatList,
+  Alert,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -67,6 +68,12 @@ export default class Home extends Component {
     this.setState({ ResultIsVisible: false });
   };
 
+  bookingdetails = (e) => {
+    e.preventDefault();
+    this.props.navigation.navigate("MoreDetails");
+    this.setState({ ResultIsVisible: false });
+  };
+
   setTo = (e) => {
     e.preventDefault();
     this.setState({ to: e });
@@ -90,7 +97,7 @@ export default class Home extends Component {
   };
 
   fetchData = async () => {
-    const response = await fetch("http://192.168.8.101:1345/quick_booking");
+    const response = await fetch("http://192.168.8.104:1345/quick_booking");
     const quick_booking = await response.json();
     this.setState({ data: quick_booking });
   };
@@ -141,7 +148,7 @@ export default class Home extends Component {
                 </Text>
               </View>
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate("MoreDetails")}
+                onPress={() => Alert.alert("Take a tour clicked")}
               >
                 <View
                   style={{
@@ -199,7 +206,7 @@ export default class Home extends Component {
             <Results
               visible={this.state.ResultIsVisible}
               closeModal={this.closeShowResults}
-
+              bookingdetails={this.bookingdetails}
               //from and to props
             />
           )}
