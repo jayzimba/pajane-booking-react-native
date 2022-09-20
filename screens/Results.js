@@ -27,7 +27,7 @@ import {
 import Bus from "../components/Bus";
 export class Results extends Component {
   fetchData = async () => {
-    const response = await fetch("http://192.168.8.104:1345/buses");
+    const response = await fetch("http://192.168.8.105:1345/buses");
     const quick_booking = await response.json();
     this.setState({ data: quick_booking });
   };
@@ -97,7 +97,7 @@ export class Results extends Component {
                   station={item.station}
                   seats={item.available_seats}
                   price={item.price}
-                  clicked={this.props.bookingdetails}
+                  clicked={(item) => this.props.bookingdetails(item)}
                 />
                 // </Pressable>
               )}

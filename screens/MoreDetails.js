@@ -16,18 +16,17 @@ import * as Animatable from "react-native-animatable";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import Counter from "react-native-counters";
 
-const MoreDetails = ({ navigation }) => {
+const MoreDetails = ({ navigation, route }) => {
   const [remindMe, setRemindMe] = useState(false);
   const [AcceptTC, setAcceptTC] = useState(false);
 
-  const [adult, setAdults] = useState(1);
-  const [children, setchildren] = useState(0);
+  const [adult, setAdults] = useState(0);
 
-  const updateAdults = () => {
+  const increamentPassenger = () => {
     setAdults(adult + 1);
   };
-  const updateChildren = () => {
-    setchildren((children += children));
+  const decreamentPassenger = () => {
+    setAdults(adult - 1);
   };
 
   const changeTC = (value) => {
@@ -114,14 +113,47 @@ const MoreDetails = ({ navigation }) => {
                   >
                     Adult Passengers
                   </Text>
-                  <Counter
+                  {/* <Counter
                     start={1}
                     min={1}
                     max={5}
                     buttonTextStyle={{ color: "#124e78" }}
                     countTextStyle={{ color: "#124e78" }}
                     buttonStyle={{ borderColor: "#124e78" }}
-                  />
+                  /> */}
+                  <TouchableOpacity
+                    style={{
+                      paddingHorizontal: 15,
+                      paddingVertical: 7,
+                      borderWidth: 1,
+                      borderRadius: 5,
+                      borderColor: "#124e78",
+                    }}
+                    onPress={() => decreamentPassenger}
+                  >
+                    <Text>-</Text>
+                  </TouchableOpacity>
+                  <Text
+                    style={{
+                      color: "#124e78",
+                      fontWeight: "500",
+                      marginHorizontal: 11,
+                    }}
+                  >
+                    {adult}
+                  </Text>
+                  <TouchableOpacity
+                    style={{
+                      paddingHorizontal: 15,
+                      paddingVertical: 7,
+                      borderWidth: 1,
+                      borderRadius: 5,
+                      borderColor: "#124e78",
+                    }}
+                    onPress={() => increamentPassenger}
+                  >
+                    <Text>+</Text>
+                  </TouchableOpacity>
                 </View>
                 <View
                   style={{
@@ -233,7 +265,7 @@ const MoreDetails = ({ navigation }) => {
                       color: "#000",
                     }}
                   >
-                    K255
+                    K {255}
                   </Text>
                 </View>
               </View>
@@ -392,7 +424,7 @@ const MoreDetails = ({ navigation }) => {
             }}
           >
             <Text style={styles.textStyles}>Total</Text>
-            <Text style={styles.textStyles}>K255</Text>
+            <Text style={styles.textStyles}>K {255}</Text>
           </View>
 
           <TouchableOpacity

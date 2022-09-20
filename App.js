@@ -39,6 +39,7 @@ import {
 import LiveMap from "./screens/LiveMap";
 import Results from "./screens/Results";
 import BookingDetails from "./screens/BookingDetails";
+
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 

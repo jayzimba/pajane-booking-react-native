@@ -69,8 +69,7 @@ export default class Home extends Component {
   };
 
   bookingdetails = (e) => {
-    e.preventDefault();
-    this.props.navigation.navigate("MoreDetails");
+    this.props.navigation.navigate("MoreDetails", { p1: "hello there" });
     this.setState({ ResultIsVisible: false });
   };
 
