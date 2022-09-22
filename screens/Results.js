@@ -70,7 +70,7 @@ export class Results extends Component {
               </TouchableOpacity>
 
               <Text style={{ fontSize: 18, fontWeight: "500", color: "#000" }}>
-                {this.props.from} to {this.props.to}
+                Lusaka to Ndola
               </Text>
             </View>
             <TouchableOpacity onPress={() => Alert.alert("Filter Clicked")}>
