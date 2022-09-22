@@ -30,7 +30,10 @@ const Cards = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ marginBottom: 80 }}
+      >
         <Text
           style={{
             fontWeight: "bold",

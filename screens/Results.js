@@ -27,7 +27,7 @@ import {
 import Bus from "../components/Bus";
 export class Results extends Component {
   fetchData = async () => {
-    const response = await fetch("http://192.168.8.100:1345/buses");
+    const response = await fetch("http://172.20.10.4:1345/buses");
     const quick_booking = await response.json();
     this.setState({ data: quick_booking });
   };
@@ -70,7 +70,7 @@ export class Results extends Component {
               </TouchableOpacity>
 
               <Text style={{ fontSize: 18, fontWeight: "500", color: "#000" }}>
-                Lusaka to Ndola
+                {this.props.from} to {this.props.to}
               </Text>
             </View>
             <TouchableOpacity onPress={() => Alert.alert("Filter Clicked")}>

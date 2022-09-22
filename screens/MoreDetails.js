@@ -9,16 +9,21 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+
 import React, { Children, useState } from "react";
 import Header from "./../components/Header";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import Counter from "react-native-counters";
+import { useRoute } from "@react-navigation/native";
 
-const MoreDetails = ({ route, navigation }) => {
+const MoreDetails = ({ navigation }) => {
+  const route = useRoute();
+
   const [remindMe, setRemindMe] = useState(false);
   const [AcceptTC, setAcceptTC] = useState(false);
+  const [Total, setTotal] = useState(route.params.price);
 
   const changeTC = (value) => {
     setAcceptTC(value);
@@ -258,7 +263,7 @@ const MoreDetails = ({ route, navigation }) => {
                     marginEnd: 10,
                   }}
                 >
-                  {1} Adult
+                  {Adultcount} Adult
                 </Text>
                 <Text
                   style={{
@@ -267,7 +272,7 @@ const MoreDetails = ({ route, navigation }) => {
                     color: "#000",
                   }}
                 >
-                  {2} Children
+                  {Childrencount} Children
                 </Text>
               </View>
             </View>
@@ -279,7 +284,7 @@ const MoreDetails = ({ route, navigation }) => {
                   color: "#000",
                 }}
               >
-                Power Tools
+                {route.params.busName}
               </Text>
               <View
                 style={{
@@ -315,7 +320,7 @@ const MoreDetails = ({ route, navigation }) => {
                       color: "#000",
                     }}
                   >
-                    K {255}
+                    K {route.params.price}
                   </Text>
                 </View>
               </View>
@@ -474,12 +479,18 @@ const MoreDetails = ({ route, navigation }) => {
             }}
           >
             <Text style={styles.textStyles}>Total</Text>
-            <Text style={styles.textStyles}>K {255}</Text>
+            <Text style={styles.textStyles}>
+              K {Total * (Adultcount + Childrencount)}
+            </Text>
           </View>
 
           <TouchableOpacity
             style={AcceptTC ? styles.payButtton : styles.payButttonDisabled}
-            onPress={() => navigation.navigate("Payment")}
+            onPress={() =>
+              navigation.navigate("Payment", {
+                price: Total * (Adultcount + Childrencount),
+              })
+            }
             disabled={!AcceptTC}
           >
             <Ionicons name="cash" size={24} color="white" />

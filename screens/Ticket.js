@@ -13,6 +13,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import TicketCard from "../components/TicketCard";
 import * as Animatable from "react-native-animatable";
 import { render } from "react-dom";
+import { MaterialIcons } from "@expo/vector-icons";
+const transit = require("../assets/notInTransit.png");
 
 export default class ticket extends Component {
   state = {
@@ -31,43 +33,18 @@ export default class ticket extends Component {
 
   render() {
     return (
-      <SafeAreaView>
-        <View style={styles.headerHolder}>
-          <Image
-            source={require("../assets/bus-png-40029.png")}
-            style={styles.img}
-          />
-          <Animatable.Text
-            animation="bounceIn"
-            duration={1000}
-            style={{
-              color: "#124e78",
-              fontSize: 24,
-              marginLeft: 20,
-              fontWeight: "600",
-            }}
-          >
-            Your Trips
-          </Animatable.Text>
-        </View>
-
-        <ScrollView
-          style={styles.tripsHolder}
-          showsVerticalScrollIndicator={false}
-        >
-          {this.state.data.map((item, index) => (
-            <View key={item.id}>
-              <TicketCard
-                from={item.from}
-                from_station={item.from_station}
-                date={item.date}
-                to={item.to}
-                to_station={item.to_station}
-              />
-            </View>
-          ))}
-        </ScrollView>
-      </SafeAreaView>
+      <View
+        style={{
+          height: "80%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <MaterialIcons name="bus-alert" size={200} color="#dedede" />
+        <Text style={{ marginStart: -20, fontSize: 16, color: "#8d8d8d8d" }}>
+          You Have No Ongoing Trip
+        </Text>
+      </View>
     );
   }
 }

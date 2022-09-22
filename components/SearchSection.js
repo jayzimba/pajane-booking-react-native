@@ -64,6 +64,14 @@ const SearchSection = ({ navigation }) => {
     setDestination();
   };
 
+  const getto = () => {
+    return Dtext;
+  };
+
+  const getfrom = () => {
+    return Ptext;
+  };
+
   return (
     <View style={styles.container}>
       <View

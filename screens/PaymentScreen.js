@@ -14,6 +14,7 @@ import Mobile from "./../components/Mobile";
 import CollapsibleView from "@eliav2/react-native-collapsible-view";
 import { color } from "react-native-reanimated";
 import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
+import { useRoute } from "@react-navigation/native";
 const slides = {
   card: require("../assets/vmc.jpeg"),
   airtel: require("../assets/airtel.jpg"),
@@ -21,6 +22,7 @@ const slides = {
 };
 
 const PaymentScreen = ({ navigation }) => {
+  const route = useRoute();
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ marginHorizontal: 10 }}>
@@ -94,7 +96,7 @@ const PaymentScreen = ({ navigation }) => {
                 letterSpacing: 1.5,
               }}
             >
-              K 255
+              K {route.params.price}
             </Text>
           </View>
 
@@ -119,7 +121,7 @@ const PaymentScreen = ({ navigation }) => {
             }}
           >
             <TextInput
-              placeholder=" have a gift card?"
+              placeholder="pajane gift code?"
               maxLength={6}
               style={{
                 fontSize: 16,

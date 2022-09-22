@@ -69,7 +69,12 @@ export default class Home extends Component {
   };
 
   bookingdetails = (e) => {
-    this.props.navigation.navigate("MoreDetails", { data: "hello there" });
+    this.props.navigation.navigate("MoreDetails", {
+      busName: "powertools",
+      price: 300,
+      to: this.state.to,
+      from: this.state.from,
+    });
     this.setState({ ResultIsVisible: false });
   };
 
@@ -172,7 +177,7 @@ export default class Home extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <SearchSection />
+          <SearchSection getto={(e) => this.setTo(e)} getfrom={this.setFrom} />
           <DatePickerComponent
             showDatePicker={this.showDatePicker}
             date={this.state.date}
@@ -206,6 +211,8 @@ export default class Home extends Component {
               visible={this.state.ResultIsVisible}
               closeModal={this.closeShowResults}
               bookingdetails={this.bookingdetails}
+              to={this.state.to}
+              from={this.state.from}
               //from and to props
             />
           )}
