@@ -18,7 +18,7 @@ const bgImage = require("../assets/zambia.png");
 const google = require("../assets/google.jpeg");
 const logo = require("../assets/family.jpg");
 
-const LoginScreen = ({ navigation }) => {
+const SignUpScreen = ({ navigation }) => {
   const [phone, setPhone] = useState("");
   const [name, setName] = useState("");
   const [address, setAddrss] = useState("");
@@ -44,13 +44,46 @@ const LoginScreen = ({ navigation }) => {
           marginVertical: 10,
         }}
       >
-        Login
+        Go Places
       </Animatable.Text>
       <Animatable.View
         animation="fadeInUp"
         duration={1500}
         style={{ width: "100%" }}
       >
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={styles.line}></View>
+          <Ionicons
+            name="person"
+            size={20}
+            color="black"
+            style={{ marginHorizontal: 5 }}
+          />
+          <TextInput
+            placeholder="Full name"
+            fontSize={16}
+            marginHorizontal={10}
+            returnKeyType="done"
+            keyboardType="default"
+          />
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={styles.line}></View>
+          <Entypo
+            name="location"
+            size={20}
+            color="black"
+            style={{ marginHorizontal: 5 }}
+          />
+          <TextInput
+            placeholder="Address"
+            fontSize={16}
+            marginHorizontal={10}
+            returnKeyType="done"
+            keyboardType="default"
+          />
+        </View>
+
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View style={styles.line}></View>
           <Entypo
@@ -104,12 +137,11 @@ const LoginScreen = ({ navigation }) => {
               color: "#000",
             }}
           >
-            Login with
+            Or Connect With Social
           </Text>
           <TouchableOpacity
             style={{
               marginTop: 10,
-              marginBottom: 20,
               padding: 8,
               borderRadius: 5,
               borderWidth: 1,
@@ -141,11 +173,11 @@ const LoginScreen = ({ navigation }) => {
           }}
         >
           <TouchableOpacity
-            style={styles.signInBtn}
-            onPress={() => navigation.navigate("Home")}
+            style={styles.signUpBtn}
+            onPress={() => navigation.navigate("Login")}
           >
             <Text style={{ fontWeight: "600", fontSize: 18, color: "#fff" }}>
-              Login
+              Sign Up
             </Text>
           </TouchableOpacity>
         </View>
@@ -157,8 +189,8 @@ const LoginScreen = ({ navigation }) => {
           }}
         >
           <TouchableOpacity
-            style={styles.toSignUp}
-            onPress={() => navigation.navigate("SignUp")}
+            style={styles.toLogin}
+            onPress={() => navigation.navigate("Login")}
           >
             <Text
               style={{
@@ -166,7 +198,7 @@ const LoginScreen = ({ navigation }) => {
                 color: "#000",
               }}
             >
-              Dont have an account?
+              Already have an account
             </Text>
           </TouchableOpacity>
         </View>
@@ -175,7 +207,7 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
-export default LoginScreen;
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -189,7 +221,7 @@ const styles = StyleSheet.create({
     width: 1,
     backgroundColor: "#000",
   },
-  signInBtn: {
+  signUpBtn: {
     padding: 15,
     borderWidth: 1,
     borderRadius: 10,
@@ -200,7 +232,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#05C25D",
   },
-  toSignUp: {
+  toLogin: {
     alignItems: "center",
     justifyContent: "center",
   },

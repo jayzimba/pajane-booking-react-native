@@ -5,11 +5,11 @@ import Onboarding from "react-native-onboarding-swiper";
 const OnboardingScreen = ({ navigation }) => {
   return (
     <Onboarding
-      onDone={() => navigation.replace("Home")}
-      onSkip={() => navigation.replace("Home")}
+      onDone={() => navigation.replace("SignUp")}
+      onSkip={() => navigation.replace("SignUp")}
       pages={[
         {
-          backgroundColor: "#124e78",
+          backgroundColor: "#053D65",
           image: (
             <Image source={require("../assets/logo.png")} style={styles.img} />
           ),
@@ -18,7 +18,7 @@ const OnboardingScreen = ({ navigation }) => {
             "Pajane bus booking App,the only way to travel with comfort",
         },
         {
-          backgroundColor: "#1B6EA9",
+          backgroundColor: "#124e78",
           image: (
             <Image
               source={require("../assets/vector.png")}
@@ -42,7 +42,7 @@ const OnboardingScreen = ({ navigation }) => {
             "We have all your favourite bus operators listed to provide you with variety of booking choices",
         },
         {
-          backgroundColor: "#053D65",
+          backgroundColor: "#1B6EA9",
           image: (
             <Image source={require("../assets/dots.png")} style={styles.img} />
           ),

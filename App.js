@@ -20,6 +20,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import OnboardingScreen from "./screens/OnboardingScreen";
 import LoginScreen from "./screens/LoginScreen";
+import SignUpScreen from "./screens/SignUpScreen";
 import Home from "./screens/Home";
 import Trips from "./screens/Trips";
 import CustomerCare from "./screens/CustomerCare";
@@ -72,13 +73,14 @@ const App = () => {
 
   if (isFirstLaunch == null) {
     return null;
-  } else if (isFirstLaunch == true) {
+  } else if (isFirstLaunch == false) {
     return (
       <NavigationContainer>
         <StatusBar style="dark" />
         <AppStack.Navigator screenOptions={{ headerShown: false }}>
           <AppStack.Screen name="OnBoarding" component={OnboardingScreen} />
           <AppStack.Screen name="Login" component={LoginScreen} />
+          <AppStack.Screen name="SignUp" component={SignUpScreen} />
           <AppStack.Screen name="Home" component={Home} />
           <AppStack.Screen name="Results" component={Results} />
           <AppStack.Screen name="BookingDetails" component={BookingDetails} />
