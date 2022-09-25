@@ -69,16 +69,12 @@ export default class Home extends Component {
   };
 
   bookingdetails = (e) => {
-<<<<<<< HEAD
     this.props.navigation.navigate("MoreDetails", {
       busName: "powertools",
       price: 300,
       to: this.state.to,
       from: this.state.from,
     });
-=======
-    this.props.navigation.navigate("MoreDetails", { p1: "hello there" });
->>>>>>> parent of 2e70233 (committed)
     this.setState({ ResultIsVisible: false });
   };
 
