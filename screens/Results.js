@@ -27,7 +27,11 @@ import {
 import Bus from "../components/Bus";
 export class Results extends Component {
   fetchData = async () => {
+<<<<<<< HEAD
     const response = await fetch("http://172.20.10.4:1345/buses");
+=======
+    const response = await fetch("http://192.168.8.105:1345/buses");
+>>>>>>> parent of 2e70233 (committed)
     const quick_booking = await response.json();
     this.setState({ data: quick_booking });
   };
@@ -102,6 +106,7 @@ export class Results extends Component {
                 // </Pressable>
               )}
               keyExtractor={(item) => item.id}
+              ite
             />
           </View>
         </SafeAreaView>

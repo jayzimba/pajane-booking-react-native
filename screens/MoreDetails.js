@@ -22,9 +22,22 @@ import { AdultSlice } from "../features/AdultSlice";
 const MoreDetails = ({ navigation }) => {
   const route = useRoute();
 
+<<<<<<< HEAD
+=======
+const MoreDetails = ({ navigation, route }) => {
+>>>>>>> parent of 2e70233 (committed)
   const [remindMe, setRemindMe] = useState(false);
   const [AcceptTC, setAcceptTC] = useState(false);
   const [Total, setTotal] = useState(route.params.price);
+
+  const [adult, setAdults] = useState(0);
+
+  const increamentPassenger = () => {
+    setAdults(adult + 1);
+  };
+  const decreamentPassenger = () => {
+    setAdults(adult - 1);
+  };
 
   const [adult, setAdults] = useState(0);
 
