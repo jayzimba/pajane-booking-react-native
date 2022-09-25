@@ -28,7 +28,11 @@ import Bus from "../components/Bus";
 export class Results extends Component {
   fetchData = async () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
     const response = await fetch("http://172.20.10.4:1345/buses");
+=======
+    const response = await fetch("http://192.168.8.105:1345/buses");
+>>>>>>> parent of 2e70233 (committed)
 =======
     const response = await fetch("http://192.168.8.105:1345/buses");
 >>>>>>> parent of 2e70233 (committed)

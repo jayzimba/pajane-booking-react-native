@@ -21,8 +21,11 @@
     "@react-navigation/stack": "^6.2.1",
     "@reduxjs/toolkit": "^1.8.5",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "@stripe/stripe-react-native": "0.6.1",
     "axios": "^0.27.2",
+=======
+>>>>>>> parent of 2e70233 (committed)
 =======
 >>>>>>> parent of 2e70233 (committed)
     "body-parser": "^1.20.0",
