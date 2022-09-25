@@ -20,8 +20,11 @@
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/stack": "^6.2.1",
     "@reduxjs/toolkit": "^1.8.5",
+<<<<<<< HEAD
     "@stripe/stripe-react-native": "0.6.1",
     "axios": "^0.27.2",
+=======
+>>>>>>> parent of 2e70233 (committed)
     "body-parser": "^1.20.0",
     "deprecated-react-native-prop-types": "^2.3.0",
     "expo": "~45.0.0",
