@@ -25,20 +25,52 @@ const MoreDetails = ({ navigation }) => {
   const [AcceptTC, setAcceptTC] = useState(false);
   const [Total, setTotal] = useState(route.params.price);
 
-  const [adult, setAdults] = useState(0);
-
-  const increamentPassenger = () => {
-    setAdults(adult + 1);
-  };
-  const decreamentPassenger = () => {
-    setAdults(adult - 1);
-  };
-
   const changeTC = (value) => {
     setAcceptTC(value);
   };
   const toggleReminder = () => {
     setRemindMe(!remindMe);
+  };
+
+  const [Adultcount, setAdultcount] = useState(1);
+  const [Childrencount, setChildrencount] = useState(0);
+
+  // adult increment
+  const Adult_handleIncrement = () => {
+    if (Adultcount >= 5) {
+      setAdultcount((prevCount) => prevCount);
+    } else {
+      setAdultcount((prevCount) => prevCount + 1);
+    }
+  };
+
+  //adult decrement
+  const Adult_handleDecrement = () => {
+    if (Adultcount <= 1) {
+      setAdultcount((prevCount) => prevCount);
+    } else {
+      setAdultcount((prevCount) => prevCount - 1);
+    }
+  };
+
+  //children handlers
+
+  //children increment
+  const Children_handleIncrement = () => {
+    if (Childrencount >= 2) {
+      setChildrencount((prevCount) => prevCount);
+    } else {
+      setChildrencount((prevCount) => prevCount + 1);
+    }
+  };
+
+  //Children decrement
+  const Children_handleDecrement = () => {
+    if (Childrencount <= 0) {
+      setChildrencount((prevCount) => prevCount);
+    } else {
+      setChildrencount((prevCount) => prevCount - 1);
+    }
   };
 
   return (
@@ -68,6 +100,7 @@ const MoreDetails = ({ navigation }) => {
               }}
             >
               More Booking Details
+              {console.log("data: " + route.params)}
             </Text>
           </View>
         </View>
@@ -118,14 +151,6 @@ const MoreDetails = ({ navigation }) => {
                   >
                     Adult Passengers
                   </Text>
-                  {/* <Counter
-                    start={1}
-                    min={1}
-                    max={5}
-                    buttonTextStyle={{ color: "#124e78" }}
-                    countTextStyle={{ color: "#124e78" }}
-                    buttonStyle={{ borderColor: "#124e78" }}
-                  /> */}
                   <TouchableOpacity
                     style={{
                       paddingHorizontal: 15,
@@ -134,7 +159,7 @@ const MoreDetails = ({ navigation }) => {
                       borderRadius: 5,
                       borderColor: "#124e78",
                     }}
-                    onPress={() => decreamentPassenger}
+                    onPress={Adult_handleDecrement}
                   >
                     <Text>-</Text>
                   </TouchableOpacity>
@@ -145,7 +170,7 @@ const MoreDetails = ({ navigation }) => {
                       marginHorizontal: 11,
                     }}
                   >
-                    {adult}
+                    {Adultcount}
                   </Text>
                   <TouchableOpacity
                     style={{
@@ -155,7 +180,7 @@ const MoreDetails = ({ navigation }) => {
                       borderRadius: 5,
                       borderColor: "#124e78",
                     }}
-                    onPress={() => increamentPassenger}
+                    onPress={Adult_handleIncrement}
                   >
                     <Text>+</Text>
                   </TouchableOpacity>
@@ -177,14 +202,39 @@ const MoreDetails = ({ navigation }) => {
                   >
                     Children
                   </Text>
-                  <Counter
-                    start={0}
-                    min={1}
-                    max={2}
-                    buttonTextStyle={{ color: "#124e78" }}
-                    countTextStyle={{ color: "#124e78" }}
-                    buttonStyle={{ borderColor: "#124e78" }}
-                  />
+                  <TouchableOpacity
+                    style={{
+                      paddingHorizontal: 15,
+                      paddingVertical: 7,
+                      borderWidth: 1,
+                      borderRadius: 5,
+                      borderColor: "#124e78",
+                    }}
+                    onPress={Children_handleDecrement}
+                  >
+                    <Text>-</Text>
+                  </TouchableOpacity>
+                  <Text
+                    style={{
+                      color: "#124e78",
+                      fontWeight: "500",
+                      marginHorizontal: 11,
+                    }}
+                  >
+                    {Childrencount}
+                  </Text>
+                  <TouchableOpacity
+                    style={{
+                      paddingHorizontal: 15,
+                      paddingVertical: 7,
+                      borderWidth: 1,
+                      borderRadius: 5,
+                      borderColor: "#124e78",
+                    }}
+                    onPress={Children_handleIncrement}
+                  >
+                    <Text>+</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>

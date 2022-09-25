@@ -69,13 +69,13 @@ export default class Home extends Component {
   };
 
   bookingdetails = (e) => {
+<<<<<<< HEAD
     this.props.navigation.navigate("MoreDetails", {
       busName: "powertools",
       price: 300,
       to: this.state.to,
       from: this.state.from,
     });
-
     this.setState({ ResultIsVisible: false });
   };
 
@@ -102,7 +102,7 @@ export default class Home extends Component {
   };
 
   fetchData = async () => {
-    const response = await fetch("http://192.168.8.104:1345/quick_booking");
+    const response = await fetch("http://172.20.10.4:1345/quick_booking");
     const quick_booking = await response.json();
     this.setState({ data: quick_booking });
   };
