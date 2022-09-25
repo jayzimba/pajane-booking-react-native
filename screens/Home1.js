@@ -69,7 +69,6 @@ export default class Home extends Component {
   };
 
   bookingdetails = (e) => {
-<<<<<<< HEAD
     this.props.navigation.navigate("MoreDetails", {
       busName: "powertools",
       price: 300,
