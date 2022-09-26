@@ -1165,29 +1165,10 @@
     "node-forge" "^1.2.1"
     "nullthrows" "^1.1.1"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 5a5f5aa (message1)
 "@expo/config-plugins@^4.0.14", "@expo/config-plugins@^4.1.4", "@expo/config-plugins@~4.1.4", "@expo/config-plugins@4.1.5":
   "integrity" "sha512-RVvU40RtZt12HavuDAe+LDIq9lHj7sheOfMEHdmpJ/uTA8pgvkbc56XF6JHQD+yRr6+uhhb+JnAasGq49dsQbw=="
   "resolved" "https://registry.npmjs.org/@expo/config-plugins/-/config-plugins-4.1.5.tgz"
   "version" "4.1.5"
-<<<<<<< HEAD
-=======
-=======
->>>>>>> parent of 2e70233 (committed)
-=======
->>>>>>> parent of 2e70233 (committed)
-"@expo/config-plugins@4.1.5", "@expo/config-plugins@^4.0.14", "@expo/config-plugins@~4.1.4":
-  version "4.1.5"
-  resolved "https://registry.npmjs.org/@expo/config-plugins/-/config-plugins-4.1.5.tgz"
-  integrity sha512-RVvU40RtZt12HavuDAe+LDIq9lHj7sheOfMEHdmpJ/uTA8pgvkbc56XF6JHQD+yRr6+uhhb+JnAasGq49dsQbw==
->>>>>>> parent of 2e70233 (committed)
-=======
->>>>>>> parent of 5a5f5aa (message1)
   dependencies:
     "@expo/config-types" "^45.0.0"
     "@expo/json-file" "8.2.36"
@@ -2292,12 +2273,6 @@
   "resolved" "https://registry.npmjs.org/@sideway/pinpoint/-/pinpoint-2.0.0.tgz"
   "version" "2.0.0"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 5a5f5aa (message1)
 "@stripe/stripe-react-native@0.6.1":
   "integrity" "sha512-FCZV6htmFNmDmH2n4TQT3inA/ApaLbb85wgHqftiweYpPMq2bXzmfWPiubExrVL0W8XLLnuip5+tRP+DTWaC+g=="
   "resolved" "https://registry.npmjs.org/@stripe/stripe-react-native/-/stripe-react-native-0.6.1.tgz"
@@ -2305,15 +2280,6 @@
   dependencies:
     "@expo/config-plugins" "^4.1.4"
 
-<<<<<<< HEAD
-=======
->>>>>>> parent of 2e70233 (committed)
-=======
->>>>>>> parent of 2e70233 (committed)
-=======
->>>>>>> parent of 5a5f5aa (message1)
-=======
->>>>>>> parent of 2e70233 (committed)
 "@types/geojson@^7946.0.7":
   "integrity" "sha512-Nmh0K3iWQJzniTuPRcJn5hxXkfB1T1pgB89SBig5PlJQU5yocazeu4jATJlaA0GYFKWMqDdvYemoSnF2pXgLVA=="
   "resolved" "https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.10.tgz"

@@ -324,7 +324,10 @@ const PaymentScreen = ({ navigation }) => {
         <Mobile imageUri={slides.airtel} headingPayment="Airtel Money" />
         <Mobile imageUri={slides.mtn} headingPayment="MTN Money" />
 
-        <TouchableOpacity style={styles.payButtton}>
+        <TouchableOpacity
+          style={styles.payButtton}
+          onPress={() => navigation.navigate("Ticket")}
+        >
           <Ionicons name="cash" size={24} color="white" />
           <Text
             style={{

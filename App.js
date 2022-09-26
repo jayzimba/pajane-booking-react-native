@@ -40,6 +40,7 @@ import {
 import LiveMap from "./screens/LiveMap";
 import Results from "./screens/Results";
 import BookingDetails from "./screens/BookingDetails";
+import Ticket from "./screens/Ticket";
 
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -73,7 +74,7 @@ const App = () => {
 
   if (isFirstLaunch == null) {
     return null;
-  } else if (isFirstLaunch == false) {
+  } else if (isFirstLaunch == true) {
     return (
       <NavigationContainer>
         <StatusBar style="dark" />
@@ -97,6 +98,7 @@ const App = () => {
           hidden={false}
           animated
         />
+
         <Tab.Navigator
           screenOptions={{
             headerShown: false,
@@ -105,7 +107,7 @@ const App = () => {
               backgroundColor: "#fafafa",
               position: "absolute",
               bottom: 20,
-              marginHorizontal: 20,
+              marginHorizontal: 15,
               //max height
               height: 70,
               borderRadius: 20,
@@ -113,8 +115,8 @@ const App = () => {
               shadowColor: "#000",
               shadowOpacity: 0.5,
               shadowOffset: {
-                width: 5,
-                height: 5,
+                width: 3,
+                height: 3,
               },
               paddingHorizontal: 20,
             },
@@ -143,7 +145,7 @@ const App = () => {
               // Onpress Update....
               tabPress: (e) => {
                 Animated.spring(tabOffsetValue, {
-                  toValue: 3,
+                  toValue: getWidth() * 0.1,
                   useNativeDriver: true,
                 }).start();
               },
@@ -172,7 +174,7 @@ const App = () => {
               // Onpress Update....
               tabPress: (e) => {
                 Animated.spring(tabOffsetValue, {
-                  toValue: getWidth() * 1.07,
+                  toValue: getWidth() * 1.0,
                   useNativeDriver: true,
                 }).start();
               },
@@ -206,7 +208,7 @@ const App = () => {
                       // Onpress Update....
                       tabPress: (e) => {
                         Animated.spring(tabOffsetValue, {
-                          toValue: getWidth() * 2,
+                          toValue: getWidth() * 1.9,
                           useNativeDriver: true,
                         }).start();
                       },
@@ -273,7 +275,7 @@ const App = () => {
               // Onpress Update....
               tabPress: (e) => {
                 Animated.spring(tabOffsetValue, {
-                  toValue: getWidth() * 3.6,
+                  toValue: getWidth() * 3.7,
                   useNativeDriver: true,
                 }).start();
               },

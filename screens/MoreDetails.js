@@ -26,31 +26,37 @@ const MoreDetails = ({ navigation }) => {
   const [AcceptTC, setAcceptTC] = useState(false);
   const [Total, setTotal] = useState(route.params.price);
 
-  const [adult, setAdults] = useState(0);
+  const [AdultCount, setAdultCount] = useState(1);
+  const [ChildrenCount, setChildrenCount] = useState(0);
 
-  const increamentPassenger = () => {
-    setAdults(adult + 1);
+  const increamentAdultCount = () => {
+    if (AdultCount >= 5) {
+      setAdultCount((previousCount) => previousCount);
+    } else {
+      setAdultCount((previousCount) => previousCount + 1);
+    }
   };
-  const decreamentPassenger = () => {
-    setAdults(adult - 1);
+  const increamentChildrenCount = () => {
+    if (ChildrenCount >= 2) {
+      setChildrenCount((previousCount) => previousCount);
+    } else {
+      setChildrenCount((previousCount) => previousCount + 1);
+    }
   };
 
-  const [adult, setAdults] = useState(0);
-
-  const increamentPassenger = () => {
-    setAdults(adult + 1);
+  const decreamentAdultCount = () => {
+    if (AdultCount <= 1) {
+      setAdultCount((previousCount) => previousCount);
+    } else {
+      setAdultCount((previousCount) => previousCount - 1);
+    }
   };
-  const decreamentPassenger = () => {
-    setAdults(adult - 1);
-  };
-
-  const [adult, setAdults] = useState(0);
-
-  const increamentPassenger = () => {
-    setAdults(adult + 1);
-  };
-  const decreamentPassenger = () => {
-    setAdults(adult - 1);
+  const decreamentChildrenCount = () => {
+    if (ChildrenCount <= 0) {
+      setChildrenCount((previousCount) => previousCount);
+    } else {
+      setChildrenCount((previousCount) => previousCount - 1);
+    }
   };
 
   const changeTC = (value) => {
@@ -137,14 +143,7 @@ const MoreDetails = ({ navigation }) => {
                   >
                     Adult Passengers
                   </Text>
-                  {/* <Counter
-                    start={1}
-                    min={1}
-                    max={5}
-                    buttonTextStyle={{ color: "#124e78" }}
-                    countTextStyle={{ color: "#124e78" }}
-                    buttonStyle={{ borderColor: "#124e78" }}
-                  /> */}
+
                   <TouchableOpacity
                     style={{
                       paddingHorizontal: 15,
@@ -153,7 +152,7 @@ const MoreDetails = ({ navigation }) => {
                       borderRadius: 5,
                       borderColor: "#124e78",
                     }}
-                    onPress={() => decreamentPassenger}
+                    onPress={decreamentAdultCount}
                   >
                     <Text>-</Text>
                   </TouchableOpacity>
@@ -164,7 +163,7 @@ const MoreDetails = ({ navigation }) => {
                       marginHorizontal: 11,
                     }}
                   >
-                    {adult}
+                    {AdultCount}
                   </Text>
                   <TouchableOpacity
                     style={{
@@ -174,16 +173,20 @@ const MoreDetails = ({ navigation }) => {
                       borderRadius: 5,
                       borderColor: "#124e78",
                     }}
-                    onPress={() => increamentPassenger}
+                    onPress={increamentAdultCount}
                   >
                     <Text>+</Text>
                   </TouchableOpacity>
                 </View>
+
                 <View
                   style={{
                     flexDirection: "row",
                     marginTop: 5,
                     alignItems: "center",
+                    justifyContent: "flex-end",
+                    width: "100%",
+                    marginLeft: 90,
                   }}
                 >
                   <Text
@@ -196,14 +199,40 @@ const MoreDetails = ({ navigation }) => {
                   >
                     Children
                   </Text>
-                  <Counter
-                    start={0}
-                    min={1}
-                    max={2}
-                    buttonTextStyle={{ color: "#124e78" }}
-                    countTextStyle={{ color: "#124e78" }}
-                    buttonStyle={{ borderColor: "#124e78" }}
-                  />
+
+                  <TouchableOpacity
+                    style={{
+                      paddingHorizontal: 15,
+                      paddingVertical: 7,
+                      borderWidth: 1,
+                      borderRadius: 5,
+                      borderColor: "#124e78",
+                    }}
+                    onPress={decreamentChildrenCount}
+                  >
+                    <Text>-</Text>
+                  </TouchableOpacity>
+                  <Text
+                    style={{
+                      color: "#124e78",
+                      fontWeight: "500",
+                      marginHorizontal: 11,
+                    }}
+                  >
+                    {ChildrenCount}
+                  </Text>
+                  <TouchableOpacity
+                    style={{
+                      paddingHorizontal: 15,
+                      paddingVertical: 7,
+                      borderWidth: 1,
+                      borderRadius: 5,
+                      borderColor: "#124e78",
+                    }}
+                    onPress={increamentChildrenCount}
+                  >
+                    <Text>+</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -232,7 +261,7 @@ const MoreDetails = ({ navigation }) => {
                     marginEnd: 10,
                   }}
                 >
-                  {adult} Adult
+                  {AdultCount} Adult
                 </Text>
                 <Text
                   style={{
@@ -241,7 +270,7 @@ const MoreDetails = ({ navigation }) => {
                     color: "#000",
                   }}
                 >
-                  {adult} Children
+                  {ChildrenCount} Children
                 </Text>
               </View>
             </View>
@@ -449,7 +478,7 @@ const MoreDetails = ({ navigation }) => {
           >
             <Text style={styles.textStyles}>Total</Text>
             <Text style={styles.textStyles}>
-              K {Total * (Adultcount + Childrencount)}
+              K {Total * (AdultCount + ChildrenCount)}
             </Text>
           </View>
 
@@ -457,7 +486,7 @@ const MoreDetails = ({ navigation }) => {
             style={AcceptTC ? styles.payButtton : styles.payButttonDisabled}
             onPress={() =>
               navigation.navigate("Payment", {
-                price: Total * (Adultcount + Childrencount),
+                price: Total * (AdultCount + ChildrenCount),
               })
             }
             disabled={!AcceptTC}

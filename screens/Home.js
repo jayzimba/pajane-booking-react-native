@@ -40,7 +40,7 @@ import { QuickBookings } from "./../components/QuickBookings";
 import { Results } from "./Results";
 import MoreDetails from "./MoreDetails";
 import PaymentScreen from "./PaymentScreen";
-
+import Ticket from "./Ticket";
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -48,11 +48,19 @@ export default class Home extends Component {
   render() {
     return (
       <NavigationContainer independent={true}>
-        <StatusBar style="dark" />
+        <StatusBar
+          style="dark"
+          barStyle="light-content"
+          backgroundColor="white"
+          // barStyle="dark-content"
+          hidden={false}
+          animated
+        />
         <AppStack.Navigator screenOptions={{ headerShown: false }}>
           <AppStack.Screen name="Booking" component={Home1} />
           <AppStack.Screen name="MoreDetails" component={MoreDetails} />
           <AppStack.Screen name="Payment" component={PaymentScreen} />
+          <AppStack.Screen name="Ticket" component={Ticket} />
         </AppStack.Navigator>
       </NavigationContainer>
     );

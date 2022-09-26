@@ -29,6 +29,7 @@ const AddressPicker = ({ placeholdeText, label, fetchAddress }) => {
           key: GOOGLE_API_KEY,
           language: "en",
           components: "country:zm",
+          type: "(cities)",
         }}
       />
     </>

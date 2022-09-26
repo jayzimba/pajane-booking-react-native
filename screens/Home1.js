@@ -231,7 +231,7 @@ export default class Home extends Component {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             >
-              {this.state.data.map((item, index) => (
+              {/* {this.state.data.map((item, index) => (
                 <View key={item.id}>
                   <TouchableOpacity
                     onPress={() =>
@@ -246,7 +246,7 @@ export default class Home extends Component {
                     />
                   </TouchableOpacity>
                 </View>
-              ))}
+              ))} */}
             </ScrollView>
           </View>
           <View
