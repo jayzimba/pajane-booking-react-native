@@ -77,8 +77,13 @@ export default class Ticket extends Component {
             </Text>
           </View>
         </View>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={{ marginHorizontal: 10, marginVertical: 10 }}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ marginBottom: 30 }}
+        >
+          <View
+            style={{ marginHorizontal: 10, marginVertical: 10, height: 800 }}
+          >
             <View
               style={{
                 flexDirection: "row",

@@ -10,9 +10,10 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
+import axios from "axios";
 
 const bgImage = require("../assets/zambia.png");
 const google = require("../assets/google.jpeg");
@@ -21,8 +22,33 @@ const logo = require("../assets/family.jpg");
 const SignUpScreen = ({ navigation }) => {
   const [phone, setPhone] = useState("");
   const [name, setName] = useState("");
-  const [address, setAddrss] = useState("");
+  const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
+  const [submit, setSubmit] = useState(false);
+
+  useEffect(() => {
+    const authenticate = async () => {
+      axios
+        .post(
+          "http://172.20.10.4/pajane/register.php",
+          JSON.stringify({
+            fullName: name,
+            address: address,
+            phone: phone,
+            password: password,
+          })
+        )
+        .then((response) => {
+          console.log(response);
+          setSubmit(false);
+          //NAVIGATE USER BASED ON RESPONSE
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    if (submit) authenticate();
+  }, [submit]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -63,8 +89,10 @@ const SignUpScreen = ({ navigation }) => {
             placeholder="Full name"
             fontSize={16}
             marginHorizontal={10}
+            autoCapitalize="none"
             returnKeyType="done"
             keyboardType="default"
+            onChangeText={(fullname) => setName(fullname)}
           />
         </View>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -78,9 +106,11 @@ const SignUpScreen = ({ navigation }) => {
           <TextInput
             placeholder="Address"
             fontSize={16}
+            autoCapitalize="none"
             marginHorizontal={10}
             returnKeyType="done"
             keyboardType="default"
+            onChangeText={(Address) => setAddress(Address)}
           />
         </View>
 
@@ -100,6 +130,7 @@ const SignUpScreen = ({ navigation }) => {
             marginHorizontal={10}
             returnKeyType="done"
             keyboardType="phone-pad"
+            onChangeText={(phone) => setPhone("+260" + phone)}
           />
         </View>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -118,8 +149,10 @@ const SignUpScreen = ({ navigation }) => {
             maxLength={8}
             returnKeyType="done"
             keyboardType="default"
+            autoCapitalize="none"
             secureTextEntry={true}
             width={100}
+            onChangeText={(password) => setPassword(password)}
           />
         </View>
         <View
@@ -174,7 +207,10 @@ const SignUpScreen = ({ navigation }) => {
         >
           <TouchableOpacity
             style={styles.signUpBtn}
-            onPress={() => navigation.navigate("Login")}
+            onPress={() =>
+              // navigation.navigate("Login")
+              setSubmit(true)
+            }
           >
             <Text style={{ fontWeight: "600", fontSize: 18, color: "#fff" }}>
               Sign Up

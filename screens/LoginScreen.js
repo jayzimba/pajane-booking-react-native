@@ -84,6 +84,7 @@ const LoginScreen = ({ navigation }) => {
             marginHorizontal={10}
             maxLength={8}
             returnKeyType="done"
+            autoCapitalize="none"
             keyboardType="default"
             secureTextEntry={true}
             width={100}
