@@ -39,7 +39,6 @@ import {
 } from "@expo/vector-icons";
 import LiveMap from "./screens/LiveMap";
 import Results from "./screens/Results";
-import BookingDetails from "./screens/BookingDetails";
 import Ticket from "./screens/Ticket";
 
 const AppStack = createStackNavigator();
@@ -84,7 +83,6 @@ const App = () => {
           <AppStack.Screen name="SignUp" component={SignUpScreen} />
           <AppStack.Screen name="Home" component={Home} />
           <AppStack.Screen name="Results" component={Results} />
-          <AppStack.Screen name="BookingDetails" component={BookingDetails} />
         </AppStack.Navigator>
       </NavigationContainer>
     );

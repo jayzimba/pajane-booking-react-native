@@ -41,28 +41,53 @@ import { Results } from "./Results";
 import MoreDetails from "./MoreDetails";
 import PaymentScreen from "./PaymentScreen";
 import Ticket from "./Ticket";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const initialState = {
+  from: "Ndola",
+  to: "Lusaka",
+  date: "",
+  bus: "",
+  seat: 0,
+  price: 0,
+  children: 0,
+  adult: 0,
+};
+
+const reducer = (state = initialState, action) => {
+  switch (action.Type) {
+    case "SET_TO":
+      return { to: "Ndola" };
+    case "SET_FROM":
+      return { from: "Lusaka" };
+  }
+  return state;
+};
+const store = createStore(reducer);
 export default class Home extends Component {
   render() {
     return (
-      <NavigationContainer independent={true}>
-        <StatusBar
-          style="dark"
-          barStyle="light-content"
-          backgroundColor="white"
-          // barStyle="dark-content"
-          hidden={false}
-          animated
-        />
-        <AppStack.Navigator screenOptions={{ headerShown: false }}>
-          <AppStack.Screen name="Booking" component={Home1} />
-          <AppStack.Screen name="MoreDetails" component={MoreDetails} />
-          <AppStack.Screen name="Payment" component={PaymentScreen} />
-          <AppStack.Screen name="Ticket" component={Ticket} />
-        </AppStack.Navigator>
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer independent={true}>
+          <StatusBar
+            style="dark"
+            barStyle="light-content"
+            backgroundColor="white"
+            // barStyle="dark-content"
+            hidden={false}
+            animated
+          />
+          <AppStack.Navigator screenOptions={{ headerShown: false }}>
+            <AppStack.Screen name="Booking" component={Home1} />
+            <AppStack.Screen name="MoreDetails" component={MoreDetails} />
+            <AppStack.Screen name="Payment" component={PaymentScreen} />
+            <AppStack.Screen name="Ticket" component={Ticket} />
+          </AppStack.Navigator>
+        </NavigationContainer>
+      </Provider>
     );
   }
 }

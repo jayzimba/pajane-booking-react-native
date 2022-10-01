@@ -18,7 +18,7 @@ import {
 import DashedLine from "react-native-dashed-line";
 import * as Location from "expo-location";
 
-const SearchSection = ({ navigation }) => {
+const SearchSection = (props, { navigation }) => {
   const [town, setTown] = useState();
   useEffect(() => {
     (async () => {
@@ -106,7 +106,7 @@ const SearchSection = ({ navigation }) => {
         {startSerch ? (
           <TextInput
             style={styles.searchInput}
-            onChangeText={onChangePText}
+            onChangeText={props.setFrom}
             placeholderTextColor="#fff"
             selectionColor="#fff"
             color="#fff"
@@ -138,7 +138,7 @@ const SearchSection = ({ navigation }) => {
         {dstartSerch ? (
           <TextInput
             style={styles.searchInput}
-            onChangeText={onChangeDText}
+            onChangeText={props.setTo}
             placeholderTextColor="#fff"
             selectionColor="#fff"
             color="#fff"

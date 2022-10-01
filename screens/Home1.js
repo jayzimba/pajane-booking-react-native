@@ -39,11 +39,12 @@ import {
 import DashedLine from "react-native-dashed-line";
 import { QuickBookings } from "./../components/QuickBookings";
 import { Results } from "./Results";
+import { connect } from "react-redux";
 
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state.date = getFormatedDate(getToday(), "DD MMM,YYYY");
@@ -53,9 +54,6 @@ export default class Home extends Component {
     data: [],
     PajaneCustomerCare: "",
     ResultIsVisible: false,
-    to: "",
-    from: "",
-    date: "",
     isDatePicker: false,
   };
 
@@ -78,14 +76,6 @@ export default class Home extends Component {
     this.setState({ ResultIsVisible: false });
   };
 
-  setTo = (e) => {
-    e.preventDefault();
-    this.setState({ to: e });
-  };
-  setFrom = (e) => {
-    e.preventDefault();
-    this.setState({ from: e });
-  };
   showDatePicker = () => {
     this.setState({ isDatePicker: true });
   };
@@ -177,7 +167,10 @@ export default class Home extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <SearchSection getto={(e) => this.setTo(e)} getfrom={this.setFrom} />
+          <SearchSection
+            setTo={this.props.setTo}
+            setFrom={this.props.setFrom}
+          />
           <DatePickerComponent
             showDatePicker={this.showDatePicker}
             date={this.state.date}
@@ -487,7 +480,32 @@ export default class Home extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    from: state.from,
+    to: state.to,
+    date: state.date,
+    bus: state.bus,
+    seat: state.seat,
+    price: state.price,
+    children: state.children,
+    adult: state.adult,
+  };
+};
 
+const mapDispatchToProps = (dispacth) => {
+  return {
+    setFrom: () => dispacth({ type: "SET_FROM" }),
+    setTo: () => dispacth({ type: "SET_TO" }),
+    setDate: () => dispacth({ type: "SET_DATE" }),
+    setBus: () => dispacth({ type: "SET_BUS" }),
+    setSeat: () => dispacth({ type: "SET_SEAT" }),
+    setPrice: () => dispacth({ type: "SET_PRICE" }),
+    setChildren: () => dispacth({ type: "SET_CHILDREN" }),
+    setAdult: () => dispacth({ type: "SET_ADULT" }),
+  };
+};
+export default connect(mapStateToProps)(Home);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
