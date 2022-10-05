@@ -30,7 +30,7 @@ const SignUpScreen = ({ navigation }) => {
     const authenticate = async () => {
       axios
         .post(
-          "http://172.20.10.4/pajane/register.php",
+          "http://172.20.10.4/pajane/holder.php",
           JSON.stringify({
             fullName: name,
             address: address,

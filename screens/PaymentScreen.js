@@ -223,7 +223,7 @@ const PaymentScreen = ({ navigation }) => {
               }}
             >
               <TextInput
-                placeholder=" have a gift card?"
+                placeholder="card number"
                 maxLength={15}
                 keyboardType="numbers-and-punctuation"
                 style={{

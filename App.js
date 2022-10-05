@@ -73,7 +73,7 @@ const App = () => {
 
   if (isFirstLaunch == null) {
     return null;
-  } else if (isFirstLaunch == false) {
+  } else if (isFirstLaunch == true) {
     return (
       <NavigationContainer>
         <StatusBar style="dark" />
