@@ -54,7 +54,7 @@ const initialState = {
   seat: 0,
   price: 0,
   children: 0,
-  adult: 0,
+  adult: 1,
 };
 
 const reducer = (state = initialState, action) => {
