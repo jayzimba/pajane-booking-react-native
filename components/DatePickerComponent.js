@@ -19,7 +19,7 @@ import DatePicker, {
 export default class DatePickerComponent extends Component {
   constructor(props) {
     super(props);
-    this.state.date = getFormatedDate(getToday(), "DD MM,YYYY");
+    this.state.date = getFormatedDate(getToday(), "DD MMM,YYYY");
   }
 
   state = {

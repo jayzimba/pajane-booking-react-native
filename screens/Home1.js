@@ -11,11 +11,12 @@ import {
   Platform,
   FlatList,
   Alert,
+  TextInput,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React, { useRef, useState, Component } from "react";
+import React, { useRef, useEffect, useState, Component } from "react";
 import Header from "./../components/Header";
 import HeroSection from "../components/HeroSection";
 import SearchSection from "../components/SearchSection";
@@ -26,7 +27,6 @@ import DatePicker, {
   moment,
 } from "react-native-modern-datepicker";
 import { ScrollView } from "react-native-gesture-handler";
-
 import {
   Ionicons,
   Fontisto,
@@ -35,11 +35,14 @@ import {
   EvilIcons,
   MaterialIcons,
   FontAwesome,
+  SimpleLineIcons,
 } from "@expo/vector-icons";
 import DashedLine from "react-native-dashed-line";
+import * as Location from "expo-location";
 import { QuickBookings } from "./../components/QuickBookings";
 import { Results } from "./Results";
 import { connect } from "react-redux";
+import { axios } from "axios";
 
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -55,6 +58,76 @@ class Home extends Component {
     PajaneCustomerCare: "",
     ResultIsVisible: false,
     isDatePicker: false,
+    currentLocation: "Pick up Point",
+    Ptext: "",
+    Dtext: "",
+    startSerch: false,
+    dstartSerch: false,
+    AcceptTC: false,
+  };
+
+  // useEffect(() => {
+  //   (async () => {
+  //     let { status } = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== "granted") {
+  //       setErrorMsg("Permission to access location was denied");
+  //       return;
+  //     }
+
+  //     let location = await Location.getCurrentPositionAsync({});
+  //     const address = await Location.reverseGeocodeAsync(location.coords);
+  //     setTown(address[0].city);
+  //     // console.log(address[0].city);
+  //   })();
+  // }, []);
+
+  setTown = (e) => {
+    e.preventDefault();
+    this.setState({ ResultIsVisible: e });
+  };
+
+  // const [currentLocation, setCurrentLocation] = useState("Pick up Point");
+  // const [destination, setDestination] = useState(town);
+
+  //pick up point
+  showInput = (e) => {
+    e.preventDefault();
+    this.setState({ startSerch: true });
+  };
+  hideInput = (e) => {
+    e.preventDefault();
+    this.setState({ startSerch: false });
+  };
+  updatePickUpPoint = () => {
+    setCurrentLocation();
+  };
+  //drop of point
+  dshowInput = (e) => {
+    e.preventDefault();
+    this.setState({ dstartSerch: true });
+  };
+  dhideInput = (e) => {
+    e.preventDefault();
+    this.setState({ dstartSerch: false });
+  };
+  dupdatePickUpPoint = () => {
+    setDestination();
+  };
+  onChangePText = (e) => {
+    this.setState({ Ptext: e.trim() });
+    if (this.state.Ptext != "" && this.state.Dtext != "") {
+      this.setState({ AcceptTC: true });
+    } else {
+      this.setState({ AcceptTC: false });
+    }
+  };
+  onChangeDText = (e) => {
+    this.setState({ Dtext: e.trim() });
+    if (this.state.Ptext != "" && this.state.Dtext != "") {
+      this.setState({ AcceptTC: true });
+    } else {
+      this.setState({ AcceptTC: false });
+    }
   };
 
   showResults = (e) => {
@@ -70,8 +143,8 @@ class Home extends Component {
     this.props.navigation.navigate("MoreDetails", {
       busName: "powertools",
       price: 300,
-      to: this.state.to,
-      from: this.state.from,
+      to: this.state.Ptext,
+      from: this.state.Dtext,
     });
     this.setState({ ResultIsVisible: false });
   };
@@ -91,7 +164,7 @@ class Home extends Component {
   };
 
   fetchData = async () => {
-    const response = await fetch("http://192.168.8.104:1345/quick_booking");
+    const response = await fetch("http://172.20.10.4:1345/buses");
     const quick_booking = await response.json();
     this.setState({ data: quick_booking });
   };
@@ -106,6 +179,25 @@ class Home extends Component {
     this.setState({ isDatePicker: false });
     e = getFormatedDate(e, "DD MMMYY,YY");
     this.setState({ date: e });
+  };
+
+  getTrips = async () => {
+    axios
+      .post(
+        "http://172.20.10.4/pajane/searchBus.php",
+        JSON.stringify({
+          to: this.state.Ptext,
+          from: this.state.Dtext,
+        })
+      )
+      .then((response) => {
+        console.log(response);
+        setSubmit(false);
+        //NAVIGATE USER BASED ON RESPONSE
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -167,10 +259,97 @@ class Home extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <SearchSection
-            setTo={this.props.setTo}
-            setFrom={this.props.setFrom}
-          />
+          {/* <SearchSection setTo={this.setTo} setFrom={this.setFrom} /> */}
+          <View style={styles.c}>
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                marginVertical: 10,
+              }}
+            >
+              <FontAwesome name="dot-circle-o" size={12} color="white" />
+              <DashedLine
+                axis="vertical"
+                dashLength={5}
+                dashColor="#fff"
+                dashGap={10}
+                style={{ flex: 1, marginVertical: 5 }}
+              />
+
+              <MaterialIcons name="location-on" size={12} color="white" />
+            </View>
+
+            {/*  */}
+
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                marginHorizontal: 10,
+                paddingHorizontal: 1,
+              }}
+            >
+              {this.state.startSerch ? (
+                <TextInput
+                  style={styles.searchInput}
+                  placeholderTextColor="#fff"
+                  onChangeText={(t) => this.onChangePText(t)}
+                  selectionColor="#fff"
+                  color="#fff"
+                  enablesReturnKeyAutomatically
+                  onSubmitEditing={this.hideInput}
+                  autoFocus={true}
+                />
+              ) : (
+                <TouchableOpacity onPress={this.showInput}>
+                  <Text
+                    style={{ color: "#fff", fontSize: 18, fontWeight: "500" }}
+                  >
+                    {this.state.Ptext == ""
+                      ? "pick up point"
+                      : this.state.Ptext}
+                  </Text>
+                </TouchableOpacity>
+              )}
+
+              <View style={{ flexDirection: "row" }}>
+                <DashedLine
+                  dashLength={5}
+                  dashGap={3}
+                  dashColor="#fff"
+                  style={{ flex: 1, marginVertical: 10, marginEnd: 5 }}
+                />
+                <MaterialCommunityIcons
+                  name="swap-vertical-bold"
+                  size={20}
+                  color="white"
+                />
+              </View>
+              {this.state.dstartSerch ? (
+                <TextInput
+                  style={styles.searchInput}
+                  placeholderTextColor="#fff"
+                  selectionColor="#fff"
+                  color="#fff"
+                  onChangeText={(t) => this.onChangeDText(t)}
+                  enablesReturnKeyAutomatically
+                  onSubmitEditing={this.dhideInput}
+                  autoFocus={true}
+                />
+              ) : (
+                <TouchableOpacity onPress={this.dshowInput}>
+                  <Text
+                    style={{ color: "#fff", fontSize: 18, fontWeight: "500" }}
+                  >
+                    {this.state.Dtext == ""
+                      ? "Drop-Off Point"
+                      : this.state.Dtext}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          </View>
           <DatePickerComponent
             showDatePicker={this.showDatePicker}
             date={this.state.date}
@@ -192,8 +371,13 @@ class Home extends Component {
             />
           )}
           <TouchableOpacity
-            style={styles.buttonSearch}
+            style={
+              this.state.AcceptTC
+                ? styles.searchButtton
+                : styles.searchButttonDisabled
+            }
             onPress={this.showResults}
+            disabled={!this.state.AcceptTC}
           >
             <Text style={{ color: "#fff", fontSize: 20, fontWeight: "500" }}>
               Find Bus
@@ -204,8 +388,8 @@ class Home extends Component {
               visible={this.state.ResultIsVisible}
               closeModal={this.closeShowResults}
               bookingdetails={this.bookingdetails}
-              to={this.state.to}
-              from={this.state.from}
+              to={this.state.Dtext}
+              from={this.state.Ptext}
               //from and to props
             />
           )}
@@ -224,7 +408,7 @@ class Home extends Component {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             >
-              {/* {this.state.data.map((item, index) => (
+              {this.state.data.map((item, index) => (
                 <View key={item.id}>
                   <TouchableOpacity
                     onPress={() =>
@@ -232,14 +416,15 @@ class Home extends Component {
                     }
                   >
                     <QuickBookings
-                      from={item.pickup}
-                      destination={item.destination}
+                      from={item.pick_up}
+                      destination={item.drop_point}
                       fee={item.price}
-                      busName={item.bus}
+                      station={item.station}
+                      busName={item.name}
                     />
                   </TouchableOpacity>
                 </View>
-              ))} */}
+              ))}
             </ScrollView>
           </View>
           <View
@@ -535,5 +720,37 @@ const styles = StyleSheet.create({
     height: 200,
     alignItems: "center",
     resizeMode: "center",
+  },
+  c: {
+    height: 120,
+    flexDirection: "row",
+    width: "100%",
+    backgroundColor: "#124e78",
+    borderRadius: 10,
+    padding: 10,
+    marginTop: 8,
+  },
+  searchInput: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "500",
+  },
+  searchButtton: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 15,
+    marginVertical: 10,
+    backgroundColor: "#05C25D",
+    borderRadius: 10,
+  },
+  searchButttonDisabled: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 15,
+    marginVertical: 10,
+    backgroundColor: "#a5a5a5",
+    borderRadius: 10,
   },
 });

@@ -47,7 +47,7 @@ const SearchSection = (props, { navigation }) => {
   const showInput = () => {
     setStartSearch(true);
   };
-  const hideInput = () => {
+  const hideInput = (e) => {
     setStartSearch(false);
   };
   const updatePickUpPoint = () => {
@@ -57,7 +57,7 @@ const SearchSection = (props, { navigation }) => {
   const dshowInput = () => {
     setdStartSearch(true);
   };
-  const dhideInput = () => {
+  const dhideInput = (e) => {
     setdStartSearch(false);
   };
   const dupdatePickUpPoint = () => {
@@ -106,8 +106,8 @@ const SearchSection = (props, { navigation }) => {
         {startSerch ? (
           <TextInput
             style={styles.searchInput}
-            onChangeText={props.setFrom}
             placeholderTextColor="#fff"
+            onChangeText={(t) => onChangePText(t)}
             selectionColor="#fff"
             color="#fff"
             enablesReturnKeyAutomatically
@@ -138,10 +138,10 @@ const SearchSection = (props, { navigation }) => {
         {dstartSerch ? (
           <TextInput
             style={styles.searchInput}
-            onChangeText={props.setTo}
             placeholderTextColor="#fff"
             selectionColor="#fff"
             color="#fff"
+            onChangeText={(t) => onChangeDText(t)}
             enablesReturnKeyAutomatically
             onSubmitEditing={dhideInput}
             autoFocus={true}
