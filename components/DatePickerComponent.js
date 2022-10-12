@@ -44,7 +44,7 @@ export default class DatePickerComponent extends Component {
           />
           <TouchableOpacity onPress={this.props.showDatePicker}>
             <Text style={{ color: "#fff", fontSize: 14 }}>
-              departure date - {this.props.date}
+              departure date: {this.props.date}
             </Text>
           </TouchableOpacity>
         </View>

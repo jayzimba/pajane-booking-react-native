@@ -50,7 +50,7 @@ const Tab = createBottomTabNavigator();
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state.date = getFormatedDate(getToday(), "DD MMM,YYYY");
+    this.state.date = getFormatedDate(getToday(), "YYYY-MM-DD");
   }
 
   state = {
@@ -177,7 +177,7 @@ class Home extends Component {
   };
   setSelectedDate = (e) => {
     this.setState({ isDatePicker: false });
-    e = getFormatedDate(e, "DD MMMYY,YY");
+    e = getFormatedDate(e, "YYYY-MM-DD");
     this.setState({ date: e });
   };
 
@@ -390,6 +390,7 @@ class Home extends Component {
               bookingdetails={this.bookingdetails}
               to={this.state.Dtext}
               from={this.state.Ptext}
+              date={this.state.date}
               //from and to props
             />
           )}

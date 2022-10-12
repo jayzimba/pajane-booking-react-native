@@ -27,32 +27,62 @@ import {
   SimpleLineIcons,
 } from "@expo/vector-icons";
 import Bus from "../components/Bus";
+import axios from "axios";
 export class Results extends Component {
+  constructor(props) {
+    super(props);
+
+    this.setState({
+      to: this.props.to,
+      from: this.props.from,
+      date: this.props.date,
+    });
+  }
+
+  state = {
+    trips: [],
+    isLoading: false,
+    to: this.props.to,
+    from: this.props.from,
+    date: this.props.date,
+  };
+
   fetchData = async () => {
-    const response = await fetch("http://172.20.10.4:1345/buses");
-    const quick_booking = await response.json();
-    this.setState({ trips: quick_booking });
+    var formdata = new FormData();
+    formdata.append("from", this.state.from);
+    formdata.append("to", this.state.to);
+    formdata.append("date", this.state.date);
+
+    var requestOptions = {
+      method: "POST",
+      body: formdata,
+      redirect: "follow",
+    };
+
+    fetch("http://172.20.10.4/pajane/searchBus.php", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result == "No trip found") {
+          this.setState({ trips: [] });
+        } else {
+          this.setState({ trips: result });
+        }
+      })
+      .catch((error) => console.log("error", error))
+      .finally(() => this.setState({ isLoading: false }));
   };
   componentDidMount() {
     this.setState({ isLoading: true }, this._getData);
   }
   _getData = () => {
     setTimeout(() => {
-      this.setState({ isLoading: false });
+      // this.setState({ isLoading: false });
       this.fetchData();
     }, 2000);
   };
 
-  constructor(props) {
-    super(props);
-  }
-
-  state = {
-    trips: [],
-    isLoading: false,
-  };
-
   render() {
+    let { items, isLoading } = this.state;
     return (
       <Modal visible={this.props.ResultIsVisible} animationType="slide">
         <SafeAreaView style={styles.mainContainer}>
@@ -102,7 +132,7 @@ export class Results extends Component {
             </TouchableOpacity>
           </View>
 
-          <View style={{ paddingTop: 5, marginBottom: 90 }}>
+          <View style={{ paddingTop: 5, height: "100%" }}>
             {this.state.isLoading ? (
               <ActivityIndicator
                 size="large"
@@ -116,7 +146,7 @@ export class Results extends Component {
               />
             ) : (
               <FlatList
-                bounces={false}
+                // bounces={false}
                 data={this.state.trips}
                 keyExtractor={(item, index) => item.id.toString()}
                 ListEmptyComponent={() => {
@@ -145,21 +175,21 @@ export class Results extends Component {
                   );
                 }}
                 renderItem={({ item, index }) => (
-                  // <Pressable onPress={this.props.bookingdetails}>
                   <Bus
-                    busName={item.name}
-                    from={item.pick_up}
-                    to={item.drop_point}
+                    busName={item.OperatorName}
+                    from={item.From}
+                    to={item.To}
                     date={item.date}
                     station={item.station}
-                    seats={item.available_seats}
+                    seats={item.seats - item.seatsBooked}
                     price={item.price}
                     clicked={(item) => this.props.bookingdetails(item)}
                   />
                   // </Pressable>
                 )}
                 keyExtractor={(item) => item.id}
-                ite
+                refreshing={isLoading}
+                onRefresh={this._getData}
               />
             )}
           </View>

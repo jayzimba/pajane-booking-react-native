@@ -84,7 +84,7 @@ export default class Bus extends Component {
                   marginTop: 10,
                 }}
               >
-                InterCity
+                {this.props.station}
               </Text>
             </View>
             <View style={{ marginEnd: 10 }}>
