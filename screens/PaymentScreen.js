@@ -7,13 +7,14 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Header from "./../components/Header";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Mobile from "./../components/Mobile";
 import CollapsibleView from "@eliav2/react-native-collapsible-view";
 import { color } from "react-native-reanimated";
 import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
+import { BookingDone } from "./BookingDone";
 import { useRoute } from "@react-navigation/native";
 const slides = {
   card: require("../assets/vmc.jpeg"),
@@ -22,6 +23,15 @@ const slides = {
 };
 
 const PaymentScreen = ({ navigation }) => {
+  const [ResultIsVisible, setResultIsVisible] = useState(false);
+
+  const showBookingDone = () => {
+    setResultIsVisible((prev) => true);
+  };
+
+  const closeShowResults = () => {
+    setResultIsVisible((prev) => false);
+  };
   const route = useRoute();
   return (
     <SafeAreaView style={styles.container}>
@@ -326,7 +336,7 @@ const PaymentScreen = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.payButtton}
-          onPress={() => navigation.navigate("Ticket")}
+          onPress={() => setResultIsVisible(true)}
         >
           <Ionicons name="cash" size={24} color="white" />
           <Text
@@ -340,6 +350,16 @@ const PaymentScreen = ({ navigation }) => {
             Pay Now
           </Text>
         </TouchableOpacity>
+
+        {ResultIsVisible && (
+          <BookingDone
+            visible={ResultIsVisible}
+            closeModal={() => {
+              setResultIsVisible(false);
+              navigation.navigate("Booking");
+            }}
+          />
+        )}
       </ScrollView>
     </SafeAreaView>
   );

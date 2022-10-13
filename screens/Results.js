@@ -175,17 +175,19 @@ export class Results extends Component {
                   );
                 }}
                 renderItem={({ item, index }) => (
-                  <Bus
-                    busName={item.OperatorName}
-                    from={item.From}
-                    to={item.To}
-                    date={item.date}
-                    station={item.station}
-                    seats={item.seats - item.seatsBooked}
-                    price={item.price}
-                    clicked={(item) => this.props.bookingdetails(item)}
-                  />
-                  // </Pressable>
+                  <TouchableOpacity
+                    onPress={(item) => this.props.bookingdetails(item)}
+                  >
+                    <Bus
+                      busName={item.OperatorName}
+                      from={item.From}
+                      to={item.To}
+                      date={item.date}
+                      station={item.station}
+                      seats={item.seats - item.seatsBooked}
+                      price={item.price}
+                    />
+                  </TouchableOpacity>
                 )}
                 keyExtractor={(item) => item.id}
                 refreshing={isLoading}

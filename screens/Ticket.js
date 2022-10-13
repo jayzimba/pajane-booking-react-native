@@ -45,7 +45,7 @@ export default class Ticket extends Component {
       >
         <MaterialIcons name="bus-alert" size={200} color="#dedede" />
         <Text style={{ marginStart: -20, fontSize: 16, color: "#8d8d8d8d" }}>
-          You Have No Ongoing Trip {this.state.data.length}
+          Booking history is empty
         </Text>
       </View>
     ) : (

@@ -24,7 +24,7 @@ import {
 export default class Bus extends Component {
   render() {
     return (
-      <TouchableOpacity
+      <View
         style={{
           backgroundColor: "white",
           padding: 5,
@@ -39,7 +39,6 @@ export default class Bus extends Component {
           },
           shadowOpacity: 0.2,
         }}
-        onPress={this.props.clicked}
       >
         <View style={{ backgroundColor: "white", padding: 1 }}>
           <Text
@@ -167,7 +166,7 @@ export default class Bus extends Component {
             </View>
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   }
 }

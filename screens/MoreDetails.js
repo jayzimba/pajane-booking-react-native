@@ -355,7 +355,7 @@ const MoreDetails = ({ navigation }) => {
                       color: "#fff",
                     }}
                   >
-                    24
+                    {route.params.seatsAvailable}
                   </Text>
                 </View>
               </View>

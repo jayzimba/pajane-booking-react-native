@@ -13,7 +13,7 @@ import {
   Alert,
   TextInput,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useRoute } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, { useRef, useEffect, useState, Component } from "react";
@@ -64,6 +64,7 @@ class Home extends Component {
     startSerch: false,
     dstartSerch: false,
     AcceptTC: false,
+    routeReceiver: null,
   };
 
   // useEffect(() => {
@@ -139,12 +140,14 @@ class Home extends Component {
     this.setState({ ResultIsVisible: false });
   };
 
+  // navigation to more details screen
   bookingdetails = (e) => {
     this.props.navigation.navigate("MoreDetails", {
-      busName: "powertools",
+      busName: "Powr tools",
       price: 300,
       to: this.state.Ptext,
       from: this.state.Dtext,
+      seatsAvailable: 34,
     });
     this.setState({ ResultIsVisible: false });
   };
@@ -201,6 +204,9 @@ class Home extends Component {
   };
 
   render() {
+    const route = this.props.route.params;
+    this.state.routeReceiver = route;
+
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" />
