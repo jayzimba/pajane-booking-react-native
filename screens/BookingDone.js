@@ -30,6 +30,7 @@ import {
 } from "@expo/vector-icons";
 import Bus from "../components/Bus";
 import axios from "axios";
+
 const transit = require("../assets/notInTransit.png");
 const qrcode = require("../assets/qrcode_sample.png");
 const waterMark = require("../assets/paidWaterMark.png");
