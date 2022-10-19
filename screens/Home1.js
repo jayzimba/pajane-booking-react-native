@@ -39,10 +39,12 @@ import {
 } from "@expo/vector-icons";
 import DashedLine from "react-native-dashed-line";
 import * as Location from "expo-location";
+
 import { QuickBookings } from "./../components/QuickBookings";
 import { Results } from "./Results";
 import { connect } from "react-redux";
 import { axios } from "axios";
+import YourCity from "./../components/YourCity";
 
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -58,37 +60,38 @@ class Home extends Component {
     PajaneCustomerCare: "",
     ResultIsVisible: false,
     isDatePicker: false,
-    currentLocation: "Pick up Point",
+    currentLocation: "Pick up Point ",
     Ptext: "",
     Dtext: "",
     startSerch: false,
     dstartSerch: false,
     AcceptTC: false,
     routeReceiver: null,
+    locationPicked: {},
+    errorOnPermission: "",
   };
-
-  // useEffect(() => {
-  //   (async () => {
-  //     let { status } = await Location.requestForegroundPermissionsAsync();
-  //     if (status !== "granted") {
-  //       setErrorMsg("Permission to access location was denied");
-  //       return;
-  //     }
-
-  //     let location = await Location.getCurrentPositionAsync({});
-  //     const address = await Location.reverseGeocodeAsync(location.coords);
-  //     setTown(address[0].city);
-  //     // console.log(address[0].city);
-  //   })();
-  // }, []);
 
   setTown = (e) => {
     e.preventDefault();
     this.setState({ ResultIsVisible: e });
   };
 
-  // const [currentLocation, setCurrentLocation] = useState("Pick up Point");
-  // const [destination, setDestination] = useState(town);
+  _getLocation = async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      this.setState({
+        errorOnPermission: "Permission to access location was denied",
+      });
+      console.log("PERMISSION NOT GRANTED");
+      return;
+    } else {
+      console.log("PERMISSION GRANTED");
+    }
+
+    const location = await Location.getCurrentPositionAsync({});
+    this.setState({ locationPicked: location });
+    console.log(locationPicked);
+  };
 
   //pick up point
   showInput = (e) => {
@@ -167,12 +170,16 @@ class Home extends Component {
   };
 
   fetchData = async () => {
-    const response = await fetch("http://172.20.10.4:1345/buses");
+    const response = await fetch("http://172.20.10.6:1345/buses");
     const quick_booking = await response.json();
     this.setState({ data: quick_booking });
   };
   componentDidMount() {
     this.fetchData();
+  }
+
+  componentWillUnmount() {
+    this._getLocation();
   }
 
   getDateData = (e) => {
@@ -212,6 +219,8 @@ class Home extends Component {
         <StatusBar barStyle="dark-content" />
         <View style={{ marginHorizontal: 10 }}>
           <Header />
+          <YourCity />
+          <Text>{JSON.stringify(this.state.locationPicke)}</Text>
         </View>
         <ScrollView
           nestedScrollEnabled={false}

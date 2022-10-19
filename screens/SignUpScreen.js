@@ -63,7 +63,7 @@ export class SignUpScreen extends Component {
         redirect: "follow",
       };
 
-      fetch("http://172.20.10.4/pajane/signUp.php", requestOptions)
+      fetch("http://172.20.10.6/pajane/signUp.php", requestOptions)
         .then((Response) => Response.json())
         .then((Response) => {
           alert(Response[0].Message);

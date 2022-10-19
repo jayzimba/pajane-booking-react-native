@@ -59,7 +59,7 @@ export class Results extends Component {
       redirect: "follow",
     };
 
-    fetch("http://172.20.10.4/pajane/searchBus.php", requestOptions)
+    fetch("http://172.20.10.6/pajane/searchBus.php", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result == "No trip found") {
