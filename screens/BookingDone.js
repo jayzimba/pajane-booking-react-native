@@ -30,6 +30,7 @@ import {
 } from "@expo/vector-icons";
 import Bus from "../components/Bus";
 import axios from "axios";
+import * as Animatable from "react-native-animatable";
 
 const transit = require("../assets/notInTransit.png");
 const qrcode = require("../assets/qrcode_sample.png");
@@ -66,9 +67,15 @@ export class BookingDone extends Component {
               >
                 <TouchableOpacity
                   onPress={this.props.closeModal}
-                  style={{ marginRight: 10 }}
+                  style={{
+                    marginRight: 10,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    flexDirection: "row",
+                  }}
                 >
                   <Ionicons name="chevron-back" size={24} color="black" />
+                  <Text style={{ fontSize: 16, fontWeight: "700" }}>Home</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -485,6 +492,39 @@ export class BookingDone extends Component {
                         </View>
                       </View>
                     </View>
+                    <TouchableOpacity onPress={this.props.busTracking}>
+                      <Animatable.View
+                        animation="rubberBand"
+                        duration={1500}
+                        iterationCount={10}
+                        iterationDelay={7000}
+                        style={{
+                          backgroundColor: "#05C25D",
+                          borderRadius: 5,
+                          justifyContent: "center",
+                          alignItems: "center",
+                          marginHorizontal: 40,
+                          marginVertical: 10,
+                          padding: 10,
+                        }}
+                      >
+                        <MaterialIcons
+                          name="track-changes"
+                          size={24}
+                          color="white"
+                        />
+                        <Text
+                          style={{
+                            color: "#fff",
+                            fontSize: 18,
+                            fontWeight: "800",
+                            marginVertical: 5,
+                          }}
+                        >
+                          Track Your Bus Now
+                        </Text>
+                      </Animatable.View>
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>

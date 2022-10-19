@@ -32,6 +32,13 @@ const PaymentScreen = ({ navigation }) => {
   const closeShowResults = () => {
     setResultIsVisible((prev) => false);
   };
+
+  const goToTracking = () => {
+    console.log("am clicked");
+    setResultIsVisible(false);
+    navigation.navigate("Booking");
+    navigation.navigate("TrackBus");
+  };
   const route = useRoute();
   return (
     <SafeAreaView style={styles.container}>
@@ -358,6 +365,7 @@ const PaymentScreen = ({ navigation }) => {
               setResultIsVisible(false);
               navigation.navigate("Booking");
             }}
+            busTracking={goToTracking}
           />
         )}
       </ScrollView>

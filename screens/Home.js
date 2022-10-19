@@ -44,6 +44,7 @@ import Ticket from "./Ticket";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { BookingDone } from "./BookingDone";
+import TrackBus from "./TrackBus";
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -87,6 +88,7 @@ export default class Home extends Component {
             <AppStack.Screen name="Payment" component={PaymentScreen} />
             <AppStack.Screen name="Ticket" component={Ticket} />
             <AppStack.Screen name="BookingDone" component={BookingDone} />
+            <AppStack.Screen name="TrackBus" component={TrackBus} />
           </AppStack.Navigator>
         </NavigationContainer>
       </Provider>

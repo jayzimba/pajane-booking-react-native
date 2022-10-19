@@ -8,6 +8,8 @@ import {
   Dimensions,
   TouchableOpacity,
   Modal,
+  Animated,
+  Easing,
   TouchableHighlight,
   Alert,
 } from "react-native";
@@ -28,6 +30,8 @@ import QuickBookings from "../components/QuickBookings";
 
 const LiveMap = ({ navigation }, props) => {
   const [data, setData] = useState([]);
+  const [time, setTime] = useState(0);
+  const [distance, setTDistance] = useState(0);
 
   const fetchData = async () => {
     const response = await fetch("http://192.168.8.102:1345/quick_booking");
@@ -63,7 +67,7 @@ const LiveMap = ({ navigation }, props) => {
   const { width, height } = Dimensions.get("window");
   const [location, setLocation] = useState(null);
   const ASPECT_RATIO = width / height;
-  const LATITUDE_DELTA = 0.02;
+  const LATITUDE_DELTA = 0.04;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
   const [INITIAL_POSITION, SetINITIAL_POSITION] = useState(null);
 
@@ -117,7 +121,7 @@ const LiveMap = ({ navigation }, props) => {
       },
     });
   };
-  const fetchDestinationCoords = (lat, lng) => {
+  const fetchDestinationCoords = async (lat, lng) => {
     // console.log("latitude: ", lat);
     // console.log("longitude: ", lng);
 
@@ -189,6 +193,12 @@ const LiveMap = ({ navigation }, props) => {
           label="Drop point"
           onPlaceSelected={() => {}}
         />
+        {time != 1 && distance != 1 ? (
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ marginEnd: 20 }}>Time: {9}</Text>
+            <Text>Distance: {9}</Text>
+          </View>
+        ) : null}
         <TouchableOpacity
           style={{
             justifyContent: "center",
