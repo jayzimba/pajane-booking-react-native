@@ -19,7 +19,7 @@ const HeroSection = ({ navigation }) => {
         }}
       >
         <View>
-          <Text style={{ fontWeight: "bold", color: "#000", fontSize: 18 }}>
+          <Text style={{ fontWeight: "bold", color: "#000", fontSize: 1 }}>
             Search for Bus Ticket
           </Text>
         </View>

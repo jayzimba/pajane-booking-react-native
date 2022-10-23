@@ -247,6 +247,7 @@ export class SignUpScreen extends Component {
               style={styles.signUpBtn}
               onPress={() => {
                 this.RegDataInDB();
+                navigation.navigate("SignUp");
               }}
             >
               <Text style={{ fontWeight: "600", fontSize: 18, color: "#fff" }}>
