@@ -169,14 +169,11 @@ class Home extends Component {
     Linking.openURL(PajaneCustomerCare);
   };
 
-  fetchData = async () => {
-    const response = await fetch("http://172.20.10.6:1345/buses");
-    const quick_booking = await response.json();
-    this.setState({ data: quick_booking });
-  };
-  componentDidMount() {
-    this.fetchData();
-  }
+  // fetchData = async () => {
+  //   const response = await fetch("http://172.20.10.4:1345/buses");
+  //   const quick_booking = await response.json();
+  //   this.setState({ data: quick_booking });
+  // };
 
   componentWillUnmount() {
     this._getLocation();
@@ -191,25 +188,34 @@ class Home extends Component {
     this.setState({ date: e });
   };
 
-  getTrips = async () => {
-    axios
-      .post(
-        "http://172.20.10.4/pajane/searchBus.php",
-        JSON.stringify({
-          to: this.state.Ptext,
-          from: this.state.Dtext,
-        })
-      )
-      .then((response) => {
-        console.log(response);
-        setSubmit(false);
-        //NAVIGATE USER BASED ON RESPONSE
+  fetchDataQuickBookings = async () => {
+    var formdata = new FormData();
+    formdata.append("from", "Ndola");
+    formdata.append("date", getFormatedDate(getToday(), "YYYY-MM-DD"));
+
+    var requestOptions = {
+      method: "POST",
+      body: formdata,
+      redirect: "follow",
+    };
+
+    fetch("http://172.20.10.4/pajane/fetchQuickBooking.php", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result == "No trip found") {
+          this.setState({ data: [] });
+        } else {
+          this.setState({ data: result });
+          console.log("quick bopoking found");
+        }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((error) => console.log("error", error))
+      .finally(() => this.setState({ isLoading: false }));
   };
 
+  componentDidMount() {
+    this.fetchDataQuickBookings();
+  }
   render() {
     const route = this.props.route.params;
     this.state.routeReceiver = route;
@@ -426,19 +432,15 @@ class Home extends Component {
             >
               {this.state.data.map((item, index) => (
                 <View key={item.id}>
-                  <TouchableOpacity
-                    onPress={() =>
-                      this.props.navigation.navigate("BookingDetails")
-                    }
-                  >
-                    <QuickBookings
-                      from={item.pick_up}
-                      destination={item.drop_point}
-                      fee={item.price}
-                      station={item.station}
-                      busName={item.name}
-                    />
-                  </TouchableOpacity>
+                  <QuickBookings
+                    from={item.From}
+                    to={item.To}
+                    fee={item.price}
+                    station={item.station}
+                    busName={item.OperatorName}
+                    nav = {this.props.navigation}
+                    seatsAvailable = {item.seats - item.seatsBooked}
+                  />
                 </View>
               ))}
             </ScrollView>

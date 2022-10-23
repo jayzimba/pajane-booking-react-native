@@ -28,7 +28,7 @@ export default function YourCity() {
     text = errorMsg;
   } else if (location) {
     text = JSON.stringify(location);
-    console.log(address);
+    // console.log(address);
   }
 
   return (

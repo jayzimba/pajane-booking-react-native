@@ -40,6 +40,7 @@ import {
 import LiveMap from "./screens/LiveMap";
 import Results from "./screens/Results";
 import Ticket from "./screens/Ticket";
+import MoreDetails from './screens/MoreDetails';
 
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -83,6 +84,7 @@ const App = () => {
           <AppStack.Screen name="SignUp" component={SignUpScreen} />
           <AppStack.Screen name="Home" component={Home} />
           <AppStack.Screen name="Results" component={Results} />
+          <AppStack.Screen name="MoreDetails" component={MoreDetails} />
         </AppStack.Navigator>
       </NavigationContainer>
     );

@@ -71,7 +71,8 @@ export class QuickBookings extends PureComponent {
 
         <TouchableOpacity
           style={styles.buttonSearch2}
-          onPress={this.props.nextPage}
+          onPress={()=>this.props.nav.navigate("MoreDetails", 
+          {"price": this.props.fee, "busName": this.props.busName, "from": this.props.from, "to": this.props.to, "seatsAvailable": this.props.seatsAvailable})}
         >
           <Text style={{ color: "#05C25D", fontSize: 18, fontWeight: "600" }}>
             Book

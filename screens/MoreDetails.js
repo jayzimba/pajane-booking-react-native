@@ -22,12 +22,14 @@ import { AdultSlice } from "../features/AdultSlice";
 const MoreDetails = ({ navigation }) => {
   const route = useRoute();
 
-  const [remindMe, setRemindMe] = useState(false);
   const [AcceptTC, setAcceptTC] = useState(false);
   const [Total, setTotal] = useState(route.params.price);
 
   const [AdultCount, setAdultCount] = useState(1);
   const [ChildrenCount, setChildrenCount] = useState(0);
+
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   const increamentAdultCount = () => {
     if (AdultCount >= 5) {
@@ -61,9 +63,6 @@ const MoreDetails = ({ navigation }) => {
 
   const changeTC = (value) => {
     setAcceptTC(value);
-  };
-  const toggleReminder = () => {
-    setRemindMe(!remindMe);
   };
 
   return (
@@ -298,7 +297,7 @@ const MoreDetails = ({ navigation }) => {
                       color: "#000",
                     }}
                   >
-                    {"Lusaka"} {" -> "} {"Ndola"}
+                    {route.params.from} {" -> "} {route.params.to}
                   </Text>
                   <Text
                     style={{
@@ -395,10 +394,11 @@ const MoreDetails = ({ navigation }) => {
                 </Text>
                 <View pointerEvents="none">
                   <Switch
-                    onValueChange={toggleReminder}
-                    value={remindMe}
-                    trackColor={{ true: "#05C25D", false: "grey" }}
-                    thumbColor="#124e78"
+                    trackColor={{ false: "#767577", true: "#81b0ff" }}
+                    thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={toggleSwitch}
+                    value={isEnabled}
                   />
                 </View>
               </View>
