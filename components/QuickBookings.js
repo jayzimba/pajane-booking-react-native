@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground } from "react-native";
 import React, { PureComponent } from "react";
 import {
   Ionicons,
@@ -14,16 +14,26 @@ export class QuickBookings extends PureComponent {
     return (
       <View
         style={{
-          height: 130,
-          width: 130,
-          borderLeftWidth: 0.5,
-          borderColor: "#dddddd",
+          width: 170,
           paddingHorizontal: 10,
-          marginEnd: 20,
+          marginEnd: 15,
           paddingVertical: 10,
           marginBottom: 30,
+          backgroundColor:"#f3f3f3",
+          borderRadius: 15,
+          shadowColor:"#000",
+          shadowOpacity: 0.4,
+          shadowOffset:{
+            height:2,
+            width:0
+          },
+          elevation: 5
         }}
       >
+
+          <ImageBackground source={require("../assets/bus-png-40029.png")} resizeMode="contain" style={{ height: 100 }}>
+
+          </ImageBackground>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <FontAwesome name="dot-circle-o" size={12} color="#124e78" />
           <Text
@@ -45,7 +55,7 @@ export class QuickBookings extends PureComponent {
               marginHorizontal: 5,
             }}
           >
-            {this.props.destination}
+            {this.props.to}
           </Text>
         </View>
         <Text
@@ -71,8 +81,15 @@ export class QuickBookings extends PureComponent {
 
         <TouchableOpacity
           style={styles.buttonSearch2}
-          onPress={()=>this.props.nav.navigate("MoreDetails", 
-          {"price": this.props.fee, "busName": this.props.busName, "from": this.props.from, "to": this.props.to, "seatsAvailable": this.props.seatsAvailable})}
+          onPress={() =>
+            this.props.nav.navigate("MoreDetails", {
+              price: this.props.fee,
+              busName: this.props.busName,
+              from: this.props.from,
+              to: this.props.to,
+              seatsAvailable: this.props.seatsAvailable,
+            })
+          }
         >
           <Text style={{ color: "#05C25D", fontSize: 18, fontWeight: "600" }}>
             Book

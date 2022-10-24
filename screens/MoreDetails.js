@@ -28,8 +28,7 @@ const MoreDetails = ({ navigation }) => {
   const [AdultCount, setAdultCount] = useState(1);
   const [ChildrenCount, setChildrenCount] = useState(0);
 
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const [remindMe, setRemindMe] = useState(false);
 
   const increamentAdultCount = () => {
     if (AdultCount >= 5) {
@@ -392,13 +391,13 @@ const MoreDetails = ({ navigation }) => {
                 >
                   Remind me before bus arrival
                 </Text>
-                <View pointerEvents="none">
+                <View>
                   <Switch
-                    trackColor={{ false: "#767577", true: "#81b0ff" }}
-                    thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                    trackColor={{ false: "#f4f3f4", true: "#f4f3f4" }}
+                    thumbColor={"#05C25D"}
                     ios_backgroundColor="#3e3e3e"
-                    onValueChange={toggleSwitch}
-                    value={isEnabled}
+                    onValueChange={() => setRemindMe(!remindMe)}
+                    value={remindMe}
                   />
                 </View>
               </View>

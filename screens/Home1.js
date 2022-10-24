@@ -438,8 +438,8 @@ class Home extends Component {
                     fee={item.price}
                     station={item.station}
                     busName={item.OperatorName}
-                    nav = {this.props.navigation}
-                    seatsAvailable = {item.seats - item.seatsBooked}
+                    nav={this.props.navigation}
+                    seatsAvailable={item.seats - item.seatsBooked}
                   />
                 </View>
               ))}

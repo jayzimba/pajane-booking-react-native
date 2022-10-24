@@ -6,6 +6,9 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Modal,
+  Button,
+  TextInputComponent,
 } from "react-native";
 import React, { useState } from "react";
 import Header from "./../components/Header";
@@ -13,9 +16,15 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Mobile from "./../components/Mobile";
 import CollapsibleView from "@eliav2/react-native-collapsible-view";
 import { color } from "react-native-reanimated";
-import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
+import {
+  MaterialCommunityIcons,
+  FontAwesome5,
+  Entypo,
+  EvilIcons,
+} from "@expo/vector-icons";
 import { BookingDone } from "./BookingDone";
 import { useRoute } from "@react-navigation/native";
+import * as Animatable from "react-native-animatable";
 const slides = {
   card: require("../assets/vmc.jpeg"),
   airtel: require("../assets/airtel.jpg"),
@@ -24,6 +33,9 @@ const slides = {
 
 const PaymentScreen = ({ navigation }) => {
   const [ResultIsVisible, setResultIsVisible] = useState(false);
+  const [isVisible, setisVisible] = useState(false);
+  const [mobileMoneyOption, setMobileMoneyOption] = useState("");
+  const [mobileMoneyNumber, setMobileMoneyNumber] = useState("");
 
   const showBookingDone = () => {
     setResultIsVisible((prev) => true);
@@ -335,11 +347,112 @@ const PaymentScreen = ({ navigation }) => {
             marginVertical: 20,
           }}
         >
-          Other Payment Options
+          Pay using
         </Text>
 
-        <Mobile imageUri={slides.airtel} headingPayment="Airtel Money" />
-        <Mobile imageUri={slides.mtn} headingPayment="MTN Money" />
+        <Modal
+          animationType={"slide"}
+          transparent={false}
+          visible={isVisible}
+          onRequestClose={() => {
+            console.log("Modal has been closed.");
+          }}
+        >
+          <EvilIcons
+            name="arrow-left"
+            size={35}
+            color="black"
+            onPress={() => setisVisible(!isVisible)}
+            style={{
+              margin: 10,
+            }}
+          />
+          {/*All views of Modal*/}
+          <SafeAreaView style={styles.modal}>
+            <Text style={styles.text}>
+              Enter Your {mobileMoneyOption} Number
+            </Text>
+            <Animatable.View
+              animation="fadeInUp"
+              duration={1000}
+              style={{ width: "100%" }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: 20,
+                }}
+              >
+                <View style={styles.line}></View>
+                <Entypo
+                  name="phone"
+                  size={20}
+                  color="black"
+                  style={{ marginHorizontal: 5 }}
+                />
+                <Text style={{ marginLeft: 5, fontSize: 18 }}>+260</Text>
+                <TextInput
+                  placeholder="Enter your mobile number"
+                  fontSize={16}
+                  maxLength={9}
+                  marginHorizontal={10}
+                  returnKeyType="done"
+                  keyboardType="phone-pad"
+                  onChangeText={(phone) =>
+                    setMobileMoneyNumber("+260 " + phone.toString())
+                  }
+                />
+              </View>
+
+              <TouchableOpacity
+                title="Click To Close Modal"
+                onPress={() => {
+                  setisVisible(!isVisible);
+                }}
+                style={styles.payButtton}
+              >
+                <Ionicons name="cash" size={24} color="white" />
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 22,
+                    fontWeight: "700",
+                    marginLeft: 10,
+                  }}
+                >
+                  Pay Now
+                </Text>
+              </TouchableOpacity>
+            </Animatable.View>
+          </SafeAreaView>
+        </Modal>
+        <TouchableOpacity
+          onPress={() => {
+            setisVisible(!isVisible);
+            setMobileMoneyOption("Airtel Money");
+          }}
+        >
+          <Mobile
+            imageUri={slides.airtel}
+            headingPayment="Airtel Money"
+            number={mobileMoneyNumber}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            setisVisible(!isVisible);
+            setMobileMoneyOption("MTN Money");
+          }}
+        >
+          <Mobile
+            imageUri={slides.mtn}
+            headingPayment="MTN Money"
+            number={mobileMoneyNumber}
+          />
+        </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.payButtton}
@@ -392,5 +505,26 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     backgroundColor: "#05C25D",
     borderRadius: 5,
+  },
+  modal: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: 300,
+    width: "80%",
+    borderRadius: 10,
+    marginTop: 80,
+    marginLeft: 40,
+  },
+  line: {
+    marginVertical: 10,
+    height: 25,
+    width: 1,
+    backgroundColor: "#000",
+  },
+  text: {
+    color: "#000",
+    marginVertical: 50,
+    fontSize: 18,
+    fontWeight: "700",
   },
 });

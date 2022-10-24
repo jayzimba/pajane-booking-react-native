@@ -209,7 +209,24 @@ const LiveMap = ({ navigation }, props) => {
         </TouchableOpacity>
       </View>
 
-      <Modal animationType="slide" transparent={true} visible={ResultIsVisible}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={ResultIsVisible}
+        onRequestClose={() => {
+          console.log("Modal has been closed.");
+        }}
+        hasBackdrop={true}
+        backdropOpacity={0.9}
+        backdropColor="#000000"
+        hideModalContentWhileAnimating={true}
+        useNativeDriverForBackdrop={true}
+        useNativeDriver={true}
+        animationInTiming={1}
+        animationOutTiming={1}
+        backdropTransitionInTiming={1}
+        backdropTransitionOutTiming={1}
+      >
         <View
           style={{
             backgroundColor: "transparent",
@@ -229,7 +246,7 @@ const LiveMap = ({ navigation }, props) => {
               },
               shadowOpacity: 0.4,
               elevation: 2,
-              height: "30%",
+              height: "40%",
             }}
           >
             <TouchableOpacity
@@ -248,19 +265,12 @@ const LiveMap = ({ navigation }, props) => {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
               >
-                <TouchableOpacity
-                  onPress={() => {
-                    handleModal();
-                    alert("clicked");
-                  }}
-                >
-                  <QuickBookings
-                    from={"Ndola"}
-                    destination={"Lusaka"}
-                    fee={300}
-                    busName={"PowerTools"}
-                  />
-                </TouchableOpacity>
+                <QuickBookings
+                  from={"Ndola"}
+                  destination={"Lusaka"}
+                  fee={300}
+                  busName={"PowerTools"}
+                />
                 <TouchableOpacity onPress={() => alert("clicked")}>
                   <QuickBookings
                     from={"Ndola"}

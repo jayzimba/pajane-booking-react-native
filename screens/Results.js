@@ -84,7 +84,20 @@ export class Results extends Component {
   render() {
     let { items, isLoading } = this.state;
     return (
-      <Modal visible={this.props.ResultIsVisible} animationType="slide">
+      <Modal
+        visible={this.props.ResultIsVisible}
+        animationType="slide"
+        hasBackdrop={true}
+        backdropOpacity={0.6}
+        backdropColor="#000000"
+        hideModalContentWhileAnimating={true}
+        useNativeDriverForBackdrop={true}
+        useNativeDriver={true}
+        animationInTiming={1}
+        animationOutTiming={1}
+        backdropTransitionInTiming={1}
+        backdropTransitionOutTiming={1}
+      >
         <SafeAreaView style={styles.mainContainer}>
           <View
             style={{

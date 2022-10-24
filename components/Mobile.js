@@ -3,14 +3,14 @@ import React, { Component } from "react";
 
 const Mobile = (props) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.mobileSection}>
         <View style={styles.colorSection}></View>
         <Image source={props.imageUri} style={styles.logo} />
         <View
           style={{
             marginVertical: 10,
-            marginStart: 5,
+            marginStart: 10,
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -19,7 +19,7 @@ const Mobile = (props) => {
           <Text style={styles.number}>{props.number}</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 
