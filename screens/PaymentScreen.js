@@ -35,7 +35,10 @@ const PaymentScreen = ({ navigation }) => {
   const [ResultIsVisible, setResultIsVisible] = useState(false);
   const [isVisible, setisVisible] = useState(false);
   const [mobileMoneyOption, setMobileMoneyOption] = useState("");
-  const [mobileMoneyNumber, setMobileMoneyNumber] = useState("");
+  const [mobileMoneyAirtel, setMobileMoneyAirtel] = useState("");
+  const [mobileMoneyMTN, setMobileMoneyMTN] = useState("");
+  const [AirtelSelectedOption, setAirtelSelectedOption] = useState(false);
+  const [MTNSelectedOption, setMTNSelectedOption] = useState(false);
 
   const showBookingDone = () => {
     setResultIsVisible((prev) => true);
@@ -400,9 +403,19 @@ const PaymentScreen = ({ navigation }) => {
                   marginHorizontal={10}
                   returnKeyType="done"
                   keyboardType="phone-pad"
-                  onChangeText={(phone) =>
-                    setMobileMoneyNumber("+260 " + phone.toString())
-                  }
+                  onChangeText={(phone) => {
+                    if (mobileMoneyOption == "Airtel Money") {
+                      setMobileMoneyAirtel("+260 " + phone.toString());
+                      setAirtelSelectedOption(true);
+                      setMTNSelectedOption(!AirtelSelectedOption);
+                      setMobileMoneyMTN("");
+                    } else if (mobileMoneyOption == "MTN Money") {
+                      setMobileMoneyMTN("+260 " + phone.toString());
+                      setMobileMoneyAirtel("");
+                      setMTNSelectedOption(true);
+                      setAirtelSelectedOption(!MTNSelectedOption);
+                    }
+                  }}
                 />
               </View>
 
@@ -437,7 +450,8 @@ const PaymentScreen = ({ navigation }) => {
           <Mobile
             imageUri={slides.airtel}
             headingPayment="Airtel Money"
-            number={mobileMoneyNumber}
+            number={mobileMoneyAirtel}
+            selected={AirtelSelectedOption}
           />
         </TouchableOpacity>
 
@@ -450,7 +464,9 @@ const PaymentScreen = ({ navigation }) => {
           <Mobile
             imageUri={slides.mtn}
             headingPayment="MTN Money"
-            number={mobileMoneyNumber}
+            number={mobileMoneyMTN}
+            selected={MTNSelectedOption}
+
           />
         </TouchableOpacity>
 

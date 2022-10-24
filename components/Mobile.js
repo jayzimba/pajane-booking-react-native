@@ -1,5 +1,6 @@
 import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { Component } from "react";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const Mobile = (props) => {
   return (
@@ -9,14 +10,34 @@ const Mobile = (props) => {
         <Image source={props.imageUri} style={styles.logo} />
         <View
           style={{
-            marginVertical: 10,
+            width: "64%",
+            flexDirection: "row",
             marginStart: 10,
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "space-between",
           }}
         >
-          <Text style={styles.headingPayment}> {props.headingPayment}</Text>
-          <Text style={styles.number}>{props.number}</Text>
+          <View
+            style={{
+              marginVertical: 10,
+              marginStart: 10,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Text style={styles.headingPayment}> {props.headingPayment}</Text>
+            <Text style={styles.number}>{props.number}</Text>
+          </View>
+
+          {props.selected ? (
+            <View style={{ justifyContent: "center" }}>
+              <MaterialIcons
+                name="radio-button-checked"
+                size={20}
+                color="#05C25D"
+              />
+            </View>
+          ) : null}
         </View>
       </View>
     </View>
