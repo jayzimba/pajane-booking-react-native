@@ -69,6 +69,7 @@ class Home extends Component {
     routeReceiver: null,
     locationPicked: {},
     errorOnPermission: "",
+    city: "",
   };
 
   setTown = (e) => {
@@ -141,6 +142,10 @@ class Home extends Component {
   closeShowResults = (e) => {
     e.preventDefault();
     this.setState({ ResultIsVisible: false });
+  };
+  setCity = (e) => {
+    e.preventDefault();
+    this.setState({ city: e });
   };
 
   // navigation to more details screen
@@ -216,16 +221,19 @@ class Home extends Component {
   componentDidMount() {
     this.fetchDataQuickBookings();
   }
+
   render() {
     const route = this.props.route.params;
     this.state.routeReceiver = route;
+
+    console.log(this.props.route.city);
 
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" />
         <View style={{ marginHorizontal: 10 }}>
           <Header />
-          <YourCity />
+          <YourCity city={this.setCity} />
           <Text>{JSON.stringify(this.state.locationPicke)}</Text>
         </View>
         <ScrollView

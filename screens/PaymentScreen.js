@@ -25,6 +25,10 @@ import {
 import { BookingDone } from "./BookingDone";
 import { useRoute } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
+
+// flutterwave
+import { PayWithFlutterwave } from "flutterwave-react-native";
+
 const slides = {
   card: require("../assets/vmc.jpeg"),
   airtel: require("../assets/airtel.jpg"),
@@ -39,6 +43,7 @@ const PaymentScreen = ({ navigation }) => {
   const [mobileMoneyMTN, setMobileMoneyMTN] = useState("");
   const [AirtelSelectedOption, setAirtelSelectedOption] = useState(false);
   const [MTNSelectedOption, setMTNSelectedOption] = useState(false);
+  const [phone, setPhone] = useState("");
 
   const showBookingDone = () => {
     setResultIsVisible((prev) => true);
@@ -409,11 +414,13 @@ const PaymentScreen = ({ navigation }) => {
                       setAirtelSelectedOption(true);
                       setMTNSelectedOption(!AirtelSelectedOption);
                       setMobileMoneyMTN("");
+                      setPhone(mobileMoneyAirtel);
                     } else if (mobileMoneyOption == "MTN Money") {
                       setMobileMoneyMTN("+260 " + phone.toString());
                       setMobileMoneyAirtel("");
                       setMTNSelectedOption(true);
                       setAirtelSelectedOption(!MTNSelectedOption);
+                      setPhone(mobileMoneyMTN);
                     }
                   }}
                 />
@@ -466,11 +473,10 @@ const PaymentScreen = ({ navigation }) => {
             headingPayment="MTN Money"
             number={mobileMoneyMTN}
             selected={MTNSelectedOption}
-
           />
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.payButtton}
           onPress={() => setResultIsVisible(true)}
         >
@@ -485,7 +491,42 @@ const PaymentScreen = ({ navigation }) => {
           >
             Pay Now
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <PayWithFlutterwave
+          onRedirect={() => null}
+          onDidInitialize={() => setResultIsVisible(true)}
+          options={{
+            tx_ref: "12345",
+            authorization: "FLWPUBK_TEST-c32818c2ec7d2a76e6ed89908e25017a-X",
+            customer: {
+              email: "pajanebooking@gmail.com",
+              phonenumber: { phone },
+            },
+            amount: 150,
+            currency: "ZMW",
+            payment_options: "card",
+          }}
+          customButton={(props) => (
+            <TouchableOpacity
+              style={styles.payButtton}
+              onPress={props.onPress}
+              isBusy={props.isInitializing}
+              disabled={false}
+            >
+              <Ionicons name="cash" size={24} color="white" />
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 22,
+                  fontWeight: "700",
+                  marginLeft: 10,
+                }}
+              >
+                Pay Now
+              </Text>
+            </TouchableOpacity>
+          )}
+        />
 
         {ResultIsVisible && (
           <BookingDone

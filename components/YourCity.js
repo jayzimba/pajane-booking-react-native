@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Platform, Text, View, StyleSheet } from "react-native";
 import * as Location from "expo-location";
-import { MaterialIcons, Ionicons } from '@expo/vector-icons';
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 
 export default function YourCity() {
   const [location, setLocation] = useState(null);
   const [address, setAddress] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
+
+  const assignCity = (e) => {
+    setAddress(e);
+  };
 
   useEffect(() => {
     (async () => {
@@ -41,12 +45,12 @@ export default function YourCity() {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent:"flex-end",
-    flexDirection:"row"
+    justifyContent: "flex-end",
+    flexDirection: "row",
   },
   paragraph: {
     fontSize: 14,
     color: "c",
-    fontWeight:"500"
+    fontWeight: "500",
   },
 });
