@@ -395,7 +395,7 @@ const MoreDetails = ({ navigation }) => {
                   <Switch
                     trackColor={{ false: "#f4f3f4", true: "#f4f3f4" }}
                     thumbColor={"#05C25D"}
-                    ios_backgroundColor="#3e3e3e"
+                    ios_backgroundColor="#f4f3f4"
                     onValueChange={() => setRemindMe(!remindMe)}
                     value={remindMe}
                   />

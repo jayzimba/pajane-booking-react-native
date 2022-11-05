@@ -18,7 +18,6 @@ import axios from "axios";
 const bgImage = require("../assets/zambia.png");
 const google = require("../assets/google.jpeg");
 const logo = require("../assets/family.jpg");
-
 export class SignUpScreen extends Component {
   constructor(props) {
     super(props);
@@ -63,7 +62,7 @@ export class SignUpScreen extends Component {
         redirect: "follow",
       };
 
-      fetch("http://172.20.10.6/pajane/signUp.php", requestOptions)
+      fetch("http://172.20.10.4/pajane/signUp.php", requestOptions)
         .then((Response) => Response.json())
         .then((Response) => {
           alert(Response[0].Message);
@@ -247,7 +246,6 @@ export class SignUpScreen extends Component {
               style={styles.signUpBtn}
               onPress={() => {
                 this.RegDataInDB();
-                navigation.navigate("SignUp");
               }}
             >
               <Text style={{ fontWeight: "600", fontSize: 18, color: "#fff" }}>

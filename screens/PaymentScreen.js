@@ -366,86 +366,88 @@ const PaymentScreen = ({ navigation }) => {
             console.log("Modal has been closed.");
           }}
         >
-          <EvilIcons
-            name="arrow-left"
-            size={35}
-            color="black"
-            onPress={() => setisVisible(!isVisible)}
-            style={{
-              margin: 10,
-            }}
-          />
-          {/*All views of Modal*/}
-          <SafeAreaView style={styles.modal}>
-            <Text style={styles.text}>
-              Enter Your {mobileMoneyOption} Number
-            </Text>
-            <Animatable.View
-              animation="fadeInUp"
-              duration={1000}
-              style={{ width: "100%" }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: 20,
-                }}
+          <SafeAreaView>
+            <EvilIcons
+              name="arrow-left"
+              size={35}
+              color="black"
+              onPress={() => setisVisible(!isVisible)}
+              style={{
+                margin: 10,
+              }}
+            />
+            {/*All views of Modal*/}
+            <SafeAreaView style={styles.modal}>
+              <Text style={styles.text}>
+                Enter Your {mobileMoneyOption} Number
+              </Text>
+              <Animatable.View
+                animation="fadeInUp"
+                duration={1000}
+                style={{ width: "100%" }}
               >
-                <View style={styles.line}></View>
-                <Entypo
-                  name="phone"
-                  size={20}
-                  color="black"
-                  style={{ marginHorizontal: 5 }}
-                />
-                <Text style={{ marginLeft: 5, fontSize: 18 }}>+260</Text>
-                <TextInput
-                  placeholder="Enter your mobile number"
-                  fontSize={16}
-                  maxLength={9}
-                  marginHorizontal={10}
-                  returnKeyType="done"
-                  keyboardType="phone-pad"
-                  onChangeText={(phone) => {
-                    if (mobileMoneyOption == "Airtel Money") {
-                      setMobileMoneyAirtel("+260 " + phone.toString());
-                      setAirtelSelectedOption(true);
-                      setMTNSelectedOption(!AirtelSelectedOption);
-                      setMobileMoneyMTN("");
-                      setPhone(mobileMoneyAirtel);
-                    } else if (mobileMoneyOption == "MTN Money") {
-                      setMobileMoneyMTN("+260 " + phone.toString());
-                      setMobileMoneyAirtel("");
-                      setMTNSelectedOption(true);
-                      setAirtelSelectedOption(!MTNSelectedOption);
-                      setPhone(mobileMoneyMTN);
-                    }
-                  }}
-                />
-              </View>
-
-              <TouchableOpacity
-                title="Click To Close Modal"
-                onPress={() => {
-                  setisVisible(!isVisible);
-                }}
-                style={styles.payButtton}
-              >
-                <Ionicons name="cash" size={24} color="white" />
-                <Text
+                <View
                   style={{
-                    color: "white",
-                    fontSize: 22,
-                    fontWeight: "700",
-                    marginLeft: 10,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: 20,
                   }}
                 >
-                  Pay Now
-                </Text>
-              </TouchableOpacity>
-            </Animatable.View>
+                  <View style={styles.line}></View>
+                  <Entypo
+                    name="phone"
+                    size={20}
+                    color="black"
+                    style={{ marginHorizontal: 5 }}
+                  />
+                  <Text style={{ marginLeft: 5, fontSize: 18 }}>+260</Text>
+                  <TextInput
+                    placeholder="Enter your mobile number"
+                    fontSize={16}
+                    maxLength={9}
+                    marginHorizontal={10}
+                    returnKeyType="done"
+                    keyboardType="phone-pad"
+                    onChangeText={(phone) => {
+                      if (mobileMoneyOption == "Airtel Money") {
+                        setMobileMoneyAirtel("+260 " + phone.toString());
+                        setAirtelSelectedOption(true);
+                        setMTNSelectedOption(!AirtelSelectedOption);
+                        setMobileMoneyMTN("");
+                        setPhone(mobileMoneyAirtel);
+                      } else if (mobileMoneyOption == "MTN Money") {
+                        setMobileMoneyMTN("+260 " + phone.toString());
+                        setMobileMoneyAirtel("");
+                        setMTNSelectedOption(true);
+                        setAirtelSelectedOption(!MTNSelectedOption);
+                        setPhone(mobileMoneyMTN);
+                      }
+                    }}
+                  />
+                </View>
+
+                <TouchableOpacity
+                  title="Click To Close Modal"
+                  onPress={() => {
+                    setisVisible(!isVisible);
+                  }}
+                  style={styles.payButtton}
+                >
+                  <Ionicons name="cash" size={24} color="white" />
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 22,
+                      fontWeight: "700",
+                      marginLeft: 10,
+                    }}
+                  >
+                    Pay Now
+                  </Text>
+                </TouchableOpacity>
+              </Animatable.View>
+            </SafeAreaView>
           </SafeAreaView>
         </Modal>
         <TouchableOpacity
@@ -476,7 +478,7 @@ const PaymentScreen = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        {/* <TouchableOpacity
+        <TouchableOpacity
           style={styles.payButtton}
           onPress={() => setResultIsVisible(true)}
         >
@@ -491,8 +493,8 @@ const PaymentScreen = ({ navigation }) => {
           >
             Pay Now
           </Text>
-        </TouchableOpacity> */}
-        <PayWithFlutterwave
+        </TouchableOpacity>
+        {/* <PayWithFlutterwave
           onRedirect={() => null}
           onDidInitialize={() => setResultIsVisible(true)}
           options={{
@@ -526,7 +528,7 @@ const PaymentScreen = ({ navigation }) => {
               </Text>
             </TouchableOpacity>
           )}
-        />
+        /> */}
 
         {ResultIsVisible && (
           <BookingDone

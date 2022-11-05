@@ -91,7 +91,6 @@ class Home extends Component {
 
     const location = await Location.getCurrentPositionAsync({});
     this.setState({ locationPicked: location });
-    console.log(locationPicked);
   };
 
   //pick up point
@@ -195,6 +194,7 @@ class Home extends Component {
 
   fetchDataQuickBookings = async () => {
     var formdata = new FormData();
+    formdata.append("to", this.Dtext);
     formdata.append("from", "Ndola");
     formdata.append("date", getFormatedDate(getToday(), "YYYY-MM-DD"));
 
@@ -211,7 +211,6 @@ class Home extends Component {
           this.setState({ data: [] });
         } else {
           this.setState({ data: result });
-          console.log("quick bopoking found");
         }
       })
       .catch((error) => console.log("error", error))
@@ -225,8 +224,6 @@ class Home extends Component {
   render() {
     const route = this.props.route.params;
     this.state.routeReceiver = route;
-
-    console.log(this.props.route.city);
 
     return (
       <SafeAreaView style={styles.container}>

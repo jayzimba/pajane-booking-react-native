@@ -31,12 +31,6 @@ import axios from "axios";
 export class Results extends Component {
   constructor(props) {
     super(props);
-
-    this.setState({
-      to: this.props.to,
-      from: this.props.from,
-      date: this.props.date,
-    });
   }
 
   state = {
@@ -147,21 +141,30 @@ export class Results extends Component {
 
           <View style={{ paddingTop: 5, height: "100%" }}>
             {this.state.isLoading ? (
-              <ActivityIndicator
-                size="large"
-                color="#05C25D"
-                animating
-                style={{
-                  marginVertical: "70%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              />
+              // <ActivityIndicator
+              //   size="large"
+              //   color="#05C25D"
+              //   animating
+              //   style={{
+              //     marginVertical: "70%",
+              //     justifyContent: "center",
+              //     alignItems: "center",
+              //   }}
+              // />
+              <View style={{marginLeft: 20}}>
+                <FadeLoader />
+                <FadeLoader />
+                <FadeLoader />
+                <FadeLoader />
+                <FadeLoader />
+                <FadeLoader />
+                <FadeLoader />
+              </View>
             ) : (
               <FlatList
                 // bounces={false}
                 data={this.state.trips}
-                keyExtractor={(item, index) => item.id.toString()}
+                keyExtractor={(item, index) => item.id}
                 ListEmptyComponent={() => {
                   return (
                     <View
@@ -202,7 +205,7 @@ export class Results extends Component {
                     />
                   </TouchableOpacity>
                 )}
-                keyExtractor={(item) => item.id}
+                // keyExtractor={(item) => item.id}
                 refreshing={isLoading}
                 onRefresh={this._getData}
               />

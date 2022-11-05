@@ -17,6 +17,7 @@ export class QuickBookings extends PureComponent {
           width: 170,
           paddingHorizontal: 10,
           marginEnd: 15,
+          marginTop:10,
           paddingVertical: 10,
           marginBottom: 30,
           backgroundColor:"#f3f3f3",

@@ -13,33 +13,33 @@ const FadeLoader = () => {
     >
       <FadeLoading
         style={{ width: 100, height: 100 }}
-        primaryColor="#b1b1b1"
+        primaryColor="#f8f8f8"
         secondaryColor="lightgray"
         duration={1000}
       />
       <View style={{ width: "50%", marginStart: 10 }}>
         <FadeLoading
           style={{ height: 10 }}
-          primaryColor="#b1b1b1"
+          primaryColor="#f8f8f8"
           secondaryColor="lightgray"
           duration={1000}
         />
         <FadeLoading
           style={{ height: 10, marginVertical: 10, width: 70 }}
-          primaryColor="#b1b1b1"
+          primaryColor="#f8f8f8"
           secondaryColor="lightgray"
           duration={1000}
         />
         <View style={{ flexDirection: "row" }}>
           <FadeLoading
             style={{ height: 10, width: 50, marginEnd: 20 }}
-            primaryColor="#b1b1b1"
+            primaryColor="#f8f8f8"
             secondaryColor="lightgray"
             duration={1000}
           />
           <FadeLoading
             style={{ height: 10, width: 20 }}
-            primaryColor="#b1b1b1"
+            primaryColor="#f8f8f8"
             secondaryColor="lightgray"
             duration={1000}
           />
@@ -51,7 +51,7 @@ const FadeLoader = () => {
             marginVertical: 10,
             alignItems: "center",
           }}
-          primaryColor="#b1b1b1"
+          primaryColor="#f8f8f8"
           secondaryColor="lightgray"
           duration={1000}
         />
