@@ -1,108 +1,134 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React, { PureComponent } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { ScrollView } from "react-native-gesture-handler";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 
+const transit = require("../assets/notInTransit.png");
+const qrcode = require("../assets/qrcode_sample.png");
+const waterMark = require("../assets/paidWaterMark.png");
 export class TicketCard extends PureComponent {
   render() {
     return (
-      <View>
-        <LinearGradient
-          colors={["#e6f5ff", "#fff"]}
+      <TouchableOpacity style={styles.constainer}>
+        <Image
+          source={qrcode}
           style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            height: 80,
-            backgroundColor: "#fff",
-            borderRadius: 8,
-            marginHorizontal: 5,
-            paddingHorizontal: 10,
-            marginVertical: 5,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 10,
-            },
-            shadowOpacity: 1,
-            shadowRadius: 20,
+            resizeMode: "contain",
+            width: 100,
+            height: 100,
           }}
-        >
-          <View style={{ alignItems: "center" }}>
+        />
+        <View style={{ width: "70%" }}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text style={styles.busName}>{this.props.busName}</Text>
+            <Text style={styles.price}>ZMW {this.props.price}</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginTop: 3,
+            }}
+          >
+            <Ionicons name="location-outline" size={12} color="black" />
+            <Text style={styles.from}>{this.props.from}</Text>
+            <Text style={styles.from}> - </Text>
+            <Ionicons name="location" size={14} color="black" />
+            <Text style={styles.to}>{this.props.to}</Text>
+          </View>
+          <View
+            style={{
+              marginTop: 10,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
             <Text
               style={{
-                color: "#124e78",
-                fontSize: 16,
-                fontWeight: "800",
+                marginVertical: 5,
+                marginTop: 2,
+                color: "#000",
+                fontWeight: "500",
               }}
             >
-              {this.props.from}
+              Ticket No:
             </Text>
-            <Text
-              style={{
-                color: "#124e78",
-                fontSize: 14,
-                fontWeight: "400",
-              }}
-            >
-              {this.props.from_station}
+
+            <Text style={{ marginVertical: 5, marginTop: 2 }}>
+              {464899887856}
             </Text>
           </View>
-          <View style={{ alignItems: "center" }}>
-            <Image
-              source={require("../assets/from-to.png")}
-              style={{ width: 130, height: 40 }}
-            />
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 10,
-              }}
-            >
-              <MaterialCommunityIcons
-                name="bus-clock"
-                size={18}
-                color="#124e78"
-              />
-              <Text
-                style={{
-                  color: "#124e78",
-                  fontSize: 14,
-                  fontWeight: "400",
-                }}
-              >
-                {this.props.date}
-              </Text>
-            </View>
-          </View>
-          <View style={{ alignItems: "center" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
             <Text
               style={{
-                color: "#124e78",
-                fontSize: 16,
-                fontWeight: "800",
+                marginVertical: 1,
+                color: "#000",
+                fontSize: 12,
               }}
             >
-              {this.props.to}
+              {this.props.date}
             </Text>
+
+            <Text style={{ fontSize: 12, fontWeight: "bold", marginLeft: 5 }}>
+              Status:
+            </Text>
+
             <Text
               style={{
-                color: "#124e78",
-                fontSize: 14,
-                fontWeight: "400",
+                fontSize: 12,
+                fontWeight: "bold",
+                marginLeft: 5,
+                color: "#05C25D",
               }}
             >
-              {this.props.to_station}
+              Booked
             </Text>
           </View>
-        </LinearGradient>
-      </View>
+        </View>
+      </TouchableOpacity>
     );
   }
 }
 
 export default TicketCard;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  constainer: {
+    marginHorizontal: 10,
+    marginVertical: 7,
+    padding: 5,
+    flexDirection: "row",
+    paddingLeft: 5,
+    borderColor: "#dedede",
+    borderWidth: 1,
+    borderRadius: 5,
+    alignItems: "center",
+    padding: 5,
+  },
+  busName: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  from: {
+    marginRight: 5,
+    fontSize: 14,
+    fontWeight: "500",
+  },
+  to: {
+    fontSize: 14,
+    fontWeight: "500",
+  },
+  price: {
+    color: "#124e78",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+});
