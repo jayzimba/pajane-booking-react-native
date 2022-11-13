@@ -21,15 +21,22 @@ import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 export default class Ticket extends Component {
+  constructor(props) {
+    super(props);
+  }
   state = {
     userID: 1,
     data: [],
     PajaneCustomerCare: "",
   };
 
+  _keyExtractor(item, index) {
+    return index.toString();
+  }
+
   fetchTickets = async () => {
     var formdata = new FormData();
-    formdata.append("userID", "1");
+    formdata.append("userID", "3");
 
     var requestOptions = {
       method: "POST",
@@ -57,24 +64,32 @@ export default class Ticket extends Component {
 
   render() {
     return this.state.data.length <= 0 ? (
-      <View
-        style={{
-          height: "80%",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <MaterialIcons name="bus-alert" size={200} color="#dedede" />
-        <Text style={{ marginStart: -20, fontSize: 16, color: "#8d8d8d8d" }}>
-          Booking history is empty
-        </Text>
-      </View>
+      <SafeAreaView>
+        <View style={{ marginHorizontal: 10, paddingHorizontal: 20 }}>
+          <Header />
+        </View>
+        <View
+          style={{
+            height: "80%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <MaterialIcons name="bus-alert" size={200} color="#dedede" />
+          <Text style={{ marginStart: -20, fontSize: 16, color: "#8d8d8d" }}>
+            Booking history is empty
+          </Text>
+        </View>
+      </SafeAreaView>
     ) : (
-      <SafeAreaView style={{ paddingVertical: 10, marginBottom: 160 }}>
+      <SafeAreaView style={{ paddingBottom: 50, marginBottom: 100 }}>
+        <View style={{ marginHorizontal: 10, paddingHorizontal: 10 }}>
+          <Header />
+        </View>
         <FlatList
-          // bounces={false}
+          bounces={true}
           data={this.state.data}
-          keyExtractor={(item, index) => item.id}
+          keyExtractor={this._keyExtractor.bind(this)}
           renderItem={({ item, index }) => (
             <TicketCard
               busName={"Likili"}
@@ -84,6 +99,7 @@ export default class Ticket extends Component {
               price={item.price}
             />
           )}
+          // keyExtractor={(item, index) => item.BookingID}
         />
       </SafeAreaView>
     );

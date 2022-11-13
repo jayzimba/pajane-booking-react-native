@@ -109,7 +109,7 @@ const LiveMap = ({ navigation }, props) => {
     console.log("destinationcords===>>>", destinationCords);
   };
 
-  const fetchAddressCoords = (lat, lng) => {
+  const fetchAddressCoords = async (lat, lng) => {
     // console.log("latitude: ", lat);
     // console.log("longitude: ", lng);
 
@@ -134,7 +134,7 @@ const LiveMap = ({ navigation }, props) => {
     });
   };
 
-  const fetchValues = (data) => {
+  const fetchValues = async (data) => {
     setState({
       pickUpCords: {
         latitude: data.pickUpCords.latitude,
@@ -151,6 +151,7 @@ const LiveMap = ({ navigation }, props) => {
         provider={PROVIDER_GOOGLE}
         initialRegion={INITIAL_POSITION}
       >
+        {}
         <Marker
           coordinate={destinationCords}
           image={require("../assets/greenMarker.png")}

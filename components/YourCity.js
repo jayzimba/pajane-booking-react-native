@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
   },
   paragraph: {
     fontSize: 14,
-    color: "c",
     fontWeight: "500",
   },
 });

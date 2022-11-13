@@ -128,6 +128,7 @@ const Cards = (props) => {
                   color: "#000",
                   letterSpacing: 1,
                 }}
+                onChangeText={(value) => setCardHolder(value)}
               />
             </View>
             <Text>Card Number</Text>
@@ -156,13 +157,13 @@ const Cards = (props) => {
                 maxLength={15}
                 keyboardType="numeric"
                 value={cardNumber}
+                onChangeText={(value) => setCardNumber(value)}
                 style={{
                   width: "100%",
                   fontSize: 18,
                   fontWeight: "400",
                   color: "#000",
                   letterSpacing: 2,
-
                   paddingHorizontal: 2,
                 }}
               />
@@ -198,6 +199,7 @@ const Cards = (props) => {
                     maxLength={5}
                     keyboardType="numbers-and-punctuation"
                     value={expiration}
+                    onChangeText={(value) => setExpiration(value)}
                     style={{
                       fontSize: 18,
                       fontWeight: "400",
@@ -235,6 +237,7 @@ const Cards = (props) => {
                     maxLength={3}
                     keyboardType="numbers-and-punctuation"
                     value={cvc}
+                    onChangeText={(value) => setCvc(value)}
                     style={{
                       fontSize: 18,
                       fontWeight: "400",

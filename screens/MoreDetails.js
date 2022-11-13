@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
-import React, { Children, useState } from "react";
+import { StatusBar } from "expo-status-bar";
+import React, { Children, useState, useRef, useEffect } from "react";
 import Header from "./../components/Header";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
@@ -18,9 +18,25 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import Counter from "react-native-counters";
 import { useRoute } from "@react-navigation/native";
 import { AdultSlice } from "../features/AdultSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Notifications from "expo-notifications";
+import Constants from "expo-constants";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
 const MoreDetails = ({ navigation }) => {
   const route = useRoute();
+
+  //notification consts
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
   const [AcceptTC, setAcceptTC] = useState(false);
   const [Total, setTotal] = useState(route.params.price);
@@ -63,6 +79,55 @@ const MoreDetails = ({ navigation }) => {
   const changeTC = (value) => {
     setAcceptTC(value);
   };
+
+  useEffect(() => {
+    const getPermission = async () => {
+      if (Constants.isDevice) {
+        const { status: existingStatus } =
+          await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+        if (existingStatus !== "granted") {
+          const { status } = await Notifications.requestPermissionsAsync();
+          finalStatus = status;
+        }
+        if (finalStatus !== "granted") {
+          alert("Enable push notifications to use the app!");
+          await storage.setItem("expopushtoken", "");
+          return;
+        }
+        const token = (await Notifications.getExpoPushTokenAsync()).data;
+        await storage.setItem("expopushtoken", token);
+      } else {
+        alert("Must use physical device for Push Notifications");
+      }
+
+      if (Platform.OS === "android") {
+        Notifications.setNotificationChannelAsync("default", {
+          name: "default",
+          importance: Notifications.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: "#05C25D",
+        });
+      }
+    };
+
+    getPermission();
+
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        setNotification(notification);
+      });
+
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {});
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   return (
     <>
@@ -374,6 +439,7 @@ const MoreDetails = ({ navigation }) => {
               >
                 Extras
               </Text>
+              <StatusBar style="auto" />
               <View
                 style={{
                   flexDirection: "row",
@@ -391,14 +457,66 @@ const MoreDetails = ({ navigation }) => {
                 >
                   Remind me before bus arrival
                 </Text>
-                <View>
-                  <Switch
-                    trackColor={{ false: "#f4f3f4", true: "#f4f3f4" }}
-                    thumbColor={"#05C25D"}
-                    ios_backgroundColor="#f4f3f4"
-                    onValueChange={() => setRemindMe(!remindMe)}
-                    value={remindMe}
-                  />
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    width: "43%",
+                    justifyContent: "space-between",
+                    backfaceColor: "red",
+                  }}
+                >
+                  <View>
+                    <Switch
+                      trackColor={{ false: "#f4f3f4", true: "#f4f3f4" }}
+                      thumbColor={"#05C25D"}
+                      ios_backgroundColor="#f4f3f4"
+                      onValueChange={async () => {
+                        setRemindMe(!remindMe);
+                        if (!remindMe) {
+                          await Notifications.scheduleNotificationAsync({
+                            content: {
+                              title: "Pajana Bus Arrival Reminder Has Been Set",
+                              body: "we will remind you 30 minutes before your bus reaches your station, thank you for trusting Pajane",
+                              data: { data: "data goes here" },
+                            },
+                            trigger: {
+                              seconds: 1,
+                            },
+                          });
+                        }
+                      }}
+                      value={remindMe}
+                    />
+                  </View>
+                  {/* 
+                   const onClick = async () => {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Pajana Bus Arrival Reminder Has Been Set",
+        body: "we will remind you 30 minutes before your bus reaches your station thank for trusting us",
+        data: { data: "data goes here" },
+      },
+      trigger: {
+        seconds: 1,
+      },
+    });
+  }; */}
+
+                  {remindMe ? (
+                    <Ionicons
+                      name="notifications-circle-outline"
+                      size={30}
+                      color="#05C25D"
+                    />
+                  ) : (
+                    <Ionicons
+                      name="notifications-off-circle-outline"
+                      size={30}
+                      color="#e8e8e8"
+                    />
+                  )}
                 </View>
               </View>
             </View>
@@ -514,7 +632,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 1,
   },
   input: {
     height: 40,

@@ -23,6 +23,7 @@ import Header from "./../components/Header";
 import HeroSection from "../components/HeroSection";
 import SearchSection from "../components/SearchSection";
 import DatePickerComponent from "../components/DatePickerComponent";
+
 import DatePicker, {
   getToday,
   getFormatedDate,
@@ -48,10 +49,12 @@ import { axios } from "axios";
 
 import { GOOGLE_API_KEY } from "../ENVIRONMENTS";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import BlinkingText from "./../components/BlinkingText";
 
 class TrackBus extends Component {
   constructor(props) {
     super(props);
+    this.mapRef = null;
     this.state = {
       rotateValueHolder: new Animated.Value(0),
     };
@@ -60,12 +63,17 @@ class TrackBus extends Component {
   //copied for testing 1
   componentDidMount = () => {
     this.startImageRotateFunction();
+    this.mapRef.fitToSuppliedMarkers(
+      [{ latitude: -15.2424, longitude: 28.1713 }],
+      false // not animated
+    );
   };
+
   startImageRotateFunction = () => {
     Animated.loop(
       Animated.timing(this.state.rotateValueHolder, {
         toValue: 1,
-        duration: 5000,
+        duration: 2500,
         easing: Easing.linear,
         useNativeDriver: false,
       })
@@ -95,22 +103,25 @@ class TrackBus extends Component {
             <Ionicons name="chevron-back" size={24} color="black" />
             <Text style={{ fontSize: 16, fontWeight: "700" }}>Home</Text>
           </TouchableOpacity>
-          <Animated.View
-            style={{
-              marginEnd: 10,
-              alignSelf: "center",
-              transform: [
-                {
-                  rotate: this.state.rotateValueHolder.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: ["0deg", "360deg"],
-                  }),
-                },
-              ],
-            }}
-          >
-            <MaterialIcons name="track-changes" size={24} color="black" />
-          </Animated.View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <BlinkingText />
+            <Animated.View
+              style={{
+                marginEnd: 10,
+                alignSelf: "center",
+                transform: [
+                  {
+                    rotate: this.state.rotateValueHolder.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: ["0deg", "360deg"],
+                    }),
+                  },
+                ],
+              }}
+            >
+              <MaterialIcons name="track-changes" size={24} color="black" />
+            </Animated.View>
+          </View>
         </View>
         <View style={{ marginVertical: 7, marginLeft: 15 }}>
           <View style={{ flexDirection: "row" }}>
@@ -247,7 +258,23 @@ class TrackBus extends Component {
           </View>
         </View>
 
-        <MapView style={styles.map} provider={PROVIDER_GOOGLE}></MapView>
+        <MapView
+          ref={(ref) => {
+            this.mapRef = ref;
+          }}
+          style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          initialRegion={{
+            latitude: 0,
+            longitude: 0,
+            latitudeDelta: 0.015,
+            longitudeDelta: 0.0121,
+          }}
+        >
+          <Marker
+            coordinate={{ latitude: -15.2424, longitude: 28.1713 }}
+           image={require("../assets/greenMarker.png")} />
+        </MapView>
       </SafeAreaView>
     );
   }

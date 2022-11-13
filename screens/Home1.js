@@ -294,7 +294,7 @@ class Home extends Component {
                 marginVertical: 10,
               }}
             >
-              <FontAwesome name="dot-circle-o" size={12} color="white" />
+              <FontAwesome name="dot-circle-o" size={12} color="#fff" />
               <DashedLine
                 axis="vertical"
                 dashLength={5}
@@ -303,7 +303,7 @@ class Home extends Component {
                 style={{ flex: 1, marginVertical: 5 }}
               />
 
-              <MaterialIcons name="location-on" size={12} color="white" />
+              <MaterialIcons name="location-on" size={12} color="#fff" />
             </View>
 
             {/*  */}
@@ -430,13 +430,13 @@ class Home extends Component {
           >
             Quick Booking
           </Text>
-          <View style={{ marginBottom: 10 }}>
+          <View style={{ marginBottom: 10, paddingLeft: 10 }}>
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             >
               {this.state.data.map((item, index) => (
-                <View key={item.id}>
+                <View key={item.TripID}>
                   <QuickBookings
                     from={item.From}
                     to={item.To}

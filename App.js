@@ -22,7 +22,6 @@ import OnboardingScreen from "./screens/OnboardingScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import Home from "./screens/Home";
-import Trips from "./screens/Trips";
 import CustomerCare from "./screens/CustomerCare";
 import Cards from "./screens/Cards";
 import Profile from "./screens/LiveMap";
@@ -73,7 +72,7 @@ const App = () => {
   }, []);
 
   if (isFirstLaunch == null) {
-    return <NavigationContainer></NavigationContainer>;
+    return null;
   } else if (isFirstLaunch == true) {
     return (
       <NavigationContainer>
@@ -152,8 +151,8 @@ const App = () => {
             })}
           />
           <Tab.Screen
-            name="My Trips"
-            component={Trips}
+            name="Tickets"
+            component={Ticket}
             options={{
               tabBarIcon: ({ focused }) => (
                 <View

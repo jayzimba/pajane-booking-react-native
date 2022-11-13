@@ -164,7 +164,7 @@ export class Results extends Component {
               <FlatList
                 // bounces={false}
                 data={this.state.trips}
-                keyExtractor={(item, index) => item.id}
+                keyExtractor={(item, index) => item.TripID}
                 ListEmptyComponent={() => {
                   return (
                     <View
