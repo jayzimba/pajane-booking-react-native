@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { StatusBar } from "expo-status-bar";
+
 import React, { Children, useState, useRef, useEffect } from "react";
 import Header from "./../components/Header";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -439,7 +439,7 @@ const MoreDetails = ({ navigation }) => {
               >
                 Extras
               </Text>
-              <StatusBar style="auto" />
+        
               <View
                 style={{
                   flexDirection: "row",
