@@ -421,6 +421,35 @@ const MoreDetails = ({ navigation }) => {
                     {route.params.seatsAvailable}
                   </Text>
                 </View>
+                {AdultCount > 1 || ChildrenCount > 0 ? (
+                  <View
+                    style={{ justifyContent: "center", alignItems: "center", flexDirection:"row" }}
+                  >
+                    <Text> To </Text>
+
+                    <View
+                      style={{
+                        paddingVertical: 1,
+                        paddingHorizontal: 10,
+                        marginHorizontal: 5,
+                        backgroundColor: "#05C25D",
+                        borderRadius: 5,
+                        justifyContent: "center",
+                        alignContent: "center",
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          color: "#fff",
+                        }}
+                      >
+                        {route.params.seatsAvailable +
+                          (AdultCount - 1 + ChildrenCount)}
+                      </Text>
+                    </View>
+                  </View>
+                ) : null}
               </View>
             </View>
             <View
@@ -439,7 +468,7 @@ const MoreDetails = ({ navigation }) => {
               >
                 Extras
               </Text>
-        
+
               <View
                 style={{
                   flexDirection: "row",
