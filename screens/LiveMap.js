@@ -94,8 +94,8 @@ const LiveMap = ({ navigation }, props) => {
   const destination = {};
 
   const [state, setState] = useState({
-    pickUpCords: { latitude: -15.2424, longitude: 28.1713 },
-    destinationCords: { latitude: -12.823195, longitude: 28.217574 },
+    pickUpCords: { latitude: 0, longitude: 0 },
+    destinationCords: { latitude: 0, longitude: 0 },
   });
   const { pickUpCords, destinationCords } = state;
   const dataSet = state;
@@ -160,24 +160,28 @@ const LiveMap = ({ navigation }, props) => {
           coordinate={pickUpCords}
           image={require("../assets/Oval.png")}
         />
-        <MapViewDirections
-          origin={pickUpCords}
-          destination={destinationCords}
-          apikey={GOOGLE_API_KEY}
-          strokeWidth={4}
-          strokeColor="#124e78"
-          optimizeWaypoints={true}
-          onReady={(result) => {
-            mapRef.current.fitToCoordinates(result.coordinates, {
-              edgePadding: {
-                right: 30,
-                bottom: 250,
-                left: 30,
-                top: 250,
-              },
-            });
-          }}
-        />
+        {(pickUpCords.latitude == 0 || pickUpCords.longitude == 0) &&
+        (destinationCords.latitude == 0 ||
+          destinationCords.longitude == 0) ? null : (
+          <MapViewDirections
+            origin={pickUpCords}
+            destination={destinationCords}
+            apikey={GOOGLE_API_KEY}
+            strokeWidth={4}
+            strokeColor="#124e78"
+            optimizeWaypoints={true}
+            onReady={(result) => {
+              mapRef.current.fitToCoordinates(result.coordinates, {
+                edgePadding: {
+                  right: 30,
+                  bottom: 250,
+                  left: 30,
+                  top: 250,
+                },
+              });
+            }}
+          />
+        )}
       </MapView>
 
       <View style={styles.searchContainer}>

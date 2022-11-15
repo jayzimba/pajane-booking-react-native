@@ -430,10 +430,12 @@ class Home extends Component {
           >
             Quick Booking
           </Text>
-          <View style={{ marginBottom: 10, paddingLeft: 10 }}>
+          <View style={{ marginBottom: 10 }}>
             <ScrollView
+              bounces={false}
               horizontal={true}
               showsHorizontalScrollIndicator={false}
+              style={{ paddingLeft: 10 }}
             >
               {this.state.data.map((item, index) => (
                 <View key={item.TripID}>
