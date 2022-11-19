@@ -478,7 +478,7 @@ const PaymentScreen = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        {/* <TouchableOpacity
+        <TouchableOpacity
           style={styles.payButtton}
           onPress={() => setResultIsVisible(true)}
         >
@@ -493,8 +493,8 @@ const PaymentScreen = ({ navigation }) => {
           >
             Pay Now
           </Text>
-        </TouchableOpacity> */}
-        <PayWithFlutterwave
+        </TouchableOpacity>
+        {/* <PayWithFlutterwave
           onRedirect={() => null}
           onDidInitialize={() => setResultIsVisible(true)}
           options={{
@@ -502,10 +502,10 @@ const PaymentScreen = ({ navigation }) => {
             authorization: "FLWPUBK_TEST-099d1de9b2679207a641bf7e33bdc979-X",
             customer: {
               email: "pajanebooking@gmail.com",
-              phonenumber: { phone },
+              phonenumber: { "0777603060" },
             },
             amount: 2,
-            currency: "ZMW",
+            currency: "USD",
             payment_options: "card",
           }}
           customButton={(props) => (
@@ -528,7 +528,7 @@ const PaymentScreen = ({ navigation }) => {
               </Text>
             </TouchableOpacity>
           )}
-        />
+        /> */}
 
         {ResultIsVisible && (
           <BookingDone

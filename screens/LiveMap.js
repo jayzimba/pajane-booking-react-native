@@ -151,7 +151,6 @@ const LiveMap = ({ navigation }, props) => {
         provider={PROVIDER_GOOGLE}
         initialRegion={INITIAL_POSITION}
       >
-        {}
         <Marker
           coordinate={destinationCords}
           image={require("../assets/greenMarker.png")}

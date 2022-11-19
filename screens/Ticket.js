@@ -25,7 +25,7 @@ export default class Ticket extends Component {
     super(props);
   }
   state = {
-    userID: 1,
+    userID: "3",
     data: [],
     PajaneCustomerCare: "",
   };
@@ -47,13 +47,13 @@ export default class Ticket extends Component {
     fetch("http://172.20.10.4/pajane/fetchTickets.php", requestOptions)
       .then((response) => response.text())
       .then((result) => {
-        if (result == "No ticket found") {
-          this.setState({ data: [] });
-          console.log("data empty");
-        } else {
-          this.setState({ data: result });
-          console.log("data found");
-        }
+        // if (result == "No ticket found") {
+        //   // this.setState({ data: [] });
+        //   console.log("data empty");
+        // } else {
+        this.setState({ data: result });
+        console.log("data found");
+        // }
       })
       .catch((error) => console.log("error", error));
   };
@@ -87,19 +87,16 @@ export default class Ticket extends Component {
           <Header />
         </View>
         <FlatList
-          bounces={true}
           data={this.state.data}
-          keyExtractor={this._keyExtractor.bind(this)}
           renderItem={({ item, index }) => (
             <TicketCard
-              busName={"Likili"}
+              busName={item.OperatorName}
               from={item.From}
               to={item.To}
               date={item.date}
               price={item.price}
             />
           )}
-          // keyExtractor={(item, index) => item.BookingID}
         />
       </SafeAreaView>
     );
