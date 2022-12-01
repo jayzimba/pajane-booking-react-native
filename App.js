@@ -60,6 +60,7 @@ const App = () => {
     Linking.openURL(PajaneCustomerCare);
   };
 
+
   useEffect(() => {
     AsyncStorage.getItem("alreadyLaunched").then((value) => {
       if (value == null) {
@@ -87,7 +88,8 @@ const App = () => {
         </AppStack.Navigator>
       </NavigationContainer>
     );
-  } else {
+  } 
+  else {
     return (
       <NavigationContainer>
         <StatusBar

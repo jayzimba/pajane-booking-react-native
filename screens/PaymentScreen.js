@@ -9,6 +9,8 @@ import {
   Modal,
   Button,
   TextInputComponent,
+  Image,
+  Animated,
 } from "react-native";
 import React, { useState } from "react";
 import Header from "./../components/Header";
@@ -35,6 +37,45 @@ const slides = {
   mtn: require("../assets/mtn.jpg"),
 };
 
+const ModalPoup = ({ visible, children }) => {
+  const [showModal, setShowModal] = React.useState(visible);
+  const scaleValue = React.useRef(new Animated.Value(0)).current;
+  React.useEffect(() => {
+    toggleModal();
+  }, [visible]);
+  const toggleModal = () => {
+    if (visible) {
+      setShowModal(true);
+      Animated.spring(scaleValue, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      setTimeout(() => setShowModal(false), 200);
+      Animated.timing(scaleValue, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
+  return (
+    <Modal transparent visible={showModal}>
+      <View style={styles.modalBackGround}>
+        <Animated.View
+          style={[
+            styles.modalContainer,
+            { transform: [{ scale: scaleValue }] },
+          ]}
+        >
+          {children}
+        </Animated.View>
+      </View>
+    </Modal>
+  );
+};
+
 const PaymentScreen = ({ navigation }) => {
   const [ResultIsVisible, setResultIsVisible] = useState(false);
   const [isVisible, setisVisible] = useState(false);
@@ -44,6 +85,8 @@ const PaymentScreen = ({ navigation }) => {
   const [AirtelSelectedOption, setAirtelSelectedOption] = useState(false);
   const [MTNSelectedOption, setMTNSelectedOption] = useState(false);
   const [phone, setPhone] = useState("");
+  //testing modal popup
+  const [visible, setVisible] = React.useState(false);
 
   const showBookingDone = () => {
     setResultIsVisible((prev) => true);
@@ -447,6 +490,7 @@ const PaymentScreen = ({ navigation }) => {
                   </Text>
                 </TouchableOpacity>
               </Animatable.View>
+              <Button title="Open Modal" onPress={() => setVisible(true)} />
             </SafeAreaView>
           </SafeAreaView>
         </Modal>
@@ -541,6 +585,31 @@ const PaymentScreen = ({ navigation }) => {
           />
         )}
       </ScrollView>
+      
+
+      <ModalPoup visible={visible}>
+        <View style={{alignItems: 'center'}}>
+          <View style={styles.header}>
+            <TouchableOpacity onPress={() => setVisible(false)}>
+              <Image
+                source={require('../assets/x.png')}
+                style={{height: 30, width: 30}}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{alignItems: 'center'}}>
+          <Image
+            source={require('../assets/success.png')}
+            style={{height: 150, width: 150, marginVertical: 10}}
+          />
+        </View>
+
+        <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>
+          Congratulations your bus was successfully booked
+        </Text>
+      </ModalPoup>
+      <Button title="Open Modal" onPress={() => setVisible(true)} />
     </SafeAreaView>
   );
 };
@@ -585,5 +654,25 @@ const styles = StyleSheet.create({
     marginVertical: 50,
     fontSize: 18,
     fontWeight: "700",
+  },
+  modalBackGround: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.8)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContainer: {
+    width: '80%',
+    backgroundColor: 'white',
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
+  },
+  header: {
+    width: '100%',
+    height: 40,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
 });

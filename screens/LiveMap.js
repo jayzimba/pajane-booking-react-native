@@ -32,15 +32,12 @@ const LiveMap = ({ navigation }, props) => {
   const [data, setData] = useState([]);
   const [time, setTime] = useState(0);
   const [distance, setTDistance] = useState(0);
-
   const fetchData = async () => {
     const response = await fetch("http://192.168.8.102:1345/quick_booking");
     const quick_booking = await response.json();
     setData({ quick_booking });
   };
-
   const [ResultIsVisible, setResultIsVisible] = useState(false);
-
   const handleModal = () => {
     setResultIsVisible(!ResultIsVisible);
   };
@@ -70,6 +67,8 @@ const LiveMap = ({ navigation }, props) => {
   const LATITUDE_DELTA = 0.04;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
   const [INITIAL_POSITION, SetINITIAL_POSITION] = useState(null);
+  const [address, setAddress] = useState("");
+  const [toAddress, setToAddress] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -81,6 +80,8 @@ const LiveMap = ({ navigation }, props) => {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      const address = await Location.reverseGeocodeAsync(location.coords);
+      setAddress(address[0].city);
       SetINITIAL_POSITION({
         longitude: location.coords.longitude,
         latitude: location.coords.latitude,
@@ -97,6 +98,7 @@ const LiveMap = ({ navigation }, props) => {
     pickUpCords: { latitude: 0, longitude: 0 },
     destinationCords: { latitude: 0, longitude: 0 },
   });
+
   const { pickUpCords, destinationCords } = state;
   const dataSet = state;
 
@@ -132,6 +134,10 @@ const LiveMap = ({ navigation }, props) => {
         longitude: lng,
       },
     });
+    const toAddrressHolder = await Location.reverseGeocodeAsync(
+      destinationCords
+    );
+    setToAddress(toAddrressHolder[0].city);
   };
 
   const fetchValues = async (data) => {
@@ -151,25 +157,26 @@ const LiveMap = ({ navigation }, props) => {
         provider={PROVIDER_GOOGLE}
         initialRegion={INITIAL_POSITION}
       >
-        <Marker
+        {/* <Marker
           coordinate={destinationCords}
           image={require("../assets/greenMarker.png")}
         />
         <Marker
           coordinate={pickUpCords}
           image={require("../assets/Oval.png")}
-        />
-        {(pickUpCords.latitude == 0 || pickUpCords.longitude == 0) &&
-        (destinationCords.latitude == 0 ||
-          destinationCords.longitude == 0) ? null : (
+        /> */}
+
+        {destinationCords.latitude == 0 ||
+        destinationCords.longitude == 0 ? null : (
           <MapViewDirections
-            origin={pickUpCords}
+            origin={INITIAL_POSITION}
             destination={destinationCords}
             apikey={GOOGLE_API_KEY}
             strokeWidth={4}
             strokeColor="#124e78"
             optimizeWaypoints={true}
             onReady={(result) => {
+              alert(toAddress);
               mapRef.current.fitToCoordinates(result.coordinates, {
                 edgePadding: {
                   right: 30,
@@ -184,25 +191,14 @@ const LiveMap = ({ navigation }, props) => {
       </MapView>
 
       <View style={styles.searchContainer}>
-        <AddressPicker
-          fetchAddress={fetchAddressCoords}
-          placeholdeText="From City"
-          label="Pick up point"
-          onPlaceSelected={() => {}}
-        />
         <View style={{ marginBottom: 10 }} />
         <AddressPicker
           fetchAddress={fetchDestinationCoords}
-          placeholdeText="To City"
+          placeholdeText="where are you going?"
           label="Drop point"
           onPlaceSelected={() => {}}
         />
-        {time != 1 && distance != 1 ? (
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginEnd: 20 }}>Time: {9}</Text>
-            <Text>Distance: {9}</Text>
-          </View>
-        ) : null}
+
         <TouchableOpacity
           style={{
             justifyContent: "center",
@@ -213,105 +209,17 @@ const LiveMap = ({ navigation }, props) => {
         </TouchableOpacity>
       </View>
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={ResultIsVisible}
-        onRequestClose={() => {
-          console.log("Modal has been closed.");
-        }}
-        hasBackdrop={true}
-        backdropOpacity={0.9}
-        backdropColor="#000000"
-        hideModalContentWhileAnimating={true}
-        useNativeDriverForBackdrop={true}
-        useNativeDriver={true}
-        animationInTiming={1}
-        animationOutTiming={1}
-        backdropTransitionInTiming={1}
-        backdropTransitionOutTiming={1}
-      >
-        <View
-          style={{
-            backgroundColor: "transparent",
-            flex: 1,
-            justifyContent: "flex-end",
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: "#fff",
-              opacity: 1,
-              elevation: 2,
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 2,
-                height: 2,
-              },
-              shadowOpacity: 0.4,
-              elevation: 2,
-              height: "40%",
-            }}
-          >
-            <TouchableOpacity
-              style={{
-                padding: 10,
-                backgroundColor: "#124e78",
-                width: "30%",
-                borderBottomEndRadius: 10,
-              }}
-              onPress={handleModal}
-            >
-              <Text style={{ color: "white" }}>Search Again</Text>
-            </TouchableOpacity>
-            <View style={{ marginVertical: 10 }}>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-              >
-                <QuickBookings
-                  from={"Ndola"}
-                  destination={"Lusaka"}
-                  fee={300}
-                  busName={"PowerTools"}
-                />
-                <TouchableOpacity onPress={() => alert("clicked")}>
-                  <QuickBookings
-                    from={"Ndola"}
-                    destination={"Lusaka"}
-                    fee={300}
-                    busName={"PowerTools"}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => alert("clicked")}>
-                  <QuickBookings
-                    from={"Ndola"}
-                    destination={"Lusaka"}
-                    fee={300}
-                    busName={"PowerTools"}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => alert("clicked")}>
-                  <QuickBookings
-                    from={"Ndola"}
-                    destination={"Lusaka"}
-                    fee={300}
-                    busName={"PowerTools"}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => alert("clicked")}>
-                  <QuickBookings
-                    from={"Ndola"}
-                    destination={"Lusaka"}
-                    fee={300}
-                    busName={"PowerTools"}
-                  />
-                </TouchableOpacity>
-              </ScrollView>
-            </View>
-          </View>
-        </View>
-      </Modal>
+      {ResultIsVisible && (
+        <Results
+          visible={ResultIsVisible}
+          closeModal={setResultIsVisible}
+          bookingdetails={this.bookingdetails}
+          to={this.state.Dtext}
+          from={this.state.Ptext}
+          date={this.state.date}
+          //from and to props
+        />
+      )}
     </View>
   );
 };

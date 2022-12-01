@@ -192,7 +192,7 @@ export class Results extends Component {
                 }}
                 renderItem={({ item, index }) => (
                   <TouchableOpacity
-                    onPress={(item) => this.props.bookingdetails(item)}
+                    onPress={(item) => this.props.bookingdetails(item) }
                   >
                     <Bus
                       busName={item.OperatorName}

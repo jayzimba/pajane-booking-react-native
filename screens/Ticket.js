@@ -88,6 +88,7 @@ export default class Ticket extends Component {
         </View>
         <FlatList
           data={this.state.data}
+          keyExtractor={this._keyExtractor.bind(this)}
           renderItem={({ item, index }) => (
             <TicketCard
               busName={item.OperatorName}

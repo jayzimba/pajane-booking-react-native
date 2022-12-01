@@ -138,6 +138,7 @@ class Home extends Component {
     e.preventDefault();
     this.setState({ ResultIsVisible: true });
   };
+
   closeShowResults = (e) => {
     e.preventDefault();
     this.setState({ ResultIsVisible: false });
