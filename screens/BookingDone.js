@@ -497,7 +497,7 @@ export class BookingDone extends Component {
                         animation="rubberBand"
                         duration={1500}
                         iterationCount={10}
-                        iterationDelay={5000}
+                        iterationDelay={2000}
                         style={{
                           backgroundColor: "#05C25D",
                           borderRadius: 5,

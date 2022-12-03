@@ -40,6 +40,7 @@ const slides = {
 const ModalPoup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
   const scaleValue = React.useRef(new Animated.Value(0)).current;
+
   React.useEffect(() => {
     toggleModal();
   }, [visible]);
@@ -48,7 +49,7 @@ const ModalPoup = ({ visible, children }) => {
       setShowModal(true);
       Animated.spring(scaleValue, {
         toValue: 1,
-        duration: 300,
+        duration: 700,
         useNativeDriver: true,
       }).start();
     } else {
@@ -87,6 +88,7 @@ const PaymentScreen = ({ navigation }) => {
   const [phone, setPhone] = useState("");
   //testing modal popup
   const [visible, setVisible] = React.useState(false);
+  const [viewTicket, setViewTicket] = React.useState(false);
 
   const showBookingDone = () => {
     setResultIsVisible((prev) => true);
@@ -474,6 +476,8 @@ const PaymentScreen = ({ navigation }) => {
                   title="Click To Close Modal"
                   onPress={() => {
                     setisVisible(!isVisible);
+                    setVisible(true);
+                    setViewTicket(true);
                   }}
                   style={styles.payButtton}
                 >
@@ -490,7 +494,6 @@ const PaymentScreen = ({ navigation }) => {
                   </Text>
                 </TouchableOpacity>
               </Animatable.View>
-              <Button title="Open Modal" onPress={() => setVisible(true)} />
             </SafeAreaView>
           </SafeAreaView>
         </Modal>
@@ -523,10 +526,13 @@ const PaymentScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.payButtton}
-          onPress={() => setResultIsVisible(true)}
+          style={viewTicket ? styles.payButtton : styles.DisabledpayButtton}
+          onPress={() => {
+            setResultIsVisible(true);
+          }}
+          disabled={!viewTicket}
         >
-          <Ionicons name="cash" size={24} color="white" />
+          <Ionicons name="receipt" size={24} color="white" />
           <Text
             style={{
               color: "white",
@@ -535,7 +541,7 @@ const PaymentScreen = ({ navigation }) => {
               marginLeft: 10,
             }}
           >
-            Pay Now
+            View Ticket
           </Text>
         </TouchableOpacity>
         {/* <PayWithFlutterwave
@@ -585,31 +591,34 @@ const PaymentScreen = ({ navigation }) => {
           />
         )}
       </ScrollView>
-      
 
       <ModalPoup visible={visible}>
-        <View style={{alignItems: 'center'}}>
+        <View style={{ alignItems: "center" }}>
           <View style={styles.header}>
-            <TouchableOpacity onPress={() => setVisible(false)}>
+            <TouchableOpacity
+              onPress={() => {
+                setResultIsVisible(false);
+                setVisible(false);
+              }}
+            >
               <Image
-                source={require('../assets/x.png')}
-                style={{height: 30, width: 30}}
+                source={require("../assets/x.png")}
+                style={{ height: 30, width: 30 }}
               />
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{alignItems: 'center'}}>
+        <View style={{ alignItems: "center" }}>
           <Image
-            source={require('../assets/success.png')}
-            style={{height: 150, width: 150, marginVertical: 10}}
+            source={require("../assets/success.png")}
+            style={{ height: 150, width: 150, marginVertical: 10 }}
           />
         </View>
 
-        <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>
+        <Text style={{ marginVertical: 30, fontSize: 20, textAlign: "center" }}>
           Congratulations your bus was successfully booked
         </Text>
       </ModalPoup>
-      <Button title="Open Modal" onPress={() => setVisible(true)} />
     </SafeAreaView>
   );
 };
@@ -632,6 +641,16 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginVertical: 20,
     backgroundColor: "#05C25D",
+    borderRadius: 5,
+  },
+  DisabledpayButtton: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 15,
+    marginHorizontal: 20,
+    marginVertical: 20,
+    backgroundColor: "#a5a5a5",
     borderRadius: 5,
   },
   modal: {
@@ -657,22 +676,22 @@ const styles = StyleSheet.create({
   },
   modalBackGround: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.8)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(0,0,0,0.8)",
+    justifyContent: "center",
+    alignItems: "center",
   },
   modalContainer: {
-    width: '80%',
-    backgroundColor: 'white',
+    width: "80%",
+    backgroundColor: "white",
     paddingHorizontal: 20,
     paddingVertical: 30,
     borderRadius: 20,
     elevation: 20,
   },
   header: {
-    width: '100%',
+    width: "100%",
     height: 40,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
+    alignItems: "flex-end",
+    justifyContent: "center",
   },
 });

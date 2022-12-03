@@ -27,8 +27,9 @@ import AddressPicker from "./../components/AddressPicker";
 import CustomBtn from "./../components/CustomBtn";
 import BottomSheet from "@gorhom/bottom-sheet";
 import QuickBookings from "../components/QuickBookings";
+import Results from "./Results";
 
-const LiveMap = ({ navigation }, props) => {
+const LiveMap = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [time, setTime] = useState(0);
   const [distance, setTDistance] = useState(0);
@@ -149,6 +150,10 @@ const LiveMap = ({ navigation }, props) => {
     });
   };
 
+  const bookingdetails = () => {
+    navigation.navigate("MoreDetails");
+    setResultIsVisible(false);
+  };
   return (
     <View style={styles.container}>
       <MapView
@@ -176,7 +181,7 @@ const LiveMap = ({ navigation }, props) => {
             strokeColor="#124e78"
             optimizeWaypoints={true}
             onReady={(result) => {
-              alert(toAddress);
+              // alert(address);
               mapRef.current.fitToCoordinates(result.coordinates, {
                 edgePadding: {
                   right: 30,
@@ -196,7 +201,12 @@ const LiveMap = ({ navigation }, props) => {
           fetchAddress={fetchDestinationCoords}
           placeholdeText="where are you going?"
           label="Drop point"
-          onPlaceSelected={() => {}}
+          onPlaceSelected={(data) => {
+            alert(data.toString());
+          }}
+          getAddressDetails={(data) => {
+            console.log(data);
+          }}
         />
 
         <TouchableOpacity
@@ -212,11 +222,11 @@ const LiveMap = ({ navigation }, props) => {
       {ResultIsVisible && (
         <Results
           visible={ResultIsVisible}
-          closeModal={setResultIsVisible}
-          bookingdetails={this.bookingdetails}
-          to={this.state.Dtext}
-          from={this.state.Ptext}
-          date={this.state.date}
+          closeModal={handleModal}
+          bookingdetails={bookingdetails}
+          to={address}
+          from={"Lusaka"}
+          date={"2022-12-03"}
           //from and to props
         />
       )}
