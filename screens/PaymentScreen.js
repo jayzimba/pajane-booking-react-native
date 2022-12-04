@@ -356,6 +356,7 @@ const PaymentScreen = ({ navigation }) => {
               </View>
               <View style={{ flexDirection: "column" }}>
                 <Text>CVC</Text>
+
                 <View
                   style={{
                     height: 40,
@@ -389,6 +390,28 @@ const PaymentScreen = ({ navigation }) => {
                   />
                 </View>
               </View>
+            </View>
+            <View>
+              <TouchableOpacity
+                title="Click To Close Modal"
+                onPress={() => {
+                  setVisible(true);
+                  setViewTicket(true);
+                }}
+                style={styles.payButtton}
+              >
+                <Ionicons name="cash" size={24} color="white" />
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 22,
+                    fontWeight: "700",
+                    marginLeft: 10,
+                  }}
+                >
+                  Pay With Card
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </CollapsibleView>
@@ -609,10 +632,12 @@ const PaymentScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={{ alignItems: "center" }}>
-          <Image
-            source={require("../assets/success.png")}
-            style={{ height: 150, width: 150, marginVertical: 10 }}
-          />
+          <Animatable.View duration={3000} animation="bounceIn">
+            <Image
+              source={require("../assets/success.png")}
+              style={{ height: 150, width: 150, marginVertical: 10 }}
+            />
+          </Animatable.View>
         </View>
 
         <Text style={{ marginVertical: 30, fontSize: 20, textAlign: "center" }}>

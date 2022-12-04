@@ -8,9 +8,12 @@ const transit = require("../assets/notInTransit.png");
 const qrcode = require("../assets/qrcode_sample.png");
 const waterMark = require("../assets/paidWaterMark.png");
 export class TicketCard extends PureComponent {
+  state = {
+    status: this.props.status,
+  };
   render() {
     return (
-      <TouchableOpacity style={styles.constainer}>
+      <TouchableOpacity style={styles.constainer} onPress={this.props.toTicket}>
         <Image
           source={qrcode}
           style={{
@@ -58,7 +61,7 @@ export class TicketCard extends PureComponent {
             </Text>
 
             <Text style={{ marginVertical: 5, marginTop: 2 }}>
-              {464899887856}
+              {this.props.ticketID}
             </Text>
           </View>
           <View
@@ -82,14 +85,16 @@ export class TicketCard extends PureComponent {
             </Text>
 
             <Text
-              style={{
-                fontSize: 12,
-                fontWeight: "bold",
-                marginLeft: 5,
-                color: "#05C25D",
-              }}
+              style={
+                this.props.status == "Booked" ||
+                this.props.status == "Trip Complete"
+                  ? styles.booked
+                  : this.props.status == "Onboard"
+                  ? styles.Onboard
+                  : styles.cancelled
+              }
             >
-              Booked
+              {this.props.status}
             </Text>
           </View>
         </View>
@@ -130,5 +135,35 @@ const styles = StyleSheet.create({
     color: "#124e78",
     fontWeight: "bold",
     fontSize: 16,
+  },
+  booked: {
+    fontSize: 12,
+    fontWeight: "bold",
+    marginLeft: 5,
+    color: "#05C25D",
+  },
+  cancelled: {
+    fontSize: 12,
+    fontWeight: "bold",
+    marginLeft: 5,
+    color: "#fc0303",
+  },
+  Onboard: {
+    ontSize: 12,
+    fontWeight: "bold",
+    marginLeft: 5,
+    color: "#fc9503",
+  },
+  Missed: {
+    ontSize: 12,
+    fontWeight: "bold",
+    marginLeft: 5,
+    color: "#fc0303",
+  },
+  Refunded: {
+    ontSize: 12,
+    fontWeight: "bold",
+    marginLeft: 5,
+    color: "#036afc",
   },
 });

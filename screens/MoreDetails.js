@@ -9,7 +9,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
+import DatePickerComponent from "../components/DatePickerComponent";
+import DatePicker, {
+  getToday,
+  getFormatedDate,
+  moment,
+} from "react-native-modern-datepicker";
 import React, { Children, useState, useRef, useEffect } from "react";
 import Header from "./../components/Header";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -43,7 +48,7 @@ const MoreDetails = ({ navigation }) => {
 
   const [AdultCount, setAdultCount] = useState(1);
   const [ChildrenCount, setChildrenCount] = useState(0);
-
+  const [dateOfdeparture, setDateOfDeparture] = useState(getFormatedDate(getToday(), "DD MMM, YYYY"))
   const [remindMe, setRemindMe] = useState(false);
 
   const increamentAdultCount = () => {
@@ -366,11 +371,12 @@ const MoreDetails = ({ navigation }) => {
                   <Text
                     style={{
                       fontSize: 12,
-                      fontWeight: "400",
+                      fontWeight: "700",
                       color: "#000",
                     }}
                   >
-                    Friday, 5, Aug
+                    {dateOfdeparture}
+
                   </Text>
                 </View>
                 <View style={{ marginEnd: 10 }}>

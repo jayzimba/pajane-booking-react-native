@@ -265,15 +265,15 @@ class TrackBus extends Component {
           style={styles.map}
           provider={PROVIDER_GOOGLE}
           initialRegion={{
-            latitude: 0,
-            longitude: 0,
+            latitude: -15.268828,
+            longitude:  28.264568,
             latitudeDelta: 0.015,
             longitudeDelta: 0.0121,
           }}
         >
           <Marker
-            coordinate={{ latitude: -15.2424, longitude: 28.1713 }}
-           image={require("../assets/greenMarker.png")} />
+            coordinate={{ latitude: -15.268828, longitude: 28.264863 }}
+           image={require("../assets/locateBus.png")}/>
         </MapView>
       </SafeAreaView>
     );

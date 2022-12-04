@@ -60,6 +60,7 @@ export class Results extends Component {
           this.setState({ trips: [] });
         } else {
           this.setState({ trips: result });
+          console.log(result);
         }
       })
       .catch((error) => console.log("error", error))

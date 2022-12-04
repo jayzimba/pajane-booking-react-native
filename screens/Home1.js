@@ -52,10 +52,11 @@ const Tab = createBottomTabNavigator();
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state.date = getFormatedDate(getToday(), "YYYY-MM-DD");
+    // this.state.date = getFormatedDate(getToday(), "YYYY-MM-DD");
   }
 
   state = {
+    date: getFormatedDate(getToday(), "YYYY-MM-DD"),
     data: [],
     PajaneCustomerCare: "",
     ResultIsVisible: false,
@@ -445,6 +446,7 @@ class Home extends Component {
                     to={item.To}
                     fee={item.price}
                     station={item.station}
+                    date = {this.state.date}
                     busName={item.OperatorName}
                     nav={this.props.navigation}
                     seatsAvailable={item.seats - item.seatsBooked}

@@ -15,6 +15,11 @@ import {
 } from "react-native";
 import { useEffect, useRef, useMemo, useCallback, useState } from "react";
 import * as Location from "expo-location";
+import DatePicker, {
+  getToday,
+  getFormatedDate,
+  moment,
+} from "react-native-modern-datepicker";
 import {
   GooglePlaceDetail,
   GooglePlacesAutocomplete,
@@ -30,6 +35,7 @@ import QuickBookings from "../components/QuickBookings";
 import Results from "./Results";
 
 const LiveMap = ({ navigation }) => {
+  const [dateOfdeparture, setDateOfDeparture] = useState(getFormatedDate(getToday(), "YYYY-MM-DD"))
   const [data, setData] = useState([]);
   const [time, setTime] = useState(0);
   const [distance, setTDistance] = useState(0);
@@ -39,7 +45,11 @@ const LiveMap = ({ navigation }) => {
     setData({ quick_booking });
   };
   const [ResultIsVisible, setResultIsVisible] = useState(false);
-  const handleModal = () => {
+  const handleModal = async () => {
+    const toAddrressHolder = await Location.reverseGeocodeAsync(
+      destinationCords
+    );
+    setToAddress(toAddrressHolder[0].city);
     setResultIsVisible(!ResultIsVisible);
   };
 
@@ -105,11 +115,12 @@ const LiveMap = ({ navigation }) => {
 
   const onPressLocation = () => {
     fetchValues(state);
+    fetchDestinationCoords(state);
   };
 
   const onDone = () => {
-    console.log("pickupcords===>>>", pickUpCords);
-    console.log("destinationcords===>>>", destinationCords);
+    fetchValues(state);
+    fetchDestinationCoords(state);
   };
 
   const fetchAddressCoords = async (lat, lng) => {
@@ -135,16 +146,16 @@ const LiveMap = ({ navigation }) => {
         longitude: lng,
       },
     });
-    const toAddrressHolder = await Location.reverseGeocodeAsync(
-      destinationCords
-    );
-    setToAddress(toAddrressHolder[0].city);
   };
 
   const fetchValues = async (data) => {
     setState({
       pickUpCords: {
         latitude: data.pickUpCords.latitude,
+        longitude: data.pickUpCords.longitude,
+      },
+      destinationCords: {
+        latitude: data.destinationCords.latitude,
         longitude: data.destinationCords.longitude,
       },
     });
@@ -224,9 +235,9 @@ const LiveMap = ({ navigation }) => {
           visible={ResultIsVisible}
           closeModal={handleModal}
           bookingdetails={bookingdetails}
-          to={address}
-          from={"Lusaka"}
-          date={"2022-12-03"}
+          to={toAddress}
+          from={address}
+          date={dateOfdeparture}
           //from and to props
         />
       )}

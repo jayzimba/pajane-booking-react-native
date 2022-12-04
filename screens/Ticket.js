@@ -23,10 +23,10 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 export default class Ticket extends Component {
   constructor(props) {
     super(props);
+    this.state = { data: [] };
   }
   state = {
     userID: "3",
-    data: [],
     PajaneCustomerCare: "",
   };
 
@@ -36,7 +36,7 @@ export default class Ticket extends Component {
 
   fetchTickets = async () => {
     var formdata = new FormData();
-    formdata.append("userID", "3");
+    formdata.append("userID", "1");
 
     var requestOptions = {
       method: "POST",
@@ -45,15 +45,14 @@ export default class Ticket extends Component {
     };
 
     fetch("http://172.20.10.4/pajane/fetchTickets.php", requestOptions)
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((result) => {
-        // if (result == "No ticket found") {
-        //   // this.setState({ data: [] });
-        //   console.log("data empty");
-        // } else {
-        this.setState({ data: result });
-        console.log("data found");
-        // }
+        if (result == "No ticket found") {
+          this.setState({ data: [] });
+        } else {
+          this.setState({ data: result });
+          console.log(result);
+        }
       })
       .catch((error) => console.log("error", error));
   };
@@ -87,8 +86,8 @@ export default class Ticket extends Component {
           <Header />
         </View>
         <FlatList
+          bounces={false}
           data={this.state.data}
-          keyExtractor={this._keyExtractor.bind(this)}
           renderItem={({ item, index }) => (
             <TicketCard
               busName={item.OperatorName}
@@ -96,6 +95,8 @@ export default class Ticket extends Component {
               to={item.To}
               date={item.date}
               price={item.price}
+              status={item.STATUS}
+              ticketID={item.TicketID}
             />
           )}
         />
