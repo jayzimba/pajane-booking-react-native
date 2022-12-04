@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2022 at 12:49 AM
+-- Generation Time: Dec 04, 2022 at 05:05 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -40,6 +40,13 @@ CREATE TABLE `booking` (
   `PaymentspaymentID` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `booking`
+--
+
+INSERT INTO `booking` (`BookingID`, `TripTripID`, `date`, `TIME`, `adult`, `childdren`, `reminder`, `seatBooked`, `CustomerCustomerID`, `PaymentspaymentID`) VALUES
+(1, 2, '2022-12-05', '17:56:23.208000', 1, 0, 1, 23, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -67,7 +74,12 @@ INSERT INTO `bus` (`BusId`, `OperatorOperatorID`, `seats`, `plateNumber`) VALUES
 (7, 7, 45, 'GBF 456'),
 (8, 8, 45, 'CV567'),
 (9, 9, 34, 'GH567'),
-(10, 1, 45, 'JK123');
+(10, 1, 45, 'JK123'),
+(11, 10, 47, 'FCGFC 123'),
+(12, 10, 47, 'FAGFC 923'),
+(13, 10, 46, 'KCGFC 923'),
+(14, 10, 52, 'QCGFC 523'),
+(15, 10, 47, 'LCGFC 193');
 
 -- --------------------------------------------------------
 
@@ -78,7 +90,7 @@ INSERT INTO `bus` (`BusId`, `OperatorOperatorID`, `seats`, `plateNumber`) VALUES
 CREATE TABLE `customer` (
   `CustomerID` int(10) NOT NULL,
   `fullName` varchar(50) DEFAULT NULL,
-  `Address` int(255) DEFAULT NULL,
+  `Address` varchar(255) DEFAULT NULL,
   `contact` varchar(12) DEFAULT NULL,
   `PASSWORD` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -88,7 +100,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`CustomerID`, `fullName`, `Address`, `contact`, `PASSWORD`) VALUES
-(1, 'Geoffrey zimba', 0, '777603060', 'trffhkua');
+(1, 'Geoffrey zimba', '0', '777603060', '12345678');
 
 -- --------------------------------------------------------
 
@@ -114,7 +126,9 @@ INSERT INTO `operator` (`OperatorID`, `OperatorName`) VALUES
 (6, 'Scorpion'),
 (7, 'PostBus'),
 (8, 'Juldan'),
-(9, 'Euro');
+(9, 'Euro'),
+(10, 'Shalom'),
+(11, 'Intercape');
 
 -- --------------------------------------------------------
 
@@ -209,8 +223,14 @@ CREATE TABLE `trip` (
 --
 
 INSERT INTO `trip` (`TripID`, `BusBusId`, `seatsBooked`, `From`, `To`, `station`, `date`, `time`, `price`) VALUES
-(1, 1, 6, 'Lusaka', 'Ndola', 'Inter City', '2022-10-25', '00:09:30.723000', 120),
-(2, 2, 3, 'Lusaka', 'Ndola', 'Inter City', '2022-10-25', '00:10:00.255000', 135);
+(0, 8, 23, 'Ndola', 'Solwezi', 'Broadway', '2022-12-04', '00:09:30.723000', 210),
+(2, 2, 3, 'Lusaka', 'Ndola', 'Inter City', '2022-12-04', '00:10:00.255000', 135),
+(3, 7, 6, 'Ndola', 'Kapiri Mposhi', 'Masala', '2022-12-04', '00:10:00.255000', 75),
+(4, 10, 12, 'Ndola', 'Chingola', 'Broadway', '2022-12-04', '00:10:00.255000', 125),
+(5, 1, 12, 'Solwezi', 'Ndola', 'Main station', '2022-12-04', '00:10:00.255000', 230),
+(6, 7, 12, 'kitwe', 'Ndola', 'Main station', '2022-12-04', '00:10:00.255000', 74),
+(7, 2, 15, 'Kafue', 'Lusaka', 'Kafua town', '2022-12-05', '16:00:33.859000', NULL),
+(8, 1, 12, 'Ndola', 'Lusaka', 'Main station', '2022-12-10', '10:00:00.000000', 120);
 
 --
 -- Indexes for dumped tables
@@ -287,13 +307,13 @@ ALTER TABLE `trip`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `bus`
 --
 ALTER TABLE `bus`
-  MODIFY `BusId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `BusId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `customer`
@@ -305,7 +325,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `operator`
 --
 ALTER TABLE `operator`
-  MODIFY `OperatorID` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `OperatorID` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `operator_admin`
@@ -335,7 +355,7 @@ ALTER TABLE `ticket_status`
 -- AUTO_INCREMENT for table `trip`
 --
 ALTER TABLE `trip`
-  MODIFY `TripID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `TripID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
