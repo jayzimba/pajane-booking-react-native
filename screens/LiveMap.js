@@ -35,7 +35,9 @@ import QuickBookings from "../components/QuickBookings";
 import Results from "./Results";
 
 const LiveMap = ({ navigation }) => {
-  const [dateOfdeparture, setDateOfDeparture] = useState(getFormatedDate(getToday(), "YYYY-MM-DD"))
+  const [dateOfdeparture, setDateOfDeparture] = useState(
+    getFormatedDate(getToday(), "YYYY-MM-DD")
+  );
   const [data, setData] = useState([]);
   const [time, setTime] = useState(0);
   const [distance, setTDistance] = useState(0);
@@ -173,15 +175,6 @@ const LiveMap = ({ navigation }) => {
         provider={PROVIDER_GOOGLE}
         initialRegion={INITIAL_POSITION}
       >
-        {/* <Marker
-          coordinate={destinationCords}
-          image={require("../assets/greenMarker.png")}
-        />
-        <Marker
-          coordinate={pickUpCords}
-          image={require("../assets/Oval.png")}
-        /> */}
-
         {destinationCords.latitude == 0 ||
         destinationCords.longitude == 0 ? null : (
           <MapViewDirections

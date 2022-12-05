@@ -12,7 +12,10 @@ import {
   FlatList,
   Alert,
   TextInput,
+  Modal,
 } from "react-native";
+
+import { WebView } from "react-native-webview";
 import { NavigationContainer, useRoute } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -71,6 +74,7 @@ class Home extends Component {
     locationPicked: {},
     errorOnPermission: "",
     city: "",
+    visitZambia: false,
   };
 
   setTown = (e) => {
@@ -261,9 +265,15 @@ class Home extends Component {
                   Search for Bus Ticket
                 </Text>
               </View>
-              <TouchableOpacity
-                onPress={() => Alert.alert("Take a tour clicked")}
+
+              <Modal
+                visible={this.state.visitZambia}
+                onRequestClose={() => this.setState({ visitZambia: false })}
               >
+                <WebView source={{ uri: 'https://www.zambiatourism.com/' }}/>
+              </Modal>
+
+              <TouchableOpacity onPress={() => this.setState({ visitZambia: true })}>
                 <View
                   style={{
                     alignItems: "center",
@@ -446,7 +456,7 @@ class Home extends Component {
                     to={item.To}
                     fee={item.price}
                     station={item.station}
-                    date = {this.state.date}
+                    date={this.state.date}
                     busName={item.OperatorName}
                     nav={this.props.navigation}
                     seatsAvailable={item.seats - item.seatsBooked}

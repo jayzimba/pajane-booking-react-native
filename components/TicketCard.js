@@ -149,19 +149,19 @@ const styles = StyleSheet.create({
     color: "#fc0303",
   },
   Onboard: {
-    ontSize: 12,
+    fontSize: 12,
     fontWeight: "bold",
     marginLeft: 5,
     color: "#fc9503",
   },
   Missed: {
-    ontSize: 12,
+    fontSize: 12,
     fontWeight: "bold",
     marginLeft: 5,
     color: "#fc0303",
   },
   Refunded: {
-    ontSize: 12,
+    fontSize: 12,
     fontWeight: "bold",
     marginLeft: 5,
     color: "#036afc",

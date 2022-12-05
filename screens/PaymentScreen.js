@@ -29,12 +29,35 @@ import { useRoute } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
 
 // flutterwave
-import { PayWithFlutterwave } from "flutterwave-react-native";
+import { PayWithFlutterwave, close } from "flutterwave-react-native";
 
 const slides = {
   card: require("../assets/vmc.jpeg"),
   airtel: require("../assets/airtel.jpg"),
   mtn: require("../assets/mtn.jpg"),
+};
+
+interface RedirectParams {
+  status: "successful" | "cancelled";
+  transaction_id?: string;
+  tx_ref: string;
+}
+
+/* An example function called when transaction is completed successfully or canceled */
+const handleOnRedirect = (data: RedirectParams) => {
+  console.log(data);
+};
+
+/* An example function to generate a random transaction reference */
+const generateTransactionRef = (length: number) => {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return `flw_tx_ref_${result}`;
 };
 
 const ModalPoup = ({ visible, children }) => {
@@ -439,7 +462,11 @@ const PaymentScreen = ({ navigation }) => {
               name="arrow-left"
               size={35}
               color="black"
-              onPress={() => setisVisible(!isVisible)}
+              onPress={() => {
+                setisVisible(!isVisible);
+                setVisible(true);
+                setViewTicket(true);
+              }}
               style={{
                 margin: 10,
               }}
@@ -495,7 +522,7 @@ const PaymentScreen = ({ navigation }) => {
                   />
                 </View>
 
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   title="Click To Close Modal"
                   onPress={() => {
                     setisVisible(!isVisible);
@@ -515,7 +542,46 @@ const PaymentScreen = ({ navigation }) => {
                   >
                     Pay Now
                   </Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                <PayWithFlutterwave
+                  onRedirect={(data: RedirectParams) => {
+                    console.log(data);
+                    setisVisible(true);
+                  }}
+                  options={{
+                    tx_ref: Date.now().toString(),
+
+                    authorization: "FLWPUBK-aa9cc71e514393d4bfc408610089dcf2-X",
+                    customer: {
+                      email: "customer@pajane.com",
+                      phone_number: phone,
+                      name: "JayJay Code",
+                    },
+                    amount: 2,
+                    currency: "ZMW",
+                    payment_options: "ussd, card",
+                  }}
+                  customButton={(props) => (
+                    <TouchableOpacity
+                      style={styles.payButtton}
+                      onPress={props.onPress}
+                      isBusy={props.isInitializing}
+                      disabled={false}
+                    >
+                      <Ionicons name="cash" size={24} color="white" />
+                      <Text
+                        style={{
+                          color: "white",
+                          fontSize: 22,
+                          fontWeight: "700",
+                          marginLeft: 10,
+                        }}
+                      >
+                        Pay Now
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                />
               </Animatable.View>
             </SafeAreaView>
           </SafeAreaView>
@@ -567,41 +633,6 @@ const PaymentScreen = ({ navigation }) => {
             View Ticket
           </Text>
         </TouchableOpacity>
-        {/* <PayWithFlutterwave
-          onRedirect={() => null}
-          onDidInitialize={() => setResultIsVisible(true)}
-          options={{
-            tx_ref: "2324245",
-            authorization: "FLWPUBK_TEST-099d1de9b2679207a641bf7e33bdc979-X",
-            customer: {
-              email: "pajanebooking@gmail.com",
-              phonenumber: { "0777603060" },
-            },
-            amount: 2,
-            currency: "USD",
-            payment_options: "card",
-          }}
-          customButton={(props) => (
-            <TouchableOpacity
-              style={styles.payButtton}
-              onPress={props.onPress}
-              isBusy={props.isInitializing}
-              disabled={false}
-            >
-              <Ionicons name="cash" size={24} color="white" />
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 22,
-                  fontWeight: "700",
-                  marginLeft: 10,
-                }}
-              >
-                Pay Now
-              </Text>
-            </TouchableOpacity>
-          )}
-        /> */}
 
         {ResultIsVisible && (
           <BookingDone
@@ -641,7 +672,7 @@ const PaymentScreen = ({ navigation }) => {
         </View>
 
         <Text style={{ marginVertical: 30, fontSize: 20, textAlign: "center" }}>
-          Congratulations your bus was successfully booked
+          Payment Made successfully
         </Text>
       </ModalPoup>
     </SafeAreaView>

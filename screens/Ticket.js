@@ -36,7 +36,7 @@ export default class Ticket extends Component {
 
   fetchTickets = async () => {
     var formdata = new FormData();
-    formdata.append("userID", "1");
+    formdata.append("userID", "2");
 
     var requestOptions = {
       method: "POST",
